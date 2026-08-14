@@ -7,13 +7,20 @@ from pathlib import Path
 import struct
 import time
 
-from uni2_probe import EXPECTED_SHA256, require_process
+from runtime_layout import (
+    ENTITY_COUNT,
+    ENTITY_STRIDE,
+    resolve_runtime_layout,
+    validate_runtime_layout,
+)
+from uni2_probe import require_process
+from semantic_engine import ATTACK_MOVE_CODE_MASK
 
 
+# Retained as research anchors for older analysis scripts. The live reader and
+# overlay resolve their addresses from executable code signatures at runtime.
 BATTLE_TICK_OFFSET = 0x596B34
 ENTITY_POOL_OFFSET = 0xC34E80
-ENTITY_STRIDE = 0xBA4
-ENTITY_COUNT = 12
 KNOWN_MOVES_PATH = Path(__file__).resolve().parents[1] / "data" / "known_moves.json"
 
 
@@ -57,10 +64,9 @@ def parse_entity(pool_slot: int, data: bytes) -> EntityFrame:
         pool_slot=pool_slot,
         player_slot=data[0x438],
         active=bool(data[0x7BC]),
-        # +0x1C also stays set for passive states such as crouching. +0x4B0
-        # bounded the complete confirmed attack and remained zero in those
-        # passive states, so it is the safer action gate for the frame meter.
-        action_active=bool(u32(data, 0x4B0)),
+        # Battle_Std's generic attack/skill/throw MoveCode union. This remains
+        # valid for derived actions whose attacker HitCheck filter is zero.
+        action_active=bool(u32(data, 0x6AC) & ATTACK_MOVE_CODE_MASK),
         state_code=u32(data, 0x24),
         action_frame=u32(data, 0x674),
         hitstop_remaining=u32(data, 0x1E4),
@@ -105,11 +111,10 @@ def main() -> int:
 
     pid, process, module, digest = require_process()
     with process:
-        if digest != EXPECTED_SHA256:
-            raise RuntimeError("uni2.exe SHA-256 does not match this research profile")
-
-        tick_address = module.base + BATTLE_TICK_OFFSET
-        pool_address = module.base + ENTITY_POOL_OFFSET
+        layout = resolve_runtime_layout(Path(process.image_path()))
+        validate_runtime_layout(process, module.base, layout)
+        tick_address = module.base + layout.battle_tick_offset
+        pool_address = module.base + layout.entity_pool_offset
         pool_size = ENTITY_STRIDE * ENTITY_COUNT
         destination = Path(args.out)
         destination.parent.mkdir(parents=True, exist_ok=True)

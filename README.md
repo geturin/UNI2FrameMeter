@@ -1,173 +1,147 @@
-# UNI2 Frame Timeline Research
+# UNI2 Frame Meter
 
-This workspace contains a read-only, external-process research probe for
-`UNDER NIGHT IN-BIRTH II Sys:Celes`.
+[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-Safety boundary:
+A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It displays both players' frame-by-frame action states at the bottom of the game window, making startup, active frames, recovery, frame advantage, invincibility, and cancel windows easier to understand.
 
-- no DLL injection;
-- no process-memory writes;
-- no remote threads or hooks;
-- the game process is opened with `PROCESS_QUERY_INFORMATION | PROCESS_VM_READ` only;
-- the eventual UI will be a separate transparent overlay window.
+## Main features
 
-## Current target
+- Two-row timeline: P1 on top and P2 on the bottom.
+- Displays startup, attack judgment, recovery, and periods when action is restricted.
+- Optional display of cancel properties, invincibility properties, and active projectiles.
+- Multiple properties on the same frame are shown as layered colors.
+- Automatically labels the length of continuous color sections.
+- Preserves the result after both players become free so it can be inspected afterward.
+- Uses a separate transparent overlay and does not modify game files or game memory.
 
-Installed executable:
+## Requirements
+
+- Windows 10 or Windows 11
+- Steam version of UNDER NIGHT IN-BIRTH II Sys:Celes
+- Windowed or borderless display mode
+
+The tool is not locked to a specific game version. New characters, balance changes, and move-data updates normally require no tool update. If an incompatible engine change occurs, the program stops with an error instead of continuing with invalid data.
+
+## Installation and use
+
+1. Download and extract the release package.
+2. Keep these two files in the same folder:
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\UNDER NIGHT IN-BIRTH II Sys Celes\uni2.exe
-SHA-256: 55615E8B2A91BE57EDD5EFF68EC0E283D8F0591F1977BB6F0B8A8DDB7AF2EC22
-Architecture: PE32 / x86
-Renderer: Direct3D 9
+UNI2FrameMeter.exe
+frame_semantics.json
 ```
 
-## Probe commands
+3. Start the game and enter Training Mode.
+4. Double-click `UNI2FrameMeter.exe`.
+5. Return to the game. The timeline appears at the bottom of the game window.
 
-Run from this directory:
+The timeline is visible only while the game is foreground and not minimized. Close the `UNI2 Frame Display` control window to exit the tool.
 
-```powershell
-python .\src\uni2_probe.py status
-python .\src\uni2_probe.py regions
-python .\src\uni2_probe.py scan-counter --duration 5 --interval 0.25 --out .\captures\counter_candidates.json
-python .\src\uni2_probe.py watch --candidates .\captures\counter_candidates.json
-```
+## Reading the timeline
 
-`scan-counter` looks for writable 32-bit values that progress at roughly the
-game's simulation rate. It never modifies the target process. Run it while a
-training match is actively simulating, not while a pause menu is open.
+- The upper row is P1 and the lower row is P2.
+- Every cell represents one game frame.
+- A white line on the right edge marks the latest recorded cell.
+- When the first color remains unchanged, its duration is shown above P1 and below P2.
+- The timeline freezes and preserves the result when both players can act and no active projectile remains.
+- If action resumes after a short pause, the elapsed time appears as black cells instead of joining the two actions directly.
+- By default, after 60 consecutive idle frames, the next action begins a new sequence from the left.
+- When the timeline fills, it wraps and uses a black gap to separate new and old content.
 
-`watch` prints only candidate values and is intended for controlled experiments
-such as pausing, resuming, resetting training, and entering/leaving a match.
+The base colors represent restricted action, startup, attack judgment, and recovery. Extra properties such as cancel, invincibility, and projectile state are layered in the same cell. Their colors can be changed in the config file.
 
-## Confirmed research anchors (this executable hash)
+## Control window
 
-- `uni2.exe+0x596B34`: battle logic tick. It advances by exactly one at about
-  60 Hz, stops in the pause menu, and resets with Training reset.
-- `uni2.exe+0x596B2C`: battle-state object base; the tick is field `+0x08`.
-- `uni2.exe+0xC34E80`: 12-slot battle-entity pool.
-- `0xBA4`: battle-entity stride. Slots 0 and 1 are active in the current
-  two-character Training setup; unused slots remain unchanged.
-- Entity `+0x438`: player/slot mapping byte observed as 0 and 1.
-- Entity `+0x648`: rapidly changing pointer associated with the current
-  animation/collision-frame record (classification still being verified).
-- Entity `+0x64C`: runtime attack-data pointer candidate. In the confirmed
-  Kuon 5A sample it becomes non-zero around the active interval, allowing the
-  reader to infer phases from live state instead of a hand-authored roster.
-- Entity `+0x4B0`: bounded action field used by the generic runtime tracker.
-  Unlike `+0x1C`, it does not remain set merely because a player is crouching.
-- Entity `+0x674`: action-local frame counter. It advances on normal action
-  frames, holds during hitstop, survives internal descriptor changes, and
-  resets for the next move.
-- Entity `+0x1E4`: remaining hitstop countdown. The captured 5B block/hit
-  sample counted from 10 to 1; the 5C sample counted from 11 to 1.
-- Entity `+0x644`: current move-descriptor pointer. It changes for the complete
-  move duration; the descriptor's first 16 bytes contain a CP932 move name.
-  Kuon 5A was observed as `立ち弱攻撃` at descriptor `0x22F70080` in the
-  current process instance (the absolute heap address is not persistent).
-- Entity `+0xACC`: readable state/class label observed as `Mv_Neutral` and
-  `Mv_Crouch_Wait`; it is not yet proven to be the current move name.
+A small control window opens with the tool. Check or uncheck an item to show or hide that property immediately.
 
-Frame-synchronized region recording is available with:
+- Changes take effect immediately.
+- Choices are saved automatically to `frame_semantics.json`.
+- Gray items are not currently available and cannot be enabled.
+- Closing the control window also closes the timeline.
 
-```powershell
-python .\analysis\record_battle_region.py --delay 0 --duration 20 `
-  --relative 0xC34E80 --size 0x8BB0 --out .\captures\entities.bin
-```
+## Editing the config file
 
-The recorder polls only with `ReadProcessMemory` and takes one snapshot per
-confirmed battle-logic tick.
+`frame_semantics.json` is located beside the program. It is a standard JSON file. Edit it while the tool is closed and keep a backup before making changes.
 
-The current live reader writes one JSON object per battle frame:
-
-```powershell
-python .\src\uni2_frame_reader.py --duration 10 `
-  --out .\captures\live_frames.jsonl --print-changes
-```
-
-The initial external transparent overlay can be started with:
-
-```powershell
-python .\src\uni2_overlay.py
-```
-
-The default view is the conservative semantic view: hard lock, startup,
-active, recovery, confirmed attack judgment, and validated invincibility.
-Invulnerability is never inferred directly from the lingering values at
-`+0x6B8/+0x6C8`; those values persist through recovery and appear in unrelated
-air actions. Instead, every displayed cell is produced only from that frame's
-live entity snapshot: `+0x4A0` bit 0 is the current head-invulnerability
-filter, while a clear bit 8 at `+0x60` is the current full-invulnerability
-state. The four controlled Kuon/Hyde recordings and published frame tables
-were used only to validate those field meanings; no character id, move name,
-input, or move-frame table participates at runtime. The confirmed `AirDive`
-attack-category filter is available but disabled by default. Free/actionable
-cells are always black. The former all-state diagnostic palette is retained
-behind an explicit option:
-
-```powershell
-python .\src\uni2_overlay.py --raw-states
-```
-
-### Per-frame semantics architecture
-
-The overlay has no move-recognition path and never rewrites old cells:
-
-- `data/frame_semantics.json` declares token order, colors, visibility, and
-  generic offset/mask/equality rules for confirmed live runtime attributes.
-- `src/semantic_engine.py` converts the current entity snapshot directly into
-  the current cell. Adding another bitmask-backed attribute is a data edit.
-- `src/frame_timeline.py` only appends and freezes already-classified cells.
-- `src/uni2_overlay.py` owns external reads, the transparent window, and
-  drawing. It contains no character, move, input, or frame-table branches.
-
-Every entry under `runtime_attributes` has a `display` switch. Head and full
-invulnerability default to `true`; Dive invulnerability defaults to `false`.
-To show Dive invulnerability in purple, change only this entry and restart the
-overlay:
+### Timeline settings
 
 ```json
-{
-  "token": "dive_invincible",
-  "display": true
+"timeline": {
+  "length_frames": 120,
+  "idle_reset_frames": 60,
+  "wrap_gap_frames": 5,
+  "max_width_pixels": 1440,
+  "current_frame_border_color": "#ffffff",
+  "show_primary_run_counts": true,
+  "primary_run_count_color": "#ffffff",
+  "primary_run_count_font_size": 9
 }
 ```
 
-While the overlay is running, press `F8` once to begin a frame-synchronised
-debug capture and press `F8` again to stop it. Files are written under
-`./log`: `.bin` contains the complete 12-entity pool for every logic frame,
-`.jsonl` contains readable decisions and key fields, and `.json` contains
-capture metadata. The key can be changed, for example with
-`--debug-hotkey F10`. Recording remains external and read-only.
+- `length_frames`: number of cells in the timeline.
+- `idle_reset_frames`: idle frames before the next action begins a new sequence.
+- `wrap_gap_frames`: black cells separating new and old content after wrapping.
+- `max_width_pixels`: maximum timeline width.
+- `current_frame_border_color`: color of the latest-frame marker.
+- `show_primary_run_counts`: enables continuous-section frame counts.
+- `primary_run_count_color`: color of the count text.
+- `primary_run_count_font_size`: size of the count text.
 
-It follows the UNI2 client window, is click-through, hides whenever UNI2 is not
-the foreground application, and never injects or writes to game memory. Use
-windowed or borderless display mode; exclusive fullscreen may appear above
-ordinary desktop overlays. Only two unlabelled 60-column bars are drawn. In
-`--raw-states` mode the confirmed raw channels are hard lock, hitstop
-(`+0x1E4`), state code (`+0x24`), action type (`+0x4B0`), and control state
-(`+0xB6C`). Concurrent colors are compacted but deterministically sorted; no
-absolute empty lanes are reserved. `+0x440 == 1` marks ordinary control, but it
-can remain zero during the cancelable `Mv_Modori_GuardS/C` presentation. Those
-guard-return frames are free and must not be counted as blockstun. Two recorded
-Kuon 236A block samples independently place P2 at the guard-return boundary
-seven frames before P1 recovers, reproducing the game's `-7F`. The visible
-timeline freezes as soon as both players are free, but it continues counting
-the elapsed neutral logic frames. When activity resumes, those counted frames
-are inserted as black cells before the new action, preserving the real temporal
-gap. Merely waiting never erases the display. After at least 60F of free time,
-the next action starts a fresh timeline at the left.
+### Changing colors and order
 
-In a confirmed Kuon 5A sample, the entity fields held their action values from
-battle tick `63434` through `63454` and returned to idle at `63455`: exactly 21
-action frames. This agrees with the published 6 startup, 2 active, 14 recovery
-(`6 + 2 + 14 - 1 = 21`) data. The raw phase-related fields are exposed by the
-reader. The `+0x64C` interpretation still needs verification across varied
-single-hit, multi-hit, projectile, whiff, hit, and block cases before its UI
-labels are considered final.
+Each state is defined under `tokens`:
 
-## Tests
-
-```powershell
-python -m unittest discover -s tests -v
+```json
+"attack": {
+  "order": 50,
+  "color": "#f0ad38"
+}
 ```
+
+- `color` uses the `#RRGGBB` format.
+- A lower `order` value places the color higher in the cell.
+- Properties that are absent or hidden do not leave empty layers.
+
+### Optional display items
+
+Optional items are listed under `external_attributes`:
+
+```json
+{
+  "token": "full_invincible",
+  "display": true,
+  "status": "confirmed",
+  "description": "..."
+}
+```
+
+- Set `display` to `true` to show the item or `false` to hide it.
+- Items with `status` set to `confirmed` can be changed.
+- Items with `status` set to `incomplete` cannot currently be enabled.
+- `description` is informational and does not need to be changed.
+
+The control window can also change these `display` options directly.
+
+## Troubleshooting
+
+### The timeline does not appear
+
+- Make sure Training Mode is open.
+- Make sure the game is foreground and not minimized.
+- Use windowed or borderless mode instead of exclusive fullscreen.
+- Make sure `frame_semantics.json` is beside the EXE.
+
+### The tool stops working after a game update
+
+Normal character and balance updates should not cause a problem. If the tool reports that it cannot recognize the current game structure, wait for a compatibility update and include the game version and complete error message in your report.
+
+### Windows shows a security warning
+
+Unsigned personal releases may trigger SmartScreen. Download only from this project's official release page and compare the file SHA-256 with the value published there.
+
+## Safety and disclaimer
+
+This is an external, read-only overlay. It does not inject a DLL or modify game files or game memory. Use in Training Mode is recommended.
+
+This is an unofficial community project and is not affiliated with FRENCH-BREAD, Arc System Works, or any other rights holder. UNDER NIGHT IN-BIRTH and related names belong to their respective owners.

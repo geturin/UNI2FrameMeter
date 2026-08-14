@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "on_frames": 120,
+  "off_frames": 30,
+  "states": [
+    {
+      "id": "hurt_filter_head",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=_HitCheckFlag_Head,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "hurt_filter_legs",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=_HitCheckFlag_Legs,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "hurt_filter_fireball",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=_HitCheckFlag_FireBall,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "hurt_filter_air_dive",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=Def_HitCheckFlag_AirDive,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "strike_invulnerability_timer",
+      "kind": "direct",
+      "apply": "BMvEff.SetPlayerTimer({muteki_dage=2});"
+    },
+    {
+      "id": "throw_invulnerability_timer",
+      "kind": "direct",
+      "apply": "BMvEff.SetPlayerTimer({muteki_nage=2});"
+    },
+    {
+      "id": "full_invulnerability_timers",
+      "kind": "direct",
+      "apply": "BMvEff.SetPlayerTimer({muteki_dage=2,muteki_nage=2});"
+    },
+    {
+      "id": "chain_shift_as_flag",
+      "kind": "direct",
+      "apply": "BMvTbl.SetAsFlag({as_flags=_AsFlag_ChainShift,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "ex_cancel_as_flag",
+      "kind": "direct",
+      "apply": "BMvTbl.SetAsFlag({as_flags=_AsFlag_ExCancel,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "hurt_filter_body",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=_HitCheckFlag_Body,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "hurt_filter_light_legs",
+      "kind": "direct",
+      "apply": "BMvTbl.SetHitCheckFlag({type=0,val=Def_HitCheckFlag_LightLegs,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "strike_invulnerability_x_timer",
+      "kind": "direct",
+      "apply": "BMvEff.SetPlayerTimer({muteki_dageX=2});"
+    },
+    {
+      "id": "throw_invulnerability_x_timer",
+      "kind": "direct",
+      "apply": "BMvEff.SetPlayerTimer({muteki_nageX=2});"
+    },
+    {
+      "id": "damage_ex_as_flag",
+      "kind": "direct",
+      "apply": "BMvTbl.SetAsFlag({as_flags=_AsFlag_DamageEx,time=2,flag=_ClearFlag_ChangeMv});"
+    },
+    {
+      "id": "guard_reverse_as_flag",
+      "kind": "direct",
+      "apply": "BMvTbl.SetAsFlag({as_flags=_AsFlag_GuardRev,time=2,flag=_ClearFlag_ChangeMv});"
+    }
+  ]
+}

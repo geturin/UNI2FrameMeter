@@ -9,7 +9,9 @@ Capture: `captures/kuon_block_hit_down.bin`
 
 ## Confirmed runtime fields
 
-- Entity `+0x4B0`: non-zero (`2`) for the recorded attack actions.
+- Entity `+0x4B0` happened to be non-zero (`2`) for these attacks, but later
+  native analysis identified it as the timed attacker HitCheck filter. It is
+  not a generic action gate; use MoveCode bank 0 at `+0x6AC` instead.
 - Entity `+0x674`: action-local frame counter. It advances normally, holds
   during hitstop, survives an internal descriptor change inside 5C, and resets
   to 1 for a new action.

@@ -1,0 +1,8291 @@
+{
+  "schema": 1,
+  "exe": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\UNDER NIGHT IN-BIRTH II Sys Celes\\uni2.exe",
+  "namespaces": {
+    "BCMDTbl": 17,
+    "BMvCore": 29,
+    "BMvEff": 152,
+    "BMvTbl": 256
+  },
+  "methods": [
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckCancel",
+      "full_name": "BCMDTbl.CheckCancel",
+      "string_file_offset": 5603696,
+      "string_rva": 5606768,
+      "wrapper_rvas": [
+        4804480
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4808923,
+          "wrapper_va": 8998784,
+          "wrapper_rva": 4804480
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckCancelFlag",
+      "full_name": "BCMDTbl.CheckCancelFlag",
+      "string_file_offset": 5603720,
+      "string_rva": 5606792,
+      "wrapper_rvas": [
+        4804608
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4808861,
+          "wrapper_va": 8998912,
+          "wrapper_rva": 4804608
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckDash",
+      "full_name": "BCMDTbl.CheckDash",
+      "string_file_offset": 5603708,
+      "string_rva": 5606780,
+      "wrapper_rvas": [
+        4804256
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808954,
+          "wrapper_va": 8998560,
+          "wrapper_rva": 4804256
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckFireballLimit",
+      "full_name": "BCMDTbl.CheckFireballLimit",
+      "string_file_offset": 5603756,
+      "string_rva": 5606828,
+      "wrapper_rvas": [
+        4804880
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808799,
+          "wrapper_va": 8999184,
+          "wrapper_rva": 4804880
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckMoveName",
+      "full_name": "BCMDTbl.CheckMoveName",
+      "string_file_offset": 5603584,
+      "string_rva": 5606656,
+      "wrapper_rvas": [
+        4804928
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4809202,
+          "wrapper_va": 8999232,
+          "wrapper_rva": 4804928
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckPosState",
+      "full_name": "BCMDTbl.CheckPosState",
+      "string_file_offset": 5528524,
+      "string_rva": 5531596,
+      "wrapper_rvas": [
+        194864,
+        4762016,
+        4806400
+      ],
+      "script_uses": 19,
+      "evidence": [
+        {
+          "registration_rva": 1496448,
+          "wrapper_va": 4389168,
+          "wrapper_rva": 194864
+        },
+        {
+          "registration_rva": 4776053,
+          "wrapper_va": 8956320,
+          "wrapper_rva": 4762016
+        },
+        {
+          "registration_rva": 4808644,
+          "wrapper_va": 9000704,
+          "wrapper_rva": 4806400
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CheckState",
+      "full_name": "BCMDTbl.CheckState",
+      "string_file_offset": 5603776,
+      "string_rva": 5606848,
+      "wrapper_rvas": [
+        4804384
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808830,
+          "wrapper_va": 8998688,
+          "wrapper_rva": 4804384
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "CmdInfo",
+      "full_name": "BCMDTbl.CmdInfo",
+      "string_file_offset": 5603852,
+      "string_rva": 5606924,
+      "wrapper_rvas": [
+        331584
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4809779,
+          "wrapper_va": 4525888,
+          "wrapper_rva": 331584
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetCancelFlagData",
+      "full_name": "BCMDTbl.GetCancelFlagData",
+      "string_file_offset": 5603736,
+      "string_rva": 5606808,
+      "wrapper_rvas": [
+        4804528
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808892,
+          "wrapper_va": 8998832,
+          "wrapper_rva": 4804528
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetCmdInfo",
+      "full_name": "BCMDTbl.GetCmdInfo",
+      "string_file_offset": 5603964,
+      "string_rva": 5607036,
+      "wrapper_rvas": [
+        4803712
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4809357,
+          "wrapper_va": 8998016,
+          "wrapper_rva": 4803712
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetCmdInfoEx",
+      "full_name": "BCMDTbl.GetCmdInfoEx",
+      "string_file_offset": 5603976,
+      "string_rva": 5607048,
+      "wrapper_rvas": [
+        4803648
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4809388,
+          "wrapper_va": 8997952,
+          "wrapper_rva": 4803648
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetFrameID",
+      "full_name": "BCMDTbl.GetFrameID",
+      "string_file_offset": 5595516,
+      "string_rva": 5598588,
+      "wrapper_rvas": [
+        315680,
+        4761200,
+        4805712
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4776152,
+          "wrapper_va": 8955504,
+          "wrapper_rva": 4761200
+        },
+        {
+          "registration_rva": 4783961,
+          "wrapper_va": 4509984,
+          "wrapper_rva": 315680
+        },
+        {
+          "registration_rva": 4808768,
+          "wrapper_va": 9000016,
+          "wrapper_rva": 4805712
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetHPRatio",
+      "full_name": "BCMDTbl.GetHPRatio",
+      "string_file_offset": 5604108,
+      "string_rva": 5607180,
+      "wrapper_rvas": [
+        4806768
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4808551,
+          "wrapper_va": 9001072,
+          "wrapper_rva": 4806768
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "GetSuccessButtonPos",
+      "full_name": "BCMDTbl.GetSuccessButtonPos",
+      "string_file_offset": 5603944,
+      "string_rva": 5607016,
+      "wrapper_rvas": [
+        4803616
+      ],
+      "script_uses": 22,
+      "evidence": [
+        {
+          "registration_rva": 4809450,
+          "wrapper_va": 8997920,
+          "wrapper_rva": 4803616
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "IsAddCommand",
+      "full_name": "BCMDTbl.IsAddCommand",
+      "string_file_offset": 5603800,
+      "string_rva": 5606872,
+      "wrapper_rvas": [
+        4806352
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808706,
+          "wrapper_va": 9000656,
+          "wrapper_rva": 4806352
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "IsMoveAble",
+      "full_name": "BCMDTbl.IsMoveAble",
+      "string_file_offset": 5603788,
+      "string_rva": 5606860,
+      "wrapper_rvas": [
+        4806560
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4808675,
+          "wrapper_va": 9000864,
+          "wrapper_rva": 4806560
+        }
+      ]
+    },
+    {
+      "namespace": "BCMDTbl",
+      "name": "ResetAirJump",
+      "full_name": "BCMDTbl.ResetAirJump",
+      "string_file_offset": 5603680,
+      "string_rva": 5606752,
+      "wrapper_rvas": [
+        4804144
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4809016,
+          "wrapper_va": 8998448,
+          "wrapper_rva": 4804144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "CFindObject",
+      "full_name": "BMvCore.CFindObject",
+      "string_file_offset": 5584200,
+      "string_rva": 5587272,
+      "wrapper_rvas": [
+        302512
+      ],
+      "script_uses": 61,
+      "evidence": [
+        {
+          "registration_rva": 4669860,
+          "wrapper_va": 4496816,
+          "wrapper_rva": 302512
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "CallEntryBCCachePreTransfer",
+      "full_name": "BMvCore.CallEntryBCCachePreTransfer",
+      "string_file_offset": 5583748,
+      "string_rva": 5586820,
+      "wrapper_rvas": [
+        4670016
+      ],
+      "script_uses": 50,
+      "evidence": [
+        {
+          "registration_rva": 4668521,
+          "wrapper_va": 8864320,
+          "wrapper_rva": 4670016
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "Get",
+      "full_name": "BMvCore.Get",
+      "string_file_offset": 5583984,
+      "string_rva": 5587056,
+      "wrapper_rvas": [
+        302512
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4669843,
+          "wrapper_va": 4496816,
+          "wrapper_rva": 302512
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetActiveCharaData",
+      "full_name": "BMvCore.GetActiveCharaData",
+      "string_file_offset": 5584108,
+      "string_rva": 5587180,
+      "wrapper_rvas": [
+        4670576
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668738,
+          "wrapper_va": 8864880,
+          "wrapper_rva": 4670576
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetBossFlag",
+      "full_name": "BMvCore.GetBossFlag",
+      "string_file_offset": 5583676,
+      "string_rva": 5586748,
+      "wrapper_rvas": [
+        4670784
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668645,
+          "wrapper_va": 8865088,
+          "wrapper_rva": 4670784
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetBossRushFlag",
+      "full_name": "BMvCore.GetBossRushFlag",
+      "string_file_offset": 5584148,
+      "string_rva": 5587220,
+      "wrapper_rvas": [
+        4670736
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668676,
+          "wrapper_va": 8865040,
+          "wrapper_rva": 4670736
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetCaptureCharaData",
+      "full_name": "BMvCore.GetCaptureCharaData",
+      "string_file_offset": 5583908,
+      "string_rva": 5586980,
+      "wrapper_rvas": [
+        4672048
+      ],
+      "script_uses": 67,
+      "evidence": [
+        {
+          "registration_rva": 4668242,
+          "wrapper_va": 8866352,
+          "wrapper_rva": 4672048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetCharaNo",
+      "full_name": "BMvCore.GetCharaNo",
+      "string_file_offset": 5583664,
+      "string_rva": 5586736,
+      "wrapper_rvas": [
+        315552,
+        4670848,
+        4767040
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668614,
+          "wrapper_va": 8865152,
+          "wrapper_rva": 4670848
+        },
+        {
+          "registration_rva": 4779848,
+          "wrapper_va": 8961344,
+          "wrapper_rva": 4767040
+        },
+        {
+          "registration_rva": 4783697,
+          "wrapper_va": 4509856,
+          "wrapper_rva": 315552
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetEnemyCharaData",
+      "full_name": "BMvCore.GetEnemyCharaData",
+      "string_file_offset": 5583820,
+      "string_rva": 5586892,
+      "wrapper_rvas": [
+        4671616
+      ],
+      "script_uses": 124,
+      "evidence": [
+        {
+          "registration_rva": 4668366,
+          "wrapper_va": 8865920,
+          "wrapper_rva": 4671616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetLastCatchCharaData",
+      "full_name": "BMvCore.GetLastCatchCharaData",
+      "string_file_offset": 5583724,
+      "string_rva": 5586796,
+      "wrapper_rvas": [
+        4671232
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668490,
+          "wrapper_va": 8865536,
+          "wrapper_rva": 4671232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetLastDamageCharaData",
+      "full_name": "BMvCore.GetLastDamageCharaData",
+      "string_file_offset": 5583840,
+      "string_rva": 5586912,
+      "wrapper_rvas": [
+        4671424
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4668397,
+          "wrapper_va": 8865728,
+          "wrapper_rva": 4671424
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetLastHitCharaData",
+      "full_name": "BMvCore.GetLastHitCharaData",
+      "string_file_offset": 5583800,
+      "string_rva": 5586872,
+      "wrapper_rvas": [
+        4671328
+      ],
+      "script_uses": 11,
+      "evidence": [
+        {
+          "registration_rva": 4668459,
+          "wrapper_va": 8865632,
+          "wrapper_rva": 4671328
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetNearEnemyCharaData",
+      "full_name": "BMvCore.GetNearEnemyCharaData",
+      "string_file_offset": 5583884,
+      "string_rva": 5586956,
+      "wrapper_rvas": [
+        4671776
+      ],
+      "script_uses": 130,
+      "evidence": [
+        {
+          "registration_rva": 4668335,
+          "wrapper_va": 8866080,
+          "wrapper_rva": 4671776
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetParamCharaData",
+      "full_name": "BMvCore.GetParamCharaData",
+      "string_file_offset": 5584040,
+      "string_rva": 5587112,
+      "wrapper_rvas": [
+        4670368
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4668862,
+          "wrapper_va": 8864672,
+          "wrapper_rva": 4670368
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetParentCharaData",
+      "full_name": "BMvCore.GetParentCharaData",
+      "string_file_offset": 5583928,
+      "string_rva": 5587000,
+      "wrapper_rvas": [
+        4671968
+      ],
+      "script_uses": 43,
+      "evidence": [
+        {
+          "registration_rva": 4668273,
+          "wrapper_va": 8866272,
+          "wrapper_rva": 4671968
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetPertnerCharaData",
+      "full_name": "BMvCore.GetPertnerCharaData",
+      "string_file_offset": 5584128,
+      "string_rva": 5587200,
+      "wrapper_rvas": [
+        4670416
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668769,
+          "wrapper_va": 8864720,
+          "wrapper_rva": 4670416
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetPlayerCharaData",
+      "full_name": "BMvCore.GetPlayerCharaData",
+      "string_file_offset": 5583864,
+      "string_rva": 5586936,
+      "wrapper_rvas": [
+        4671872
+      ],
+      "script_uses": 202,
+      "evidence": [
+        {
+          "registration_rva": 4668304,
+          "wrapper_va": 8866176,
+          "wrapper_rva": 4671872
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "GetTagStatus",
+      "full_name": "BMvCore.GetTagStatus",
+      "string_file_offset": 5583708,
+      "string_rva": 5586780,
+      "wrapper_rvas": [
+        4670912
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668583,
+          "wrapper_va": 8865216,
+          "wrapper_rva": 4670912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "Hiskoha_CallSwitch",
+      "full_name": "BMvCore.Hiskoha_CallSwitch",
+      "string_file_offset": 5583688,
+      "string_rva": 5586760,
+      "wrapper_rvas": [
+        4671008
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668552,
+          "wrapper_va": 8865312,
+          "wrapper_rva": 4671008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "IsDone",
+      "full_name": "BMvCore.IsDone",
+      "string_file_offset": 5584024,
+      "string_rva": 5587096,
+      "wrapper_rvas": [
+        315552
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793407,
+          "wrapper_va": 4509856,
+          "wrapper_rva": 315552
+        },
+        {
+          "registration_rva": 4794286,
+          "wrapper_va": 4509856,
+          "wrapper_rva": 315552
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "IsHan6Squirrel",
+      "full_name": "BMvCore.IsHan6Squirrel",
+      "string_file_offset": 5584060,
+      "string_rva": 5587132,
+      "wrapper_rvas": [
+        4670128
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668893,
+          "wrapper_va": 8864432,
+          "wrapper_rva": 4670128
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "PopCharaData",
+      "full_name": "BMvCore.PopCharaData",
+      "string_file_offset": 5584092,
+      "string_rva": 5587164,
+      "wrapper_rvas": [
+        4670224
+      ],
+      "script_uses": 111,
+      "evidence": [
+        {
+          "registration_rva": 4668831,
+          "wrapper_va": 8864528,
+          "wrapper_rva": 4670224
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "PushCharaData",
+      "full_name": "BMvCore.PushCharaData",
+      "string_file_offset": 5584076,
+      "string_rva": 5587148,
+      "wrapper_rvas": [
+        4670240
+      ],
+      "script_uses": 111,
+      "evidence": [
+        {
+          "registration_rva": 4668800,
+          "wrapper_va": 8864544,
+          "wrapper_rva": 4670240
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "SetLastDamageCharaData",
+      "full_name": "BMvCore.SetLastDamageCharaData",
+      "string_file_offset": 5583776,
+      "string_rva": 5586848,
+      "wrapper_rvas": [
+        4671520
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668428,
+          "wrapper_va": 8865824,
+          "wrapper_rva": 4671520
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "VsScreen_GetCharaNo",
+      "full_name": "BMvCore.VsScreen_GetCharaNo",
+      "string_file_offset": 5584164,
+      "string_rva": 5587236,
+      "wrapper_rvas": [
+        4670720
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4668707,
+          "wrapper_va": 8865024,
+          "wrapper_rva": 4670720
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "isPlayer",
+      "full_name": "BMvCore.isPlayer",
+      "string_file_offset": 5583988,
+      "string_rva": 5587060,
+      "wrapper_rvas": [
+        4670144
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4669376,
+          "wrapper_va": 8864448,
+          "wrapper_rva": 4670144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "isdone",
+      "full_name": "BMvCore.isdone",
+      "string_file_offset": 5584016,
+      "string_rva": 5587088,
+      "wrapper_rvas": [
+        302464
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4669345,
+          "wrapper_va": 4496768,
+          "wrapper_rva": 302464
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "pop",
+      "full_name": "BMvCore.pop",
+      "string_file_offset": 5584012,
+      "string_rva": 5587084,
+      "wrapper_rvas": [
+        4670176
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4669314,
+          "wrapper_va": 8864480,
+          "wrapper_rva": 4670176
+        }
+      ]
+    },
+    {
+      "namespace": "BMvCore",
+      "name": "push",
+      "full_name": "BMvCore.push",
+      "string_file_offset": 5584032,
+      "string_rva": 5587104,
+      "wrapper_rvas": [
+        4670192
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4669283,
+          "wrapper_va": 8864496,
+          "wrapper_rva": 4670192
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "AddAttackHitNum",
+      "full_name": "BMvEff.AddAttackHitNum",
+      "string_file_offset": 5588064,
+      "string_rva": 5591136,
+      "wrapper_rvas": [
+        4700064
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4678904,
+          "wrapper_va": 8894368,
+          "wrapper_rva": 4700064
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "AttackInfoString_Set",
+      "full_name": "BMvEff.AttackInfoString_Set",
+      "string_file_offset": 5587444,
+      "string_rva": 5590516,
+      "wrapper_rvas": [
+        4695696
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4679958,
+          "wrapper_va": 8890000,
+          "wrapper_rva": 4695696
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CCheckRect",
+      "full_name": "BMvEff.CCheckRect",
+      "string_file_offset": 5587128,
+      "string_rva": 5590200,
+      "wrapper_rvas": [
+        4686048
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4685112,
+          "wrapper_va": 8880352,
+          "wrapper_rva": 4686048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CameraShift_Clear",
+      "full_name": "BMvEff.CameraShift_Clear",
+      "string_file_offset": 5586588,
+      "string_rva": 5589660,
+      "wrapper_rvas": [
+        4707472
+      ],
+      "script_uses": 31,
+      "evidence": [
+        {
+          "registration_rva": 4677664,
+          "wrapper_va": 8901776,
+          "wrapper_rva": 4707472
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CameraShift_Set",
+      "full_name": "BMvEff.CameraShift_Set",
+      "string_file_offset": 5586572,
+      "string_rva": 5589644,
+      "wrapper_rvas": [
+        4707536
+      ],
+      "script_uses": 20,
+      "evidence": [
+        {
+          "registration_rva": 4677633,
+          "wrapper_va": 8901840,
+          "wrapper_rva": 4707536
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CapturePlayer",
+      "full_name": "BMvEff.CapturePlayer",
+      "string_file_offset": 5586892,
+      "string_rva": 5589964,
+      "wrapper_rvas": [
+        4716832
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4676951,
+          "wrapper_va": 8911136,
+          "wrapper_rva": 4716832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ChangeStartCorrectTiming",
+      "full_name": "BMvEff.ChangeStartCorrectTiming",
+      "string_file_offset": 5589428,
+      "string_rva": 5592500,
+      "wrapper_rvas": [
+        4689328
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4680671,
+          "wrapper_va": 8883632,
+          "wrapper_rva": 4689328
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_ClearMessageAll",
+      "full_name": "BMvEff.Chara_ClearMessageAll",
+      "string_file_offset": 5588516,
+      "string_rva": 5591588,
+      "wrapper_rvas": [
+        4687904
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681167,
+          "wrapper_va": 8882208,
+          "wrapper_rva": 4687904
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_JoinMessage",
+      "full_name": "BMvEff.Chara_JoinMessage",
+      "string_file_offset": 5588496,
+      "string_rva": 5591568,
+      "wrapper_rvas": [
+        4688032
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681136,
+          "wrapper_va": 8882336,
+          "wrapper_rva": 4688032
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_SetMessageBattle",
+      "full_name": "BMvEff.Chara_SetMessageBattle",
+      "string_file_offset": 5588592,
+      "string_rva": 5591664,
+      "wrapper_rvas": [
+        4688368
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681012,
+          "wrapper_va": 8882672,
+          "wrapper_rva": 4688368
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_SetMessageDelay",
+      "full_name": "BMvEff.Chara_SetMessageDelay",
+      "string_file_offset": 5588568,
+      "string_rva": 5591640,
+      "wrapper_rvas": [
+        4688176
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681105,
+          "wrapper_va": 8882480,
+          "wrapper_rva": 4688176
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_SetMessageFontSize",
+      "full_name": "BMvEff.Chara_SetMessageFontSize",
+      "string_file_offset": 5588540,
+      "string_rva": 5591612,
+      "wrapper_rvas": [
+        4688272
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681074,
+          "wrapper_va": 8882576,
+          "wrapper_rva": 4688272
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Chara_SetMessagePC",
+      "full_name": "BMvEff.Chara_SetMessagePC",
+      "string_file_offset": 5588616,
+      "string_rva": 5591688,
+      "wrapper_rvas": [
+        4688448
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681043,
+          "wrapper_va": 8882752,
+          "wrapper_rva": 4688448
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Check",
+      "full_name": "BMvEff.Check",
+      "string_file_offset": 5586688,
+      "string_rva": 5589760,
+      "wrapper_rvas": [
+        4685168
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4685062,
+          "wrapper_va": 8879472,
+          "wrapper_rva": 4685168
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CheckHantei",
+      "full_name": "BMvEff.CheckHantei",
+      "string_file_offset": 5588240,
+      "string_rva": 5591312,
+      "wrapper_rvas": [
+        4715616
+      ],
+      "script_uses": 29,
+      "evidence": [
+        {
+          "registration_rva": 4678563,
+          "wrapper_va": 8909920,
+          "wrapper_rva": 4715616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CheckHantei2",
+      "full_name": "BMvEff.CheckHantei2",
+      "string_file_offset": 5588252,
+      "string_rva": 5591324,
+      "wrapper_rvas": [
+        4712128
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678594,
+          "wrapper_va": 8906432,
+          "wrapper_rva": 4712128
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CheckObjectFlags",
+      "full_name": "BMvEff.CheckObjectFlags",
+      "string_file_offset": 5586344,
+      "string_rva": 5589416,
+      "wrapper_rvas": [
+        4710240
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677168,
+          "wrapper_va": 8904544,
+          "wrapper_rva": 4710240
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ClearAttackHitNum",
+      "full_name": "BMvEff.ClearAttackHitNum",
+      "string_file_offset": 5588080,
+      "string_rva": 5591152,
+      "wrapper_rvas": [
+        4699936
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4678935,
+          "wrapper_va": 8894240,
+          "wrapper_rva": 4699936
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ClearGuardSP_Success",
+      "full_name": "BMvEff.ClearGuardSP_Success",
+      "string_file_offset": 5587508,
+      "string_rva": 5590580,
+      "wrapper_rvas": [
+        4695808
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679927,
+          "wrapper_va": 8890112,
+          "wrapper_rva": 4695808
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Cockpit_SetPrioU",
+      "full_name": "BMvEff.Cockpit_SetPrioU",
+      "string_file_offset": 5589504,
+      "string_rva": 5592576,
+      "wrapper_rvas": [
+        4689856
+      ],
+      "script_uses": 9,
+      "evidence": [
+        {
+          "registration_rva": 4680547,
+          "wrapper_va": 8884160,
+          "wrapper_rva": 4689856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Cockpit_SetView",
+      "full_name": "BMvEff.Cockpit_SetView",
+      "string_file_offset": 5589488,
+      "string_rva": 5592560,
+      "wrapper_rvas": [
+        4689936
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4680516,
+          "wrapper_va": 8884240,
+          "wrapper_rva": 4689936
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ComboView_Set",
+      "full_name": "BMvEff.ComboView_Set",
+      "string_file_offset": 5589472,
+      "string_rva": 5592544,
+      "wrapper_rvas": [
+        4689552
+      ],
+      "script_uses": 14,
+      "evidence": [
+        {
+          "registration_rva": 4680609,
+          "wrapper_va": 8883856,
+          "wrapper_rva": 4689552
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CreateObject",
+      "full_name": "BMvEff.CreateObject",
+      "string_file_offset": 5586380,
+      "string_rva": 5589452,
+      "wrapper_rvas": [
+        4710784
+      ],
+      "script_uses": 712,
+      "evidence": [
+        {
+          "registration_rva": 4677106,
+          "wrapper_va": 8905088,
+          "wrapper_rva": 4710784
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CutInProc_Erase",
+      "full_name": "BMvEff.CutInProc_Erase",
+      "string_file_offset": 5589180,
+      "string_rva": 5592252,
+      "wrapper_rvas": [
+        4693648
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4680113,
+          "wrapper_va": 8887952,
+          "wrapper_rva": 4693648
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CutInProc_Set",
+      "full_name": "BMvEff.CutInProc_Set",
+      "string_file_offset": 5589164,
+      "string_rva": 5592236,
+      "wrapper_rvas": [
+        4693856
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4680082,
+          "wrapper_va": 8888160,
+          "wrapper_rva": 4693856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "CutInProc_SetResourceView",
+      "full_name": "BMvEff.CutInProc_SetResourceView",
+      "string_file_offset": 5589120,
+      "string_rva": 5592192,
+      "wrapper_rvas": [
+        4693536
+      ],
+      "script_uses": 17,
+      "evidence": [
+        {
+          "registration_rva": 4680144,
+          "wrapper_va": 8887840,
+          "wrapper_rva": 4693536
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "EraseObjectFlags",
+      "full_name": "BMvEff.EraseObjectFlags",
+      "string_file_offset": 5586308,
+      "string_rva": 5589380,
+      "wrapper_rvas": [
+        4710112
+      ],
+      "script_uses": 82,
+      "evidence": [
+        {
+          "registration_rva": 4677230,
+          "wrapper_va": 8904416,
+          "wrapper_rva": 4710112
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "FadeProc_Erase",
+      "full_name": "BMvEff.FadeProc_Erase",
+      "string_file_offset": 5589212,
+      "string_rva": 5592284,
+      "wrapper_rvas": [
+        4694656
+      ],
+      "script_uses": 6,
+      "evidence": [
+        {
+          "registration_rva": 4680051,
+          "wrapper_va": 8888960,
+          "wrapper_rva": 4694656
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "FadeProc_Set",
+      "full_name": "BMvEff.FadeProc_Set",
+      "string_file_offset": 5589196,
+      "string_rva": 5592268,
+      "wrapper_rvas": [
+        4694896
+      ],
+      "script_uses": 110,
+      "evidence": [
+        {
+          "registration_rva": 4680020,
+          "wrapper_va": 8889200,
+          "wrapper_rva": 4694896
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "FadeProc_SetRenderFlag",
+      "full_name": "BMvEff.FadeProc_SetRenderFlag",
+      "string_file_offset": 5587468,
+      "string_rva": 5590540,
+      "wrapper_rvas": [
+        4695664
+      ],
+      "script_uses": 12,
+      "evidence": [
+        {
+          "registration_rva": 4679989,
+          "wrapper_va": 8889968,
+          "wrapper_rva": 4695664
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ForceKO",
+      "full_name": "BMvEff.ForceKO",
+      "string_file_offset": 5586536,
+      "string_rva": 5589608,
+      "wrapper_rvas": [
+        4706416
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677788,
+          "wrapper_va": 8900720,
+          "wrapper_rva": 4706416
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_AddValue",
+      "full_name": "BMvEff.GRD_AddValue",
+      "string_file_offset": 5587596,
+      "string_rva": 5590668,
+      "wrapper_rvas": [
+        4696640
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4679710,
+          "wrapper_va": 8890944,
+          "wrapper_rva": 4696640
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_CheckStock",
+      "full_name": "BMvEff.GRD_CheckStock",
+      "string_file_offset": 5587276,
+      "string_rva": 5590348,
+      "wrapper_rvas": [
+        4697152
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4679307,
+          "wrapper_va": 8891456,
+          "wrapper_rva": 4697152
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_ClearBreak",
+      "full_name": "BMvEff.GRD_ClearBreak",
+      "string_file_offset": 5587696,
+      "string_rva": 5590768,
+      "wrapper_rvas": [
+        4697600
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679524,
+          "wrapper_va": 8891904,
+          "wrapper_rva": 4697600
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_ClearVorpal",
+      "full_name": "BMvEff.GRD_ClearVorpal",
+      "string_file_offset": 5587680,
+      "string_rva": 5590752,
+      "wrapper_rvas": [
+        4697856
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679617,
+          "wrapper_va": 8892160,
+          "wrapper_rva": 4697856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_CorrectBreakTime",
+      "full_name": "BMvEff.GRD_CorrectBreakTime",
+      "string_file_offset": 5587156,
+      "string_rva": 5590228,
+      "wrapper_rvas": [
+        4698064
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679493,
+          "wrapper_va": 8892368,
+          "wrapper_rva": 4698064
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_GetBreak",
+      "full_name": "BMvEff.GRD_GetBreak",
+      "string_file_offset": 5587140,
+      "string_rva": 5590212,
+      "wrapper_rvas": [
+        4697952
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4679462,
+          "wrapper_va": 8892256,
+          "wrapper_rva": 4697952
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_GetConvertCount",
+      "full_name": "BMvEff.GRD_GetConvertCount",
+      "string_file_offset": 5587660,
+      "string_rva": 5590732,
+      "wrapper_rvas": [
+        4697312
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679586,
+          "wrapper_va": 8891616,
+          "wrapper_rva": 4697312
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_GetJudgeResult",
+      "full_name": "BMvEff.GRD_GetJudgeResult",
+      "string_file_offset": 5587216,
+      "string_rva": 5590288,
+      "wrapper_rvas": [
+        4697040
+      ],
+      "script_uses": 68,
+      "evidence": [
+        {
+          "registration_rva": 4679338,
+          "wrapper_va": 8891344,
+          "wrapper_rva": 4697040
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_GetJudgeWinCount",
+      "full_name": "BMvEff.GRD_GetJudgeWinCount",
+      "string_file_offset": 5587236,
+      "string_rva": 5590308,
+      "wrapper_rvas": [
+        4696976
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679369,
+          "wrapper_va": 8891280,
+          "wrapper_rva": 4696976
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_GetTime",
+      "full_name": "BMvEff.GRD_GetTime",
+      "string_file_offset": 5587632,
+      "string_rva": 5590704,
+      "wrapper_rvas": [
+        4697792
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679648,
+          "wrapper_va": 8892096,
+          "wrapper_rva": 4697792
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_IsBreakImpact",
+      "full_name": "BMvEff.GRD_IsBreakImpact",
+      "string_file_offset": 5587180,
+      "string_rva": 5590252,
+      "wrapper_rvas": [
+        4698336
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4679400,
+          "wrapper_va": 8892640,
+          "wrapper_rva": 4698336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_SetBreak",
+      "full_name": "BMvEff.GRD_SetBreak",
+      "string_file_offset": 5587200,
+      "string_rva": 5590272,
+      "wrapper_rvas": [
+        4698240
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679431,
+          "wrapper_va": 8892544,
+          "wrapper_rva": 4698240
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_SetConvertBreak",
+      "full_name": "BMvEff.GRD_SetConvertBreak",
+      "string_file_offset": 5587712,
+      "string_rva": 5590784,
+      "wrapper_rvas": [
+        4697376
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679555,
+          "wrapper_va": 8891680,
+          "wrapper_rva": 4697376
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_SetSpFlag",
+      "full_name": "BMvEff.GRD_SetSpFlag",
+      "string_file_offset": 5587644,
+      "string_rva": 5590716,
+      "wrapper_rvas": [
+        4697728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679679,
+          "wrapper_va": 8892032,
+          "wrapper_rva": 4697728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_TS_AddValue",
+      "full_name": "BMvEff.GRD_TS_AddValue",
+      "string_file_offset": 5587556,
+      "string_rva": 5590628,
+      "wrapper_rvas": [
+        4696400
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679772,
+          "wrapper_va": 8890704,
+          "wrapper_rva": 4696400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_TS_SetPlusValue",
+      "full_name": "BMvEff.GRD_TS_SetPlusValue",
+      "string_file_offset": 5587612,
+      "string_rva": 5590684,
+      "wrapper_rvas": [
+        4696512
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679741,
+          "wrapper_va": 8890816,
+          "wrapper_rva": 4696512
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GRD_UseStock",
+      "full_name": "BMvEff.GRD_UseStock",
+      "string_file_offset": 5587260,
+      "string_rva": 5590332,
+      "wrapper_rvas": [
+        4696832
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4679276,
+          "wrapper_va": 8891136,
+          "wrapper_rva": 4696832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetAngle_FromVector",
+      "full_name": "BMvEff.GetAngle_FromVector",
+      "string_file_offset": 5587732,
+      "string_rva": 5590804,
+      "wrapper_rvas": [
+        4702880
+      ],
+      "script_uses": 14,
+      "evidence": [
+        {
+          "registration_rva": 4678439,
+          "wrapper_va": 8897184,
+          "wrapper_rva": 4702880
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetAttackHitPos",
+      "full_name": "BMvEff.GetAttackHitPos",
+      "string_file_offset": 5588036,
+      "string_rva": 5591108,
+      "wrapper_rvas": [
+        4699984
+      ],
+      "script_uses": 13,
+      "evidence": [
+        {
+          "registration_rva": 4678966,
+          "wrapper_va": 8894288,
+          "wrapper_rva": 4699984
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetBoundVectorAngle",
+      "full_name": "BMvEff.GetBoundVectorAngle",
+      "string_file_offset": 5588124,
+      "string_rva": 5591196,
+      "wrapper_rvas": [
+        4700144
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678873,
+          "wrapper_va": 8894448,
+          "wrapper_rva": 4700144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetCameraPosition",
+      "full_name": "BMvEff.GetCameraPosition",
+      "string_file_offset": 5588188,
+      "string_rva": 5591260,
+      "wrapper_rvas": [
+        4701216
+      ],
+      "script_uses": 20,
+      "evidence": [
+        {
+          "registration_rva": 4678718,
+          "wrapper_va": 8895520,
+          "wrapper_rva": 4701216
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetCameraRect",
+      "full_name": "BMvEff.GetCameraRect",
+      "string_file_offset": 5588144,
+      "string_rva": 5591216,
+      "wrapper_rvas": [
+        4700832
+      ],
+      "script_uses": 14,
+      "evidence": [
+        {
+          "registration_rva": 4678749,
+          "wrapper_va": 8895136,
+          "wrapper_rva": 4700832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetCamera_Clipping",
+      "full_name": "BMvEff.GetCamera_Clipping",
+      "string_file_offset": 5586168,
+      "string_rva": 5589240,
+      "wrapper_rvas": [
+        4707888
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677478,
+          "wrapper_va": 8902192,
+          "wrapper_rva": 4707888
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetCharaData",
+      "full_name": "BMvEff.GetCharaData",
+      "string_file_offset": 5587112,
+      "string_rva": 5590184,
+      "wrapper_rvas": [
+        4686048
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4685093,
+          "wrapper_va": 8880352,
+          "wrapper_rva": 4686048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetFrameIDNum",
+      "full_name": "BMvEff.GetFrameIDNum",
+      "string_file_offset": 5586396,
+      "string_rva": 5589468,
+      "wrapper_rvas": [
+        4710512
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677013,
+          "wrapper_va": 8904816,
+          "wrapper_rva": 4710512
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetFrameIDNum_Pat",
+      "full_name": "BMvEff.GetFrameIDNum_Pat",
+      "string_file_offset": 5586412,
+      "string_rva": 5589484,
+      "wrapper_rvas": [
+        4710448
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677044,
+          "wrapper_va": 8904752,
+          "wrapper_rva": 4710448
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetHanteiRect",
+      "full_name": "BMvEff.GetHanteiRect",
+      "string_file_offset": 5588208,
+      "string_rva": 5591280,
+      "wrapper_rvas": [
+        4711552
+      ],
+      "script_uses": 69,
+      "evidence": [
+        {
+          "registration_rva": 4678625,
+          "wrapper_va": 8905856,
+          "wrapper_rva": 4711552
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetKOFadeOutTime",
+      "full_name": "BMvEff.GetKOFadeOutTime",
+      "string_file_offset": 5586500,
+      "string_rva": 5589572,
+      "wrapper_rvas": [
+        4706352
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677850,
+          "wrapper_va": 8900656,
+          "wrapper_rva": 4706352
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetKOMode",
+      "full_name": "BMvEff.GetKOMode",
+      "string_file_offset": 5586488,
+      "string_rva": 5589560,
+      "wrapper_rvas": [
+        4706368
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677819,
+          "wrapper_va": 8900672,
+          "wrapper_rva": 4706368
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetPaletteSlot",
+      "full_name": "BMvEff.GetPaletteSlot",
+      "string_file_offset": 5587800,
+      "string_rva": 5590872,
+      "wrapper_rvas": [
+        4709184
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678315,
+          "wrapper_va": 8903488,
+          "wrapper_rva": 4709184
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetPatternNum",
+      "full_name": "BMvEff.GetPatternNum",
+      "string_file_offset": 5586364,
+      "string_rva": 5589436,
+      "wrapper_rvas": [
+        4710560
+      ],
+      "script_uses": 10,
+      "evidence": [
+        {
+          "registration_rva": 4677075,
+          "wrapper_va": 8904864,
+          "wrapper_rva": 4710560
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetPlayerMuteki",
+      "full_name": "BMvEff.GetPlayerMuteki",
+      "string_file_offset": 5528492,
+      "string_rva": 5531564,
+      "wrapper_rvas": [
+        197040,
+        4700336
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 1496634,
+          "wrapper_va": 4391344,
+          "wrapper_rva": 197040
+        },
+        {
+          "registration_rva": 4678842,
+          "wrapper_va": 8894640,
+          "wrapper_rva": 4700336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetPlayerMutekiTimer",
+      "full_name": "BMvEff.GetPlayerMutekiTimer",
+      "string_file_offset": 5588100,
+      "string_rva": 5591172,
+      "wrapper_rvas": [
+        4700384
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678811,
+          "wrapper_va": 8894688,
+          "wrapper_rva": 4700384
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetPointStatus",
+      "full_name": "BMvEff.GetPointStatus",
+      "string_file_offset": 5587764,
+      "string_rva": 5590836,
+      "wrapper_rvas": [
+        4703312
+      ],
+      "script_uses": 67,
+      "evidence": [
+        {
+          "registration_rva": 4678377,
+          "wrapper_va": 8897616,
+          "wrapper_rva": 4703312
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetSeType",
+      "full_name": "BMvEff.GetSeType",
+      "string_file_offset": 5588412,
+      "string_rva": 5591484,
+      "wrapper_rvas": [
+        4687488
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681353,
+          "wrapper_va": 8881792,
+          "wrapper_rva": 4687488
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GetVector_FromAngle",
+      "full_name": "BMvEff.GetVector_FromAngle",
+      "string_file_offset": 5587780,
+      "string_rva": 5590852,
+      "wrapper_rvas": [
+        4703008
+      ],
+      "script_uses": 43,
+      "evidence": [
+        {
+          "registration_rva": 4678408,
+          "wrapper_va": 8897312,
+          "wrapper_rva": 4703008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GuardSP_Get",
+      "full_name": "BMvEff.GuardSP_Get",
+      "string_file_offset": 5587544,
+      "string_rva": 5590616,
+      "wrapper_rvas": [
+        4695904
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679865,
+          "wrapper_va": 8890208,
+          "wrapper_rva": 4695904
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GuardSP_Set",
+      "full_name": "BMvEff.GuardSP_Set",
+      "string_file_offset": 5587532,
+      "string_rva": 5590604,
+      "wrapper_rvas": [
+        4695952
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679834,
+          "wrapper_va": 8890256,
+          "wrapper_rva": 4695952
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "GuardSP_Success",
+      "full_name": "BMvEff.GuardSP_Success",
+      "string_file_offset": 5587492,
+      "string_rva": 5590564,
+      "wrapper_rvas": [
+        4695856
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4679896,
+          "wrapper_va": 8890160,
+          "wrapper_rva": 4695856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "IsAttackRect",
+      "full_name": "BMvEff.IsAttackRect",
+      "string_file_offset": 5588224,
+      "string_rva": 5591296,
+      "wrapper_rvas": [
+        4711472
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678656,
+          "wrapper_va": 8905776,
+          "wrapper_rva": 4711472
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "IsKOSkip",
+      "full_name": "BMvEff.IsKOSkip",
+      "string_file_offset": 5586460,
+      "string_rva": 5589532,
+      "wrapper_rvas": [
+        4706336
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677881,
+          "wrapper_va": 8900640,
+          "wrapper_rva": 4706336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "IsKoFinishType",
+      "full_name": "BMvEff.IsKoFinishType",
+      "string_file_offset": 5586472,
+      "string_rva": 5589544,
+      "wrapper_rvas": [
+        4706320
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677912,
+          "wrapper_va": 8900624,
+          "wrapper_rva": 4706320
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "IsKuraiRect",
+      "full_name": "BMvEff.IsKuraiRect",
+      "string_file_offset": 5588176,
+      "string_rva": 5591248,
+      "wrapper_rvas": [
+        4711408
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4678687,
+          "wrapper_va": 8905712,
+          "wrapper_rva": 4711408
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "IsMyStopTime",
+      "full_name": "BMvEff.IsMyStopTime",
+      "string_file_offset": 5586520,
+      "string_rva": 5589592,
+      "wrapper_rvas": [
+        4706544
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677757,
+          "wrapper_va": 8900848,
+          "wrapper_rva": 4706544
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_Calc",
+      "full_name": "BMvEff.Liberate_Calc",
+      "string_file_offset": 5587388,
+      "string_rva": 5590460,
+      "wrapper_rvas": [
+        4698448
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679121,
+          "wrapper_va": 8892752,
+          "wrapper_rva": 4698448
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_End",
+      "full_name": "BMvEff.Liberate_End",
+      "string_file_offset": 5587336,
+      "string_rva": 5590408,
+      "wrapper_rvas": [
+        4698896
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679152,
+          "wrapper_va": 8893200,
+          "wrapper_rva": 4698896
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_Get",
+      "full_name": "BMvEff.Liberate_Get",
+      "string_file_offset": 5587372,
+      "string_rva": 5590444,
+      "wrapper_rvas": [
+        4698832
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4679090,
+          "wrapper_va": 8893136,
+          "wrapper_rva": 4698832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_GetTimeValue",
+      "full_name": "BMvEff.Liberate_GetTimeValue",
+      "string_file_offset": 5587312,
+      "string_rva": 5590384,
+      "wrapper_rvas": [
+        4698432
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679245,
+          "wrapper_va": 8892736,
+          "wrapper_rva": 4698432
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_GetType",
+      "full_name": "BMvEff.Liberate_GetType",
+      "string_file_offset": 5587292,
+      "string_rva": 5590364,
+      "wrapper_rvas": [
+        4698720
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679214,
+          "wrapper_va": 8893024,
+          "wrapper_rva": 4698720
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_OK",
+      "full_name": "BMvEff.Liberate_OK",
+      "string_file_offset": 5588052,
+      "string_rva": 5591124,
+      "wrapper_rvas": [
+        4699824
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678997,
+          "wrapper_va": 8894128,
+          "wrapper_rva": 4699824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_Set",
+      "full_name": "BMvEff.Liberate_Set",
+      "string_file_offset": 5587404,
+      "string_rva": 5590476,
+      "wrapper_rvas": [
+        4699136
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679028,
+          "wrapper_va": 8893440,
+          "wrapper_rva": 4699136
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_SetMinusValue",
+      "full_name": "BMvEff.Liberate_SetMinusValue",
+      "string_file_offset": 5587420,
+      "string_rva": 5590492,
+      "wrapper_rvas": [
+        4699024
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679059,
+          "wrapper_va": 8893328,
+          "wrapper_rva": 4699024
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Liberate_SetType",
+      "full_name": "BMvEff.Liberate_SetType",
+      "string_file_offset": 5587352,
+      "string_rva": 5590424,
+      "wrapper_rvas": [
+        4698784
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4679183,
+          "wrapper_va": 8893088,
+          "wrapper_rva": 4698784
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "LinePrim_Set",
+      "full_name": "BMvEff.LinePrim_Set",
+      "string_file_offset": 5588924,
+      "string_rva": 5591996,
+      "wrapper_rvas": [
+        4690688
+      ],
+      "script_uses": 7,
+      "evidence": [
+        {
+          "registration_rva": 4680454,
+          "wrapper_va": 8884992,
+          "wrapper_rva": 4690688
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ObjProcFlags_Erase",
+      "full_name": "BMvEff.ObjProcFlags_Erase",
+      "string_file_offset": 5586272,
+      "string_rva": 5589344,
+      "wrapper_rvas": [
+        4709888
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4677292,
+          "wrapper_va": 8904192,
+          "wrapper_rva": 4709888
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ObjProcFlags_Set",
+      "full_name": "BMvEff.ObjProcFlags_Set",
+      "string_file_offset": 5586252,
+      "string_rva": 5589324,
+      "wrapper_rvas": [
+        4710000
+      ],
+      "script_uses": 48,
+      "evidence": [
+        {
+          "registration_rva": 4677261,
+          "wrapper_va": 8904304,
+          "wrapper_rva": 4710000
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ObjType_Set",
+      "full_name": "BMvEff.ObjType_Set",
+      "string_file_offset": 5586224,
+      "string_rva": 5589296,
+      "wrapper_rvas": [
+        4709776
+      ],
+      "script_uses": 25,
+      "evidence": [
+        {
+          "registration_rva": 4677323,
+          "wrapper_va": 8904080,
+          "wrapper_rva": 4709776
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "PcAfterImage_Clear",
+      "full_name": "BMvEff.PcAfterImage_Clear",
+      "string_file_offset": 5589064,
+      "string_rva": 5592136,
+      "wrapper_rvas": [
+        4692464
+      ],
+      "script_uses": 10,
+      "evidence": [
+        {
+          "registration_rva": 4680299,
+          "wrapper_va": 8886768,
+          "wrapper_rva": 4692464
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "PcAfterImage_ClearEx",
+      "full_name": "BMvEff.PcAfterImage_ClearEx",
+      "string_file_offset": 5589000,
+      "string_rva": 5592072,
+      "wrapper_rvas": [
+        4692416
+      ],
+      "script_uses": 12,
+      "evidence": [
+        {
+          "registration_rva": 4680330,
+          "wrapper_va": 8886720,
+          "wrapper_rva": 4692416
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "PcAfterImage_Set",
+      "full_name": "BMvEff.PcAfterImage_Set",
+      "string_file_offset": 5589044,
+      "string_rva": 5592116,
+      "wrapper_rvas": [
+        4692640
+      ],
+      "script_uses": 13,
+      "evidence": [
+        {
+          "registration_rva": 4680268,
+          "wrapper_va": 8886944,
+          "wrapper_rva": 4692640
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Random_F",
+      "full_name": "BMvEff.Random_F",
+      "string_file_offset": 5587100,
+      "string_rva": 5590172,
+      "wrapper_rvas": [
+        4702672
+      ],
+      "script_uses": 16,
+      "evidence": [
+        {
+          "registration_rva": 4676610,
+          "wrapper_va": 8896976,
+          "wrapper_rva": 4702672
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Random_FAbs",
+      "full_name": "BMvEff.Random_FAbs",
+      "string_file_offset": 5587080,
+      "string_rva": 5590152,
+      "wrapper_rvas": [
+        4702400
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4676672,
+          "wrapper_va": 8896704,
+          "wrapper_rva": 4702400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Random_Limit",
+      "full_name": "BMvEff.Random_Limit",
+      "string_file_offset": 5587064,
+      "string_rva": 5590136,
+      "wrapper_rvas": [
+        4702544
+      ],
+      "script_uses": 193,
+      "evidence": [
+        {
+          "registration_rva": 4676641,
+          "wrapper_va": 8896848,
+          "wrapper_rva": 4702544
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Random_PointRad",
+      "full_name": "BMvEff.Random_PointRad",
+      "string_file_offset": 5587048,
+      "string_rva": 5590120,
+      "wrapper_rvas": [
+        4702128
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4676734,
+          "wrapper_va": 8896432,
+          "wrapper_rva": 4702128
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Random_PointRect",
+      "full_name": "BMvEff.Random_PointRect",
+      "string_file_offset": 5587028,
+      "string_rva": 5590100,
+      "wrapper_rvas": [
+        4701568
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4676703,
+          "wrapper_va": 8895872,
+          "wrapper_rva": 4701568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Reset",
+      "full_name": "BMvEff.Reset",
+      "string_file_offset": 5586712,
+      "string_rva": 5589784,
+      "wrapper_rvas": [
+        2110224
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4821042,
+          "wrapper_va": 6304528,
+          "wrapper_rva": 2110224
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ResetCamera",
+      "full_name": "BMvEff.ResetCamera",
+      "string_file_offset": 5586664,
+      "string_rva": 5589736,
+      "wrapper_rvas": [
+        4707840
+      ],
+      "script_uses": 36,
+      "evidence": [
+        {
+          "registration_rva": 4677540,
+          "wrapper_va": 8902144,
+          "wrapper_rva": 4707840
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ResetViewCamera",
+      "full_name": "BMvEff.ResetViewCamera",
+      "string_file_offset": 5586624,
+      "string_rva": 5589696,
+      "wrapper_rvas": [
+        4707760
+      ],
+      "script_uses": 56,
+      "evidence": [
+        {
+          "registration_rva": 4677602,
+          "wrapper_va": 8902064,
+          "wrapper_rva": 4707760
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Score_Add",
+      "full_name": "BMvEff.Score_Add",
+      "string_file_offset": 5588424,
+      "string_rva": 5591496,
+      "wrapper_rvas": [
+        4687728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681260,
+          "wrapper_va": 8882032,
+          "wrapper_rva": 4687728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetAllKeyCheck",
+      "full_name": "BMvEff.SetAllKeyCheck",
+      "string_file_offset": 5588448,
+      "string_rva": 5591520,
+      "wrapper_rvas": [
+        4687872
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681198,
+          "wrapper_va": 8882176,
+          "wrapper_rva": 4687872
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetBgColor",
+      "full_name": "BMvEff.SetBgColor",
+      "string_file_offset": 5588436,
+      "string_rva": 5591508,
+      "wrapper_rvas": [
+        4687648
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681291,
+          "wrapper_va": 8881952,
+          "wrapper_rva": 4687648
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetBgSpeculer",
+      "full_name": "BMvEff.SetBgSpeculer",
+      "string_file_offset": 5588396,
+      "string_rva": 5591468,
+      "wrapper_rvas": [
+        4687568
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681322,
+          "wrapper_va": 8881872,
+          "wrapper_rva": 4687568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetBoundSt",
+      "full_name": "BMvEff.SetBoundSt",
+      "string_file_offset": 5587752,
+      "string_rva": 5590824,
+      "wrapper_rvas": [
+        4716544
+      ],
+      "script_uses": 7,
+      "evidence": [
+        {
+          "registration_rva": 4678470,
+          "wrapper_va": 8910848,
+          "wrapper_rva": 4716544
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCamera_Clipping",
+      "full_name": "BMvEff.SetCamera_Clipping",
+      "string_file_offset": 5586148,
+      "string_rva": 5589220,
+      "wrapper_rvas": [
+        4707904
+      ],
+      "script_uses": 68,
+      "evidence": [
+        {
+          "registration_rva": 4677447,
+          "wrapper_va": 8902208,
+          "wrapper_rva": 4707904
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCamera_Focus",
+      "full_name": "BMvEff.SetCamera_Focus",
+      "string_file_offset": 5586188,
+      "string_rva": 5589260,
+      "wrapper_rvas": [
+        4707984
+      ],
+      "script_uses": 203,
+      "evidence": [
+        {
+          "registration_rva": 4677385,
+          "wrapper_va": 8902288,
+          "wrapper_rva": 4707984
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCamera_FocusKeep",
+      "full_name": "BMvEff.SetCamera_FocusKeep",
+      "string_file_offset": 5586204,
+      "string_rva": 5589276,
+      "wrapper_rvas": [
+        4707936
+      ],
+      "script_uses": 18,
+      "evidence": [
+        {
+          "registration_rva": 4677416,
+          "wrapper_va": 8902240,
+          "wrapper_rva": 4707936
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCamera_Quake",
+      "full_name": "BMvEff.SetCamera_Quake",
+      "string_file_offset": 5586236,
+      "string_rva": 5589308,
+      "wrapper_rvas": [
+        4708608
+      ],
+      "script_uses": 127,
+      "evidence": [
+        {
+          "registration_rva": 4677354,
+          "wrapper_va": 8902912,
+          "wrapper_rva": 4708608
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCamera_UpdateFlag",
+      "full_name": "BMvEff.SetCamera_UpdateFlag",
+      "string_file_offset": 5586640,
+      "string_rva": 5589712,
+      "wrapper_rvas": [
+        4707856
+      ],
+      "script_uses": 10,
+      "evidence": [
+        {
+          "registration_rva": 4677509,
+          "wrapper_va": 8902160,
+          "wrapper_rva": 4707856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCharaColor",
+      "full_name": "BMvEff.SetCharaColor",
+      "string_file_offset": 5589084,
+      "string_rva": 5592156,
+      "wrapper_rvas": [
+        4693104
+      ],
+      "script_uses": 68,
+      "evidence": [
+        {
+          "registration_rva": 4680206,
+          "wrapper_va": 8887408,
+          "wrapper_rva": 4693104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCharaDrawType",
+      "full_name": "BMvEff.SetCharaDrawType",
+      "string_file_offset": 5589100,
+      "string_rva": 5592172,
+      "wrapper_rvas": [
+        4693008
+      ],
+      "script_uses": 15,
+      "evidence": [
+        {
+          "registration_rva": 4680237,
+          "wrapper_va": 8887312,
+          "wrapper_rva": 4693008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetCharaFlash",
+      "full_name": "BMvEff.SetCharaFlash",
+      "string_file_offset": 5589148,
+      "string_rva": 5592220,
+      "wrapper_rvas": [
+        4693328
+      ],
+      "script_uses": 27,
+      "evidence": [
+        {
+          "registration_rva": 4680175,
+          "wrapper_va": 8887632,
+          "wrapper_rva": 4693328
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetDefaultExtendedEffectDrawing",
+      "full_name": "BMvEff.SetDefaultExtendedEffectDrawing",
+      "string_file_offset": 5588464,
+      "string_rva": 5591536,
+      "wrapper_rvas": [
+        4687808
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681229,
+          "wrapper_va": 8882112,
+          "wrapper_rva": 4687808
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetDst",
+      "full_name": "BMvEff.SetDst",
+      "string_file_offset": 5586704,
+      "string_rva": 5589776,
+      "wrapper_rvas": [
+        4686096
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4685000,
+          "wrapper_va": 8880400,
+          "wrapper_rva": 4686096
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetExist",
+      "full_name": "BMvEff.SetExist",
+      "string_file_offset": 5587832,
+      "string_rva": 5590904,
+      "wrapper_rvas": [
+        4709616
+      ],
+      "script_uses": 103,
+      "evidence": [
+        {
+          "registration_rva": 4678253,
+          "wrapper_va": 8903920,
+          "wrapper_rva": 4709616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetFlags",
+      "full_name": "BMvEff.SetFlags",
+      "string_file_offset": 5586676,
+      "string_rva": 5589748,
+      "wrapper_rvas": [
+        307920
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4685031,
+          "wrapper_va": 4502224,
+          "wrapper_rva": 307920
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetGuardPlusFlag",
+      "full_name": "BMvEff.SetGuardPlusFlag",
+      "string_file_offset": 5589228,
+      "string_rva": 5592300,
+      "wrapper_rvas": [
+        4688976
+      ],
+      "script_uses": 31,
+      "evidence": [
+        {
+          "registration_rva": 4680950,
+          "wrapper_va": 8883280,
+          "wrapper_rva": 4688976
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetHitLimitCancel",
+      "full_name": "BMvEff.SetHitLimitCancel",
+      "string_file_offset": 5586908,
+      "string_rva": 5589980,
+      "wrapper_rvas": [
+        4716768
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4676982,
+          "wrapper_va": 8911072,
+          "wrapper_rva": 4716768
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetHpGauge",
+      "full_name": "BMvEff.SetHpGauge",
+      "string_file_offset": 5586448,
+      "string_rva": 5589520,
+      "wrapper_rvas": [
+        4705712
+      ],
+      "script_uses": 11,
+      "evidence": [
+        {
+          "registration_rva": 4677974,
+          "wrapper_va": 8900016,
+          "wrapper_rva": 4705712
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetNoDamageFlag",
+      "full_name": "BMvEff.SetNoDamageFlag",
+      "string_file_offset": 5586432,
+      "string_rva": 5589504,
+      "wrapper_rvas": [
+        4706288
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677943,
+          "wrapper_va": 8900592,
+          "wrapper_rva": 4706288
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetObjectFlags",
+      "full_name": "BMvEff.SetObjectFlags",
+      "string_file_offset": 5586328,
+      "string_rva": 5589400,
+      "wrapper_rvas": [
+        4710336
+      ],
+      "script_uses": 417,
+      "evidence": [
+        {
+          "registration_rva": 4677137,
+          "wrapper_va": 8904640,
+          "wrapper_rva": 4710336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetObjectRender",
+      "full_name": "BMvEff.SetObjectRender",
+      "string_file_offset": 5586292,
+      "string_rva": 5589364,
+      "wrapper_rvas": [
+        4708992
+      ],
+      "script_uses": 12,
+      "evidence": [
+        {
+          "registration_rva": 4677199,
+          "wrapper_va": 8903296,
+          "wrapper_rva": 4708992
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetOtherPalette",
+      "full_name": "BMvEff.SetOtherPalette",
+      "string_file_offset": 5587816,
+      "string_rva": 5590888,
+      "wrapper_rvas": [
+        4709232
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678346,
+          "wrapper_va": 8903536,
+          "wrapper_rva": 4709232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetPaletteSlot",
+      "full_name": "BMvEff.SetPaletteSlot",
+      "string_file_offset": 5587844,
+      "string_rva": 5590916,
+      "wrapper_rvas": [
+        4709424
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678284,
+          "wrapper_va": 8903728,
+          "wrapper_rva": 4709424
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetPlayer",
+      "full_name": "BMvEff.SetPlayer",
+      "string_file_offset": 5586720,
+      "string_rva": 5589792,
+      "wrapper_rvas": [
+        4686576
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4684938,
+          "wrapper_va": 8880880,
+          "wrapper_rva": 4686576
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetPlayerTimer",
+      "full_name": "BMvEff.SetPlayerTimer",
+      "string_file_offset": 5588160,
+      "string_rva": 5591232,
+      "wrapper_rvas": [
+        4700496
+      ],
+      "script_uses": 39,
+      "evidence": [
+        {
+          "registration_rva": 4678780,
+          "wrapper_va": 8894800,
+          "wrapper_rva": 4700496
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetPositionBufferFlag",
+      "full_name": "BMvEff.SetPositionBufferFlag",
+      "string_file_offset": 5587572,
+      "string_rva": 5590644,
+      "wrapper_rvas": [
+        4696304
+      ],
+      "script_uses": 16,
+      "evidence": [
+        {
+          "registration_rva": 4679803,
+          "wrapper_va": 8890608,
+          "wrapper_rva": 4696304
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetSpGauge",
+      "full_name": "BMvEff.SetSpGauge",
+      "string_file_offset": 5588004,
+      "string_rva": 5591076,
+      "wrapper_rvas": [
+        4704944
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678005,
+          "wrapper_va": 8899248,
+          "wrapper_rva": 4704944
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetSrc",
+      "full_name": "BMvEff.SetSrc",
+      "string_file_offset": 5586696,
+      "string_rva": 5589768,
+      "wrapper_rvas": [
+        4686336
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4684969,
+          "wrapper_va": 8880640,
+          "wrapper_rva": 4686336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetStopTime",
+      "full_name": "BMvEff.SetStopTime",
+      "string_file_offset": 5586544,
+      "string_rva": 5589616,
+      "wrapper_rvas": [
+        4707040
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4677695,
+          "wrapper_va": 8901344,
+          "wrapper_rva": 4707040
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetStopTimeAll",
+      "full_name": "BMvEff.SetStopTimeAll",
+      "string_file_offset": 5586556,
+      "string_rva": 5589628,
+      "wrapper_rvas": [
+        4706928
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677726,
+          "wrapper_va": 8901232,
+          "wrapper_rva": 4706928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SetUkemiTime",
+      "full_name": "BMvEff.SetUkemiTime",
+      "string_file_offset": 5588268,
+      "string_rva": 5591340,
+      "wrapper_rvas": [
+        4716352
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4678501,
+          "wrapper_va": 8910656,
+          "wrapper_rva": 4716352
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "Slowmotion_Set",
+      "full_name": "BMvEff.Slowmotion_Set",
+      "string_file_offset": 5588984,
+      "string_rva": 5592056,
+      "wrapper_rvas": [
+        4691280
+      ],
+      "script_uses": 36,
+      "evidence": [
+        {
+          "registration_rva": 4680423,
+          "wrapper_va": 8885584,
+          "wrapper_rva": 4691280
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_GetAwakens",
+      "full_name": "BMvEff.SpGauge_GetAwakens",
+      "string_file_offset": 5587860,
+      "string_rva": 5590932,
+      "wrapper_rvas": [
+        4703984
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678191,
+          "wrapper_va": 8898288,
+          "wrapper_rva": 4703984
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_GetPlusCorrect_ComboTimePos",
+      "full_name": "BMvEff.SpGauge_GetPlusCorrect_ComboTimePos",
+      "string_file_offset": 5587880,
+      "string_rva": 5590952,
+      "wrapper_rvas": [
+        4704000
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678222,
+          "wrapper_va": 8898304,
+          "wrapper_rva": 4704000
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_SetAwakens",
+      "full_name": "BMvEff.SpGauge_SetAwakens",
+      "string_file_offset": 5587936,
+      "string_rva": 5591008,
+      "wrapper_rvas": [
+        4703968
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678160,
+          "wrapper_va": 8898272,
+          "wrapper_rva": 4703968
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_SetLimit",
+      "full_name": "BMvEff.SpGauge_SetLimit",
+      "string_file_offset": 5588016,
+      "string_rva": 5591088,
+      "wrapper_rvas": [
+        4704784
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678036,
+          "wrapper_va": 8899088,
+          "wrapper_rva": 4704784
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_SetLimitBound",
+      "full_name": "BMvEff.SpGauge_SetLimitBound",
+      "string_file_offset": 5587980,
+      "string_rva": 5591052,
+      "wrapper_rvas": [
+        4704144
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678098,
+          "wrapper_va": 8898448,
+          "wrapper_rva": 4704144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_SetLimitCombo",
+      "full_name": "BMvEff.SpGauge_SetLimitCombo",
+      "string_file_offset": 5587956,
+      "string_rva": 5591028,
+      "wrapper_rvas": [
+        4704384
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4678067,
+          "wrapper_va": 8898688,
+          "wrapper_rva": 4704384
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "SpGauge_SetZeroTime",
+      "full_name": "BMvEff.SpGauge_SetZeroTime",
+      "string_file_offset": 5587916,
+      "string_rva": 5590988,
+      "wrapper_rvas": [
+        4704624
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678129,
+          "wrapper_va": 8898928,
+          "wrapper_rva": 4704624
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "StdCall",
+      "full_name": "BMvEff.StdCall",
+      "string_file_offset": 5587004,
+      "string_rva": 5590076,
+      "wrapper_rvas": [
+        4719952
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4676765,
+          "wrapper_va": 8914256,
+          "wrapper_rva": 4719952
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "TM_GetCharaGauge",
+      "full_name": "BMvEff.TM_GetCharaGauge",
+      "string_file_offset": 5588356,
+      "string_rva": 5591428,
+      "wrapper_rvas": [
+        4687440
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681384,
+          "wrapper_va": 8881744,
+          "wrapper_rva": 4687440
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "TM_IsCelestialVorpalGRDMode",
+      "full_name": "BMvEff.TM_IsCelestialVorpalGRDMode",
+      "string_file_offset": 5588300,
+      "string_rva": 5591372,
+      "wrapper_rvas": [
+        4687248
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681446,
+          "wrapper_va": 8881552,
+          "wrapper_rva": 4687248
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "TM_IsEnemyAllShield",
+      "full_name": "BMvEff.TM_IsEnemyAllShield",
+      "string_file_offset": 5588376,
+      "string_rva": 5591448,
+      "wrapper_rvas": [
+        4687376
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681415,
+          "wrapper_va": 8881680,
+          "wrapper_rva": 4687376
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "TM_IsNormalVorpalGRDMode",
+      "full_name": "BMvEff.TM_IsNormalVorpalGRDMode",
+      "string_file_offset": 5588328,
+      "string_rva": 5591400,
+      "wrapper_rvas": [
+        4687104
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4681477,
+          "wrapper_va": 8881408,
+          "wrapper_rva": 4687104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ThrowChara_SetCamera",
+      "full_name": "BMvEff.ThrowChara_SetCamera",
+      "string_file_offset": 5586928,
+      "string_rva": 5590000,
+      "wrapper_rvas": [
+        4718208
+      ],
+      "script_uses": 48,
+      "evidence": [
+        {
+          "registration_rva": 4676889,
+          "wrapper_va": 8912512,
+          "wrapper_rva": 4718208
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ThrowChara_SetJoint",
+      "full_name": "BMvEff.ThrowChara_SetJoint",
+      "string_file_offset": 5586984,
+      "string_rva": 5590056,
+      "wrapper_rvas": [
+        4718320
+      ],
+      "script_uses": 84,
+      "evidence": [
+        {
+          "registration_rva": 4676858,
+          "wrapper_va": 8912624,
+          "wrapper_rva": 4718320
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ThrowChara_Transfer",
+      "full_name": "BMvEff.ThrowChara_Transfer",
+      "string_file_offset": 5586952,
+      "string_rva": 5590024,
+      "wrapper_rvas": [
+        4717520
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4676920,
+          "wrapper_va": 8911824,
+          "wrapper_rva": 4717520
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ThrowParam",
+      "full_name": "BMvEff.ThrowParam",
+      "string_file_offset": 5586972,
+      "string_rva": 5590044,
+      "wrapper_rvas": [
+        4718480
+      ],
+      "script_uses": 233,
+      "evidence": [
+        {
+          "registration_rva": 4676827,
+          "wrapper_va": 8912784,
+          "wrapper_rva": 4718480
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "ThrowRelease",
+      "full_name": "BMvEff.ThrowRelease",
+      "string_file_offset": 5587012,
+      "string_rva": 5590084,
+      "wrapper_rvas": [
+        4717120
+      ],
+      "script_uses": 151,
+      "evidence": [
+        {
+          "registration_rva": 4676796,
+          "wrapper_va": 8911424,
+          "wrapper_rva": 4717120
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "UpdateCamera",
+      "full_name": "BMvEff.UpdateCamera",
+      "string_file_offset": 5586608,
+      "string_rva": 5589680,
+      "wrapper_rvas": [
+        4707824
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4677571,
+          "wrapper_va": 8902128,
+          "wrapper_rva": 4707824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvEff",
+      "name": "VecHitFlag_Set",
+      "full_name": "BMvEff.VecHitFlag_Set",
+      "string_file_offset": 5588284,
+      "string_rva": 5591356,
+      "wrapper_rvas": [
+        4716208
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4678532,
+          "wrapper_va": 8910512,
+          "wrapper_rva": 4716208
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "Achievement_Unlock",
+      "full_name": "BMvTbl.Achievement_Unlock",
+      "string_file_offset": 5597624,
+      "string_rva": 5600696,
+      "wrapper_rvas": [
+        4744976
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780343,
+          "wrapper_va": 8939280,
+          "wrapper_rva": 4744976
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddAirCount",
+      "full_name": "BMvTbl.AddAirCount",
+      "string_file_offset": 5595648,
+      "string_rva": 5598720,
+      "wrapper_rvas": [
+        4762752
+      ],
+      "script_uses": 162,
+      "evidence": [
+        {
+          "registration_rva": 4775855,
+          "wrapper_va": 8957056,
+          "wrapper_rva": 4762752
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddAirJumpCount",
+      "full_name": "BMvTbl.AddAirJumpCount",
+      "string_file_offset": 5595612,
+      "string_rva": 5598684,
+      "wrapper_rvas": [
+        4762672
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4775921,
+          "wrapper_va": 8956976,
+          "wrapper_rva": 4762672
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddComboCount",
+      "full_name": "BMvTbl.AddComboCount",
+      "string_file_offset": 5598468,
+      "string_rva": 5601540,
+      "wrapper_rvas": [
+        4748224
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4779617,
+          "wrapper_va": 8942528,
+          "wrapper_rva": 4748224
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddComboRate",
+      "full_name": "BMvTbl.AddComboRate",
+      "string_file_offset": 5598484,
+      "string_rva": 5601556,
+      "wrapper_rvas": [
+        4748400
+      ],
+      "script_uses": 25,
+      "evidence": [
+        {
+          "registration_rva": 4779518,
+          "wrapper_va": 8942704,
+          "wrapper_rva": 4748400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddHitCheckFlag",
+      "full_name": "BMvTbl.AddHitCheckFlag",
+      "string_file_offset": 5596416,
+      "string_rva": 5599488,
+      "wrapper_rvas": [
+        4751616
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4778396,
+          "wrapper_va": 8945920,
+          "wrapper_rva": 4751616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddLP",
+      "full_name": "BMvTbl.AddLP",
+      "string_file_offset": 5596284,
+      "string_rva": 5599356,
+      "wrapper_rvas": [
+        4763200
+      ],
+      "script_uses": 139,
+      "evidence": [
+        {
+          "registration_rva": 4775624,
+          "wrapper_va": 8957504,
+          "wrapper_rva": 4763200
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddLPEx",
+      "full_name": "BMvTbl.AddLPEx",
+      "string_file_offset": 5596236,
+      "string_rva": 5599308,
+      "wrapper_rvas": [
+        4763360
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4775723,
+          "wrapper_va": 8957664,
+          "wrapper_rva": 4763360
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddPP",
+      "full_name": "BMvTbl.AddPP",
+      "string_file_offset": 5596292,
+      "string_rva": 5599364,
+      "wrapper_rvas": [
+        4763568
+      ],
+      "script_uses": 24,
+      "evidence": [
+        {
+          "registration_rva": 4775525,
+          "wrapper_va": 8957872,
+          "wrapper_rva": 4763568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AddSP",
+      "full_name": "BMvTbl.AddSP",
+      "string_file_offset": 5596332,
+      "string_rva": 5599404,
+      "wrapper_rvas": [
+        4763824
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4775426,
+          "wrapper_va": 8958128,
+          "wrapper_rva": 4763824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AirSkill_Begin",
+      "full_name": "BMvTbl.AirSkill_Begin",
+      "string_file_offset": 5598268,
+      "string_rva": 5601340,
+      "wrapper_rvas": [
+        4747232
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779947,
+          "wrapper_va": 8941536,
+          "wrapper_rva": 4747232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "AirSkill_Check",
+      "full_name": "BMvTbl.AirSkill_Check",
+      "string_file_offset": 5598284,
+      "string_rva": 5601356,
+      "wrapper_rvas": [
+        4747136
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779980,
+          "wrapper_va": 8941440,
+          "wrapper_rva": 4747136
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "BattleActivity_Increment",
+      "full_name": "BMvTbl.BattleActivity_Increment",
+      "string_file_offset": 5597644,
+      "string_rva": 5600716,
+      "wrapper_rvas": [
+        4744960
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780376,
+          "wrapper_va": 8939264,
+          "wrapper_rva": 4744960
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "BoundCorrect_Calc",
+      "full_name": "BMvTbl.BoundCorrect_Calc",
+      "string_file_offset": 5596516,
+      "string_rva": 5599588,
+      "wrapper_rvas": [
+        4752624
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778198,
+          "wrapper_va": 8946928,
+          "wrapper_rva": 4752624
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CBtlInfo",
+      "full_name": "BMvTbl.CBtlInfo",
+      "string_file_offset": 5594628,
+      "string_rva": 5597700,
+      "wrapper_rvas": [
+        4745616
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746631,
+          "wrapper_va": 8939920,
+          "wrapper_rva": 4745616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CalcHitValue",
+      "full_name": "BMvTbl.CalcHitValue",
+      "string_file_offset": 5596592,
+      "string_rva": 5599664,
+      "wrapper_rvas": [
+        4753536
+      ],
+      "script_uses": 41,
+      "evidence": [
+        {
+          "registration_rva": 4778066,
+          "wrapper_va": 8947840,
+          "wrapper_rva": 4753536
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ChangeMv_GetMoveCodeEx",
+      "full_name": "BMvTbl.ChangeMv_GetMoveCodeEx",
+      "string_file_offset": 5596372,
+      "string_rva": 5599444,
+      "wrapper_rvas": [
+        4764288
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775261,
+          "wrapper_va": 8958592,
+          "wrapper_rva": 4764288
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ChangeMv_GetMvAction",
+      "full_name": "BMvTbl.ChangeMv_GetMvAction",
+      "string_file_offset": 5596340,
+      "string_rva": 5599412,
+      "wrapper_rvas": [
+        4764176
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775327,
+          "wrapper_va": 8958480,
+          "wrapper_rva": 4764176
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ChangeMv_GetMvName",
+      "full_name": "BMvTbl.ChangeMv_GetMvName",
+      "string_file_offset": 5596396,
+      "string_rva": 5599468,
+      "wrapper_rvas": [
+        4764224
+      ],
+      "script_uses": 22,
+      "evidence": [
+        {
+          "registration_rva": 4775294,
+          "wrapper_va": 8958528,
+          "wrapper_rva": 4764224
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckBlast_BoundInit",
+      "full_name": "BMvTbl.CheckBlast_BoundInit",
+      "string_file_offset": 5598368,
+      "string_rva": 5601440,
+      "wrapper_rvas": [
+        4745104
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779716,
+          "wrapper_va": 8939408,
+          "wrapper_rva": 4745104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckBlast_IsNGStatus",
+      "full_name": "BMvTbl.CheckBlast_IsNGStatus",
+      "string_file_offset": 5598428,
+      "string_rva": 5601500,
+      "wrapper_rvas": [
+        4745408
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779683,
+          "wrapper_va": 8939712,
+          "wrapper_rva": 4745408
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckButtonHold",
+      "full_name": "BMvTbl.CheckButtonHold",
+      "string_file_offset": 5595024,
+      "string_rva": 5598096,
+      "wrapper_rvas": [
+        4765680
+      ],
+      "script_uses": 38,
+      "evidence": [
+        {
+          "registration_rva": 4774436,
+          "wrapper_va": 8959984,
+          "wrapper_rva": 4765680
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckButtonHoldFrame",
+      "full_name": "BMvTbl.CheckButtonHoldFrame",
+      "string_file_offset": 5594952,
+      "string_rva": 5598024,
+      "wrapper_rvas": [
+        4765520
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774469,
+          "wrapper_va": 8959824,
+          "wrapper_rva": 4765520
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckCharaAlive_str",
+      "full_name": "BMvTbl.CheckCharaAlive_str",
+      "string_file_offset": 5594756,
+      "string_rva": 5597828,
+      "wrapper_rvas": [
+        4745872
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746426,
+          "wrapper_va": 8940176,
+          "wrapper_rva": 4745872
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckCommand",
+      "full_name": "BMvTbl.CheckCommand",
+      "string_file_offset": 5595936,
+      "string_rva": 5599008,
+      "wrapper_rvas": [
+        4759792
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4776449,
+          "wrapper_va": 8954096,
+          "wrapper_rva": 4759792
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckCommandFailTime",
+      "full_name": "BMvTbl.CheckCommandFailTime",
+      "string_file_offset": 5595804,
+      "string_rva": 5598876,
+      "wrapper_rvas": [
+        4757376
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776614,
+          "wrapper_va": 8951680,
+          "wrapper_rva": 4757376
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckCommandString",
+      "full_name": "BMvTbl.CheckCommandString",
+      "string_file_offset": 5595876,
+      "string_rva": 5598948,
+      "wrapper_rvas": [
+        4759024
+      ],
+      "script_uses": 24,
+      "evidence": [
+        {
+          "registration_rva": 4776482,
+          "wrapper_va": 8953328,
+          "wrapper_rva": 4759024
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckFrameFinalize",
+      "full_name": "BMvTbl.CheckFrameFinalize",
+      "string_file_offset": 5595456,
+      "string_rva": 5598528,
+      "wrapper_rvas": [
+        4756976
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776284,
+          "wrapper_va": 8951280,
+          "wrapper_rva": 4756976
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckFurimuki",
+      "full_name": "BMvTbl.CheckFurimuki",
+      "string_file_offset": 5595068,
+      "string_rva": 5598140,
+      "wrapper_rvas": [
+        4766400
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4774271,
+          "wrapper_va": 8960704,
+          "wrapper_rva": 4766400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckHan6Data",
+      "full_name": "BMvTbl.CheckHan6Data",
+      "string_file_offset": 5594440,
+      "string_rva": 5597512,
+      "wrapper_rvas": [
+        4772032
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792779,
+          "wrapper_va": 8966336,
+          "wrapper_rva": 4772032
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckLastStick",
+      "full_name": "BMvTbl.CheckLastStick",
+      "string_file_offset": 5595896,
+      "string_rva": 5598968,
+      "wrapper_rvas": [
+        4758080
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776515,
+          "wrapper_va": 8952384,
+          "wrapper_rva": 4758080
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckMvUniqueID",
+      "full_name": "BMvTbl.CheckMvUniqueID",
+      "string_file_offset": 5595788,
+      "string_rva": 5598860,
+      "wrapper_rvas": [
+        4767664
+      ],
+      "script_uses": 46,
+      "evidence": [
+        {
+          "registration_rva": 4776713,
+          "wrapper_va": 8961968,
+          "wrapper_rva": 4767664
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckPattern",
+      "full_name": "BMvTbl.CheckPattern",
+      "string_file_offset": 5595540,
+      "string_rva": 5598612,
+      "wrapper_rvas": [
+        4761248,
+        4805760
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776086,
+          "wrapper_va": 8955552,
+          "wrapper_rva": 4761248
+        },
+        {
+          "registration_rva": 4808737,
+          "wrapper_va": 9000064,
+          "wrapper_rva": 4805760
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckPosState",
+      "full_name": "BMvTbl.CheckPosState",
+      "string_file_offset": 5528524,
+      "string_rva": 5531596,
+      "wrapper_rvas": [
+        194864,
+        4762016,
+        4806400
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 1496448,
+          "wrapper_va": 4389168,
+          "wrapper_rva": 194864
+        },
+        {
+          "registration_rva": 4776053,
+          "wrapper_va": 8956320,
+          "wrapper_rva": 4762016
+        },
+        {
+          "registration_rva": 4808644,
+          "wrapper_va": 9000704,
+          "wrapper_rva": 4806400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckRecoverCommandTiming",
+      "full_name": "BMvTbl.CheckRecoverCommandTiming",
+      "string_file_offset": 5596552,
+      "string_rva": 5599624,
+      "wrapper_rvas": [
+        4755872
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778132,
+          "wrapper_va": 8950176,
+          "wrapper_rva": 4755872
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckStickHold",
+      "full_name": "BMvTbl.CheckStickHold",
+      "string_file_offset": 5595052,
+      "string_rva": 5598124,
+      "wrapper_rvas": [
+        4766160
+      ],
+      "script_uses": 52,
+      "evidence": [
+        {
+          "registration_rva": 4774370,
+          "wrapper_va": 8960464,
+          "wrapper_rva": 4766160
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "CheckStickHoldFrameKeyBuffer",
+      "full_name": "BMvTbl.CheckStickHoldFrameKeyBuffer",
+      "string_file_offset": 5594992,
+      "string_rva": 5598064,
+      "wrapper_rvas": [
+        4766016
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774403,
+          "wrapper_va": 8960320,
+          "wrapper_rva": 4766016
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearAllAirCounts",
+      "full_name": "BMvTbl.ClearAllAirCounts",
+      "string_file_offset": 5595628,
+      "string_rva": 5598700,
+      "wrapper_rvas": [
+        4762624
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775954,
+          "wrapper_va": 8956928,
+          "wrapper_rva": 4762624
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearBound",
+      "full_name": "BMvTbl.ClearBound",
+      "string_file_offset": 5594488,
+      "string_rva": 5597560,
+      "wrapper_rvas": [
+        4772576
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792624,
+          "wrapper_va": 8966880,
+          "wrapper_rva": 4772576
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearComboLimit",
+      "full_name": "BMvTbl.ClearComboLimit",
+      "string_file_offset": 5595676,
+      "string_rva": 5598748,
+      "wrapper_rvas": [
+        4762960
+      ],
+      "script_uses": 33,
+      "evidence": [
+        {
+          "registration_rva": 4775789,
+          "wrapper_va": 8957264,
+          "wrapper_rva": 4762960
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearCommand",
+      "full_name": "BMvTbl.ClearCommand",
+      "string_file_offset": 5595840,
+      "string_rva": 5598912,
+      "wrapper_rvas": [
+        4758000
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4776548,
+          "wrapper_va": 8952304,
+          "wrapper_rva": 4758000
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearGuard",
+      "full_name": "BMvTbl.ClearGuard",
+      "string_file_offset": 5594476,
+      "string_rva": 5597548,
+      "wrapper_rvas": [
+        4772048
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792717,
+          "wrapper_va": 8966352,
+          "wrapper_rva": 4772048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearHitStatus",
+      "full_name": "BMvTbl.ClearHitStatus",
+      "string_file_offset": 5597216,
+      "string_rva": 5600288,
+      "wrapper_rvas": [
+        4767280
+      ],
+      "script_uses": 14,
+      "evidence": [
+        {
+          "registration_rva": 4776878,
+          "wrapper_va": 8961584,
+          "wrapper_rva": 4767280
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ClearTriVector",
+      "full_name": "BMvTbl.ClearTriVector",
+      "string_file_offset": 5597124,
+      "string_rva": 5600196,
+      "wrapper_rvas": [
+        4770288
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777076,
+          "wrapper_va": 8964592,
+          "wrapper_rva": 4770288
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "ComboPoint_Calc",
+      "full_name": "BMvTbl.ComboPoint_Calc",
+      "string_file_offset": 5596536,
+      "string_rva": 5599608,
+      "wrapper_rvas": [
+        4752400
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4778231,
+          "wrapper_va": 8946704,
+          "wrapper_rva": 4752400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "DamageFlag_Func",
+      "full_name": "BMvTbl.DamageFlag_Func",
+      "string_file_offset": 5598392,
+      "string_rva": 5601464,
+      "wrapper_rvas": [
+        4745040
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779749,
+          "wrapper_va": 8939344,
+          "wrapper_rva": 4745040
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "DamageFlag_IsBound",
+      "full_name": "BMvTbl.DamageFlag_IsBound",
+      "string_file_offset": 5598332,
+      "string_rva": 5601404,
+      "wrapper_rvas": [
+        4744992
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779782,
+          "wrapper_va": 8939296,
+          "wrapper_rva": 4744992
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "EraseHitCheckFlag",
+      "full_name": "BMvTbl.EraseHitCheckFlag",
+      "string_file_offset": 5596432,
+      "string_rva": 5599504,
+      "wrapper_rvas": [
+        4751472
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4778429,
+          "wrapper_va": 8945776,
+          "wrapper_rva": 4751472
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "Frame_Proc",
+      "full_name": "BMvTbl.Frame_Proc",
+      "string_file_offset": 5595504,
+      "string_rva": 5598576,
+      "wrapper_rvas": [
+        4757072
+      ],
+      "script_uses": 19,
+      "evidence": [
+        {
+          "registration_rva": 4776251,
+          "wrapper_va": 8951376,
+          "wrapper_rva": 4757072
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "FromFinalize",
+      "full_name": "BMvTbl.FromFinalize",
+      "string_file_offset": 5596220,
+      "string_rva": 5599292,
+      "wrapper_rvas": [
+        4765008
+      ],
+      "script_uses": 28,
+      "evidence": [
+        {
+          "registration_rva": 4774766,
+          "wrapper_va": 8959312,
+          "wrapper_rva": 4765008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAirUkemi",
+      "full_name": "BMvTbl.GetAirUkemi",
+      "string_file_offset": 5593980,
+      "string_rva": 5597052,
+      "wrapper_rvas": [
+        315600
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793593,
+          "wrapper_va": 4509904,
+          "wrapper_rva": 315600
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAirUkemiTimeMax",
+      "full_name": "BMvTbl.GetAirUkemiTimeMax",
+      "string_file_offset": 5594248,
+      "string_rva": 5597320,
+      "wrapper_rvas": [
+        315728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793934,
+          "wrapper_va": 4510032,
+          "wrapper_rva": 315728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAirUkemiTimeNow",
+      "full_name": "BMvTbl.GetAirUkemiTimeNow",
+      "string_file_offset": 5594228,
+      "string_rva": 5597300,
+      "wrapper_rvas": [
+        315712
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793903,
+          "wrapper_va": 4510016,
+          "wrapper_rva": 315712
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAngle",
+      "full_name": "BMvTbl.GetAngle",
+      "string_file_offset": 5597048,
+      "string_rva": 5600120,
+      "wrapper_rvas": [
+        4768368
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4777307,
+          "wrapper_va": 8962672,
+          "wrapper_rva": 4768368
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAtkCatchHanteiPos",
+      "full_name": "BMvTbl.GetAtkCatchHanteiPos",
+      "string_file_offset": 5596628,
+      "string_rva": 5599700,
+      "wrapper_rvas": [
+        4753120
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778000,
+          "wrapper_va": 8947424,
+          "wrapper_rva": 4753120
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAtkCatchIsDone",
+      "full_name": "BMvTbl.GetAtkCatchIsDone",
+      "string_file_offset": 5596668,
+      "string_rva": 5599740,
+      "wrapper_rvas": [
+        4753232
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777934,
+          "wrapper_va": 8947536,
+          "wrapper_rva": 4753232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetAtkGuardFlag",
+      "full_name": "BMvTbl.GetAtkGuardFlag",
+      "string_file_offset": 5597296,
+      "string_rva": 5600368,
+      "wrapper_rvas": [
+        4753824
+      ],
+      "script_uses": 11,
+      "evidence": [
+        {
+          "registration_rva": 4777835,
+          "wrapper_va": 8948128,
+          "wrapper_rva": 4753824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetBoss",
+      "full_name": "BMvTbl.GetBoss",
+      "string_file_offset": 5597708,
+      "string_rva": 5600780,
+      "wrapper_rvas": [
+        4747328
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780211,
+          "wrapper_va": 8941632,
+          "wrapper_rva": 4747328
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetBoundFlag",
+      "full_name": "BMvTbl.GetBoundFlag",
+      "string_file_offset": 5594296,
+      "string_rva": 5597368,
+      "wrapper_rvas": [
+        315648
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793779,
+          "wrapper_va": 4509952,
+          "wrapper_rva": 315648
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetBoundTime",
+      "full_name": "BMvTbl.GetBoundTime",
+      "string_file_offset": 5594324,
+      "string_rva": 5597396,
+      "wrapper_rvas": [
+        196928
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793717,
+          "wrapper_va": 4391232,
+          "wrapper_rva": 196928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetBoundTimeAll",
+      "full_name": "BMvTbl.GetBoundTimeAll",
+      "string_file_offset": 5594340,
+      "string_rva": 5597412,
+      "wrapper_rvas": [
+        315632
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793748,
+          "wrapper_va": 4509936,
+          "wrapper_rva": 315632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetBoundVectorStatus",
+      "full_name": "BMvTbl.GetBoundVectorStatus",
+      "string_file_offset": 5594396,
+      "string_rva": 5597468,
+      "wrapper_rvas": [
+        4772992
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792810,
+          "wrapper_va": 8967296,
+          "wrapper_rva": 4772992
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetButtonHold",
+      "full_name": "BMvTbl.GetButtonHold",
+      "string_file_offset": 5594920,
+      "string_rva": 5597992,
+      "wrapper_rvas": [
+        4765824
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774535,
+          "wrapper_va": 8960128,
+          "wrapper_rva": 4765824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCallCount",
+      "full_name": "BMvTbl.GetCallCount",
+      "string_file_offset": 5599008,
+      "string_rva": 5602080,
+      "wrapper_rvas": [
+        315568
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783730,
+          "wrapper_va": 4509872,
+          "wrapper_rva": 315568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCelestialVorpalMode",
+      "full_name": "BMvTbl.GetCelestialVorpalMode",
+      "string_file_offset": 5597920,
+      "string_rva": 5600992,
+      "wrapper_rvas": [
+        4748656
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779452,
+          "wrapper_va": 8942960,
+          "wrapper_rva": 4748656
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCmdNumber",
+      "full_name": "BMvTbl.GetCmdNumber",
+      "string_file_offset": 5596132,
+      "string_rva": 5599204,
+      "wrapper_rvas": [
+        4764336
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774964,
+          "wrapper_va": 8958640,
+          "wrapper_rva": 4764336
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCmdParam",
+      "full_name": "BMvTbl.GetCmdParam",
+      "string_file_offset": 5596120,
+      "string_rva": 5599192,
+      "wrapper_rvas": [
+        4764384
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4774931,
+          "wrapper_va": 8958688,
+          "wrapper_rva": 4764384
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetComboInfo",
+      "full_name": "BMvTbl.GetComboInfo",
+      "string_file_offset": 5598452,
+      "string_rva": 5601524,
+      "wrapper_rvas": [
+        4748048
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779584,
+          "wrapper_va": 8942352,
+          "wrapper_rva": 4748048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetControlType",
+      "full_name": "BMvTbl.GetControlType",
+      "string_file_offset": 5597672,
+      "string_rva": 5600744,
+      "wrapper_rvas": [
+        4747584
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780277,
+          "wrapper_va": 8941888,
+          "wrapper_rva": 4747584
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCountMax",
+      "full_name": "BMvTbl.GetCountMax",
+      "string_file_offset": 5594312,
+      "string_rva": 5597384,
+      "wrapper_rvas": [
+        315680
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793810,
+          "wrapper_va": 4509984,
+          "wrapper_rva": 315680
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCountMaxTrue",
+      "full_name": "BMvTbl.GetCountMaxTrue",
+      "string_file_offset": 5594268,
+      "string_rva": 5597340,
+      "wrapper_rvas": [
+        315696
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793841,
+          "wrapper_va": 4510000,
+          "wrapper_rva": 315696
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCountNow",
+      "full_name": "BMvTbl.GetCountNow",
+      "string_file_offset": 5594284,
+      "string_rva": 5597356,
+      "wrapper_rvas": [
+        197008
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793872,
+          "wrapper_va": 4391312,
+          "wrapper_rva": 197008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCounterHitFlag",
+      "full_name": "BMvTbl.GetCounterHitFlag",
+      "string_file_offset": 5596708,
+      "string_rva": 5599780,
+      "wrapper_rvas": [
+        4750272
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778924,
+          "wrapper_va": 8944576,
+          "wrapper_rva": 4750272
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetCpuChara",
+      "full_name": "BMvTbl.GetCpuChara",
+      "string_file_offset": 5598736,
+      "string_rva": 5601808,
+      "wrapper_rvas": [
+        4756816
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4788050,
+          "wrapper_va": 8951120,
+          "wrapper_rva": 4756816
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetDataDelay",
+      "full_name": "BMvTbl.GetDataDelay",
+      "string_file_offset": 5599296,
+      "string_rva": 5602368,
+      "wrapper_rvas": [
+        315632
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784060,
+          "wrapper_va": 4509936,
+          "wrapper_rva": 315632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetDataDelayVal",
+      "full_name": "BMvTbl.GetDataDelayVal",
+      "string_file_offset": 5599280,
+      "string_rva": 5602352,
+      "wrapper_rvas": [
+        196928
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784027,
+          "wrapper_va": 4391232,
+          "wrapper_rva": 196928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetDataFrame",
+      "full_name": "BMvTbl.GetDataFrame",
+      "string_file_offset": 5599312,
+      "string_rva": 5602384,
+      "wrapper_rvas": [
+        315776
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783928,
+          "wrapper_va": 4510080,
+          "wrapper_rva": 315776
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetDataPattern",
+      "full_name": "BMvTbl.GetDataPattern",
+      "string_file_offset": 5598964,
+      "string_rva": 5602036,
+      "wrapper_rvas": [
+        315760
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783895,
+          "wrapper_va": 4510064,
+          "wrapper_rva": 315760
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetDrawAlpha",
+      "full_name": "BMvTbl.GetDrawAlpha",
+      "string_file_offset": 5596820,
+      "string_rva": 5599892,
+      "wrapper_rvas": [
+        4750528
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4778726,
+          "wrapper_va": 8944832,
+          "wrapper_rva": 4750528
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetFinalizeCode",
+      "full_name": "BMvTbl.GetFinalizeCode",
+      "string_file_offset": 5596204,
+      "string_rva": 5599276,
+      "wrapper_rvas": [
+        4765056
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4774733,
+          "wrapper_va": 8959360,
+          "wrapper_rva": 4765056
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetFixStageBGM",
+      "full_name": "BMvTbl.GetFixStageBGM",
+      "string_file_offset": 5594656,
+      "string_rva": 5597728,
+      "wrapper_rvas": [
+        4745632
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746581,
+          "wrapper_va": 8939936,
+          "wrapper_rva": 4745632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetFlags",
+      "full_name": "BMvTbl.GetFlags",
+      "string_file_offset": 5599256,
+      "string_rva": 5602328,
+      "wrapper_rvas": [
+        315648
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784093,
+          "wrapper_va": 4509952,
+          "wrapper_rva": 315648
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetFrameID",
+      "full_name": "BMvTbl.GetFrameID",
+      "string_file_offset": 5595516,
+      "string_rva": 5598588,
+      "wrapper_rvas": [
+        315680,
+        4761200,
+        4805712
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776152,
+          "wrapper_va": 8955504,
+          "wrapper_rva": 4761200
+        },
+        {
+          "registration_rva": 4783961,
+          "wrapper_va": 4509984,
+          "wrapper_rva": 315680
+        },
+        {
+          "registration_rva": 4808768,
+          "wrapper_va": 9000016,
+          "wrapper_rva": 4805712
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetFrameParam",
+      "full_name": "BMvTbl.GetFrameParam",
+      "string_file_offset": 5595556,
+      "string_rva": 5598628,
+      "wrapper_rvas": [
+        4761136
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776119,
+          "wrapper_va": 8955440,
+          "wrapper_rva": 4761136
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetHitCheckFlag",
+      "full_name": "BMvTbl.GetHitCheckFlag",
+      "string_file_offset": 5596468,
+      "string_rva": 5599540,
+      "wrapper_rvas": [
+        4751696
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4778363,
+          "wrapper_va": 8946000,
+          "wrapper_rva": 4751696
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetHitCheckMvFlag",
+      "full_name": "BMvTbl.GetHitCheckMvFlag",
+      "string_file_offset": 5596976,
+      "string_rva": 5600048,
+      "wrapper_rvas": [
+        4751424
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4778462,
+          "wrapper_va": 8945728,
+          "wrapper_rva": 4751424
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetHitStop",
+      "full_name": "BMvTbl.GetHitStop",
+      "string_file_offset": 5597192,
+      "string_rva": 5600264,
+      "wrapper_rvas": [
+        4767136
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776944,
+          "wrapper_va": 8961440,
+          "wrapper_rva": 4767136
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetHoseiBaseMinValue",
+      "full_name": "BMvTbl.GetHoseiBaseMinValue",
+      "string_file_offset": 5597956,
+      "string_rva": 5601028,
+      "wrapper_rvas": [
+        4748864
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779386,
+          "wrapper_va": 8943168,
+          "wrapper_rva": 4748864
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetHoseiMinValue",
+      "full_name": "BMvTbl.GetHoseiMinValue",
+      "string_file_offset": 5598004,
+      "string_rva": 5601076,
+      "wrapper_rvas": [
+        4749040
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779320,
+          "wrapper_va": 8943344,
+          "wrapper_rva": 4749040
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetInvAtkFlag",
+      "full_name": "BMvTbl.GetInvAtkFlag",
+      "string_file_offset": 5598100,
+      "string_rva": 5601172,
+      "wrapper_rvas": [
+        4749488
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779221,
+          "wrapper_va": 8943792,
+          "wrapper_rva": 4749488
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetInvDefFlag",
+      "full_name": "BMvTbl.GetInvDefFlag",
+      "string_file_offset": 5598048,
+      "string_rva": 5601120,
+      "wrapper_rvas": [
+        4749440
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779254,
+          "wrapper_va": 8943744,
+          "wrapper_rva": 4749440
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetLP",
+      "full_name": "BMvTbl.GetLP",
+      "string_file_offset": 5596300,
+      "string_rva": 5599372,
+      "wrapper_rvas": [
+        4763312
+      ],
+      "script_uses": 834,
+      "evidence": [
+        {
+          "registration_rva": 4775558,
+          "wrapper_va": 8957616,
+          "wrapper_rva": 4763312
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetLPEx",
+      "full_name": "BMvTbl.GetLPEx",
+      "string_file_offset": 5596260,
+      "string_rva": 5599332,
+      "wrapper_rvas": [
+        4763504
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4775657,
+          "wrapper_va": 8957808,
+          "wrapper_rva": 4763504
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMoveCode",
+      "full_name": "BMvTbl.GetMoveCode",
+      "string_file_offset": 5596192,
+      "string_rva": 5599264,
+      "wrapper_rvas": [
+        4764816
+      ],
+      "script_uses": 20,
+      "evidence": [
+        {
+          "registration_rva": 4774832,
+          "wrapper_va": 8959120,
+          "wrapper_rva": 4764816
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMoveCodeEx",
+      "full_name": "BMvTbl.GetMoveCodeEx",
+      "string_file_offset": 5596164,
+      "string_rva": 5599236,
+      "wrapper_rvas": [
+        4764912
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4774898,
+          "wrapper_va": 8959216,
+          "wrapper_rva": 4764912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMuki",
+      "full_name": "BMvTbl.GetMuki",
+      "string_file_offset": 5595112,
+      "string_rva": 5598184,
+      "wrapper_rvas": [
+        4766464
+      ],
+      "script_uses": 200,
+      "evidence": [
+        {
+          "registration_rva": 4774238,
+          "wrapper_va": 8960768,
+          "wrapper_rva": 4766464
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvAction",
+      "full_name": "BMvTbl.GetMvAction",
+      "string_file_offset": 5596084,
+      "string_rva": 5599156,
+      "wrapper_rvas": [
+        4764720
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4775096,
+          "wrapper_va": 8959024,
+          "wrapper_rva": 4764720
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvCancel",
+      "full_name": "BMvTbl.GetMvCancel",
+      "string_file_offset": 5597764,
+      "string_rva": 5600836,
+      "wrapper_rvas": [
+        4746704
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4780079,
+          "wrapper_va": 8941008,
+          "wrapper_rva": 4746704
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvCount",
+      "full_name": "BMvTbl.GetMvCount",
+      "string_file_offset": 5599024,
+      "string_rva": 5602096,
+      "wrapper_rvas": [
+        198656
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783763,
+          "wrapper_va": 4392960,
+          "wrapper_rva": 198656
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvCountFrame",
+      "full_name": "BMvTbl.GetMvCountFrame",
+      "string_file_offset": 5598980,
+      "string_rva": 5602052,
+      "wrapper_rvas": [
+        315744
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783796,
+          "wrapper_va": 4510048,
+          "wrapper_rva": 315744
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvHitStatus",
+      "full_name": "BMvTbl.GetMvHitStatus",
+      "string_file_offset": 5595708,
+      "string_rva": 5598780,
+      "wrapper_rvas": [
+        4767520
+      ],
+      "script_uses": 68,
+      "evidence": [
+        {
+          "registration_rva": 4776812,
+          "wrapper_va": 8961824,
+          "wrapper_rva": 4767520
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvHitStatusBF",
+      "full_name": "BMvTbl.GetMvHitStatusBF",
+      "string_file_offset": 5595724,
+      "string_rva": 5598796,
+      "wrapper_rvas": [
+        4767392
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776845,
+          "wrapper_va": 8961696,
+          "wrapper_rva": 4767392
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvName",
+      "full_name": "BMvTbl.GetMvName",
+      "string_file_offset": 5595744,
+      "string_rva": 5598816,
+      "wrapper_rvas": [
+        4767584
+      ],
+      "script_uses": 57,
+      "evidence": [
+        {
+          "registration_rva": 4776746,
+          "wrapper_va": 8961888,
+          "wrapper_rva": 4767584
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvNetworkInfo",
+      "full_name": "BMvTbl.GetMvNetworkInfo",
+      "string_file_offset": 5597464,
+      "string_rva": 5600536,
+      "wrapper_rvas": [
+        4756000
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777505,
+          "wrapper_va": 8950304,
+          "wrapper_rva": 4756000
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvRoundStatus",
+      "full_name": "BMvTbl.GetMvRoundStatus",
+      "string_file_offset": 5597504,
+      "string_rva": 5600576,
+      "wrapper_rvas": [
+        4756240
+      ],
+      "script_uses": 15,
+      "evidence": [
+        {
+          "registration_rva": 4777439,
+          "wrapper_va": 8950544,
+          "wrapper_rva": 4756240
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvStageStatus",
+      "full_name": "BMvTbl.GetMvStageStatus",
+      "string_file_offset": 5597444,
+      "string_rva": 5600516,
+      "wrapper_rvas": [
+        4756704
+      ],
+      "script_uses": 30,
+      "evidence": [
+        {
+          "registration_rva": 4777472,
+          "wrapper_va": 8951008,
+          "wrapper_rva": 4756704
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvStatus",
+      "full_name": "BMvTbl.GetMvStatus",
+      "string_file_offset": 5595828,
+      "string_rva": 5598900,
+      "wrapper_rvas": [
+        4768016
+      ],
+      "script_uses": 610,
+      "evidence": [
+        {
+          "registration_rva": 4776647,
+          "wrapper_va": 8962320,
+          "wrapper_rva": 4768016
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetMvStatusBF",
+      "full_name": "BMvTbl.GetMvStatusBF",
+      "string_file_offset": 5595772,
+      "string_rva": 5598844,
+      "wrapper_rvas": [
+        4767856
+      ],
+      "script_uses": 9,
+      "evidence": [
+        {
+          "registration_rva": 4776680,
+          "wrapper_va": 8962160,
+          "wrapper_rva": 4767856
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetName",
+      "full_name": "BMvTbl.GetName",
+      "string_file_offset": 5594356,
+      "string_rva": 5597428,
+      "wrapper_rvas": [
+        196912
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793655,
+          "wrapper_va": 4391216,
+          "wrapper_rva": 196912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetNoHoseiHitFlag",
+      "full_name": "BMvTbl.GetNoHoseiHitFlag",
+      "string_file_offset": 5596780,
+      "string_rva": 5599852,
+      "wrapper_rvas": [
+        4750976
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778792,
+          "wrapper_va": 8945280,
+          "wrapper_rva": 4750976
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetNum",
+      "full_name": "BMvTbl.GetNum",
+      "string_file_offset": 5594040,
+      "string_rva": 5597112,
+      "wrapper_rvas": [
+        196880,
+        331584
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793500,
+          "wrapper_va": 4391184,
+          "wrapper_rva": 196880
+        },
+        {
+          "registration_rva": 4809762,
+          "wrapper_va": 4525888,
+          "wrapper_rva": 331584
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetPP",
+      "full_name": "BMvTbl.GetPP",
+      "string_file_offset": 5596308,
+      "string_rva": 5599380,
+      "wrapper_rvas": [
+        4763728
+      ],
+      "script_uses": 485,
+      "evidence": [
+        {
+          "registration_rva": 4775459,
+          "wrapper_va": 8958032,
+          "wrapper_rva": 4763728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetParam0",
+      "full_name": "BMvTbl.GetParam0",
+      "string_file_offset": 5599268,
+      "string_rva": 5602340,
+      "wrapper_rvas": [
+        315696
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784126,
+          "wrapper_va": 4510000,
+          "wrapper_rva": 315696
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetParam1",
+      "full_name": "BMvTbl.GetParam1",
+      "string_file_offset": 5599232,
+      "string_rva": 5602304,
+      "wrapper_rvas": [
+        197008
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784159,
+          "wrapper_va": 4391312,
+          "wrapper_rva": 197008
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetParam2",
+      "full_name": "BMvTbl.GetParam2",
+      "string_file_offset": 5599244,
+      "string_rva": 5602316,
+      "wrapper_rvas": [
+        315712
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784192,
+          "wrapper_va": 4510016,
+          "wrapper_rva": 315712
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetParam3",
+      "full_name": "BMvTbl.GetParam3",
+      "string_file_offset": 5599208,
+      "string_rva": 5602280,
+      "wrapper_rvas": [
+        315728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784225,
+          "wrapper_va": 4510032,
+          "wrapper_rva": 315728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetPlayerNo",
+      "full_name": "BMvTbl.GetPlayerNo",
+      "string_file_offset": 5594600,
+      "string_rva": 5597672,
+      "wrapper_rvas": [
+        4766944
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774073,
+          "wrapper_va": 8961248,
+          "wrapper_rva": 4766944
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetPosition",
+      "full_name": "BMvTbl.GetPosition",
+      "string_file_offset": 5597100,
+      "string_rva": 5600172,
+      "wrapper_rvas": [
+        4769632
+      ],
+      "script_uses": 209,
+      "evidence": [
+        {
+          "registration_rva": 4777142,
+          "wrapper_va": 8963936,
+          "wrapper_rva": 4769632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetPositionBuffer",
+      "full_name": "BMvTbl.GetPositionBuffer",
+      "string_file_offset": 5597716,
+      "string_rva": 5600788,
+      "wrapper_rvas": [
+        4747632
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780244,
+          "wrapper_va": 8941936,
+          "wrapper_rva": 4747632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetPower",
+      "full_name": "BMvTbl.GetPower",
+      "string_file_offset": 5594364,
+      "string_rva": 5597436,
+      "wrapper_rvas": [
+        196864,
+        196944
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793686,
+          "wrapper_va": 4391248,
+          "wrapper_rva": 196944
+        },
+        {
+          "registration_rva": 4794410,
+          "wrapper_va": 4391168,
+          "wrapper_rva": 196864
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetRapidBeatType",
+      "full_name": "BMvTbl.GetRapidBeatType",
+      "string_file_offset": 5597688,
+      "string_rva": 5600760,
+      "wrapper_rvas": [
+        4747472
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780310,
+          "wrapper_va": 8941776,
+          "wrapper_rva": 4747472
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetRecoverMvFlags",
+      "full_name": "BMvTbl.GetRecoverMvFlags",
+      "string_file_offset": 5597604,
+      "string_rva": 5600676,
+      "wrapper_rvas": [
+        4744848
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4780442,
+          "wrapper_va": 8939152,
+          "wrapper_rva": 4744848
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetRecoverStatus",
+      "full_name": "BMvTbl.GetRecoverStatus",
+      "string_file_offset": 5596608,
+      "string_rva": 5599680,
+      "wrapper_rvas": [
+        4755936
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778099,
+          "wrapper_va": 8950240,
+          "wrapper_rva": 4755936
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSP",
+      "full_name": "BMvTbl.GetSP",
+      "string_file_offset": 5596364,
+      "string_rva": 5599436,
+      "wrapper_rvas": [
+        4764016
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4775360,
+          "wrapper_va": 8958320,
+          "wrapper_rva": 4764016
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetScale",
+      "full_name": "BMvTbl.GetScale",
+      "string_file_offset": 5597024,
+      "string_rva": 5600096,
+      "wrapper_rvas": [
+        4768112
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4777373,
+          "wrapper_va": 8962416,
+          "wrapper_rva": 4768112
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetScreenPosition",
+      "full_name": "BMvTbl.GetScreenPosition",
+      "string_file_offset": 5597080,
+      "string_rva": 5600152,
+      "wrapper_rvas": [
+        4769440
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777241,
+          "wrapper_va": 8963744,
+          "wrapper_rva": 4769440
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSelectBgm",
+      "full_name": "BMvTbl.GetSelectBgm",
+      "string_file_offset": 5594724,
+      "string_rva": 5597796,
+      "wrapper_rvas": [
+        4745776
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746488,
+          "wrapper_va": 8940080,
+          "wrapper_rva": 4745776
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSelectColor",
+      "full_name": "BMvTbl.GetSelectColor",
+      "string_file_offset": 5598352,
+      "string_rva": 5601424,
+      "wrapper_rvas": [
+        4767088
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779815,
+          "wrapper_va": 8961392,
+          "wrapper_rva": 4767088
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSkillLv",
+      "full_name": "BMvTbl.GetSkillLv",
+      "string_file_offset": 5596096,
+      "string_rva": 5599168,
+      "wrapper_rvas": [
+        4764432
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774997,
+          "wrapper_va": 8958736,
+          "wrapper_rva": 4764432
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSparkDisableAttack",
+      "full_name": "BMvTbl.GetSparkDisableAttack",
+      "string_file_offset": 5596048,
+      "string_rva": 5599120,
+      "wrapper_rvas": [
+        4764672
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775162,
+          "wrapper_va": 8958976,
+          "wrapper_rva": 4764672
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSparkDisableMove",
+      "full_name": "BMvTbl.GetSparkDisableMove",
+      "string_file_offset": 5596004,
+      "string_rva": 5599076,
+      "wrapper_rvas": [
+        4764576
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775228,
+          "wrapper_va": 8958880,
+          "wrapper_rva": 4764576
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetStickHold",
+      "full_name": "BMvTbl.GetStickHold",
+      "string_file_offset": 5594976,
+      "string_rva": 5598048,
+      "wrapper_rvas": [
+        4765920
+      ],
+      "script_uses": 7,
+      "evidence": [
+        {
+          "registration_rva": 4774502,
+          "wrapper_va": 8960224,
+          "wrapper_rva": 4765920
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSubtitleFlag",
+      "full_name": "BMvTbl.GetSubtitleFlag",
+      "string_file_offset": 5597552,
+      "string_rva": 5600624,
+      "wrapper_rvas": [
+        4744832
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780475,
+          "wrapper_va": 8939136,
+          "wrapper_rva": 4744832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetSuperArmorFlag",
+      "full_name": "BMvTbl.GetSuperArmorFlag",
+      "string_file_offset": 5596892,
+      "string_rva": 5599964,
+      "wrapper_rvas": [
+        4750784
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778594,
+          "wrapper_va": 8945088,
+          "wrapper_rva": 4750784
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetTutoMvFlag",
+      "full_name": "BMvTbl.GetTutoMvFlag",
+      "string_file_offset": 5598316,
+      "string_rva": 5601388,
+      "wrapper_rvas": [
+        4747872
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4779914,
+          "wrapper_va": 8942176,
+          "wrapper_rva": 4747872
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetUkemifailedtime",
+      "full_name": "BMvTbl.GetUkemifailedtime",
+      "string_file_offset": 5594168,
+      "string_rva": 5597240,
+      "wrapper_rvas": [
+        196832
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4794348,
+          "wrapper_va": 4391136,
+          "wrapper_rva": 196832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetUkeminum_g",
+      "full_name": "BMvTbl.GetUkeminum_g",
+      "string_file_offset": 5595244,
+      "string_rva": 5598316,
+      "wrapper_rvas": [
+        196848
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4794379,
+          "wrapper_va": 4391152,
+          "wrapper_rva": 196848
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVecCount",
+      "full_name": "BMvTbl.GetVecCount",
+      "string_file_offset": 5594008,
+      "string_rva": 5597080,
+      "wrapper_rvas": [
+        196896
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793531,
+          "wrapper_va": 4391200,
+          "wrapper_rva": 196896
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVecMuki",
+      "full_name": "BMvTbl.GetVecMuki",
+      "string_file_offset": 5594020,
+      "string_rva": 5597092,
+      "wrapper_rvas": [
+        315584
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793562,
+          "wrapper_va": 4509888,
+          "wrapper_rva": 315584
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVecX",
+      "full_name": "BMvTbl.GetVecX",
+      "string_file_offset": 5594212,
+      "string_rva": 5597284,
+      "wrapper_rvas": [
+        288384
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793965,
+          "wrapper_va": 4482688,
+          "wrapper_rva": 288384
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVecY",
+      "full_name": "BMvTbl.GetVecY",
+      "string_file_offset": 5594220,
+      "string_rva": 5597292,
+      "wrapper_rvas": [
+        288416
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793996,
+          "wrapper_va": 4482720,
+          "wrapper_rva": 288416
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVectime",
+      "full_name": "BMvTbl.GetVectime",
+      "string_file_offset": 5594156,
+      "string_rva": 5597228,
+      "wrapper_rvas": [
+        315568
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4794317,
+          "wrapper_va": 4509872,
+          "wrapper_rva": 315568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVector",
+      "full_name": "BMvTbl.GetVector",
+      "string_file_offset": 5597156,
+      "string_rva": 5600228,
+      "wrapper_rvas": [
+        4769792
+      ],
+      "script_uses": 165,
+      "evidence": [
+        {
+          "registration_rva": 4777010,
+          "wrapper_va": 8964096,
+          "wrapper_rva": 4769792
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetVsValue_HP",
+      "full_name": "BMvTbl.GetVsValue_HP",
+      "string_file_offset": 5598148,
+      "string_rva": 5601220,
+      "wrapper_rvas": [
+        4749280
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779056,
+          "wrapper_va": 8943584,
+          "wrapper_rva": 4749280
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "GetWallCount",
+      "full_name": "BMvTbl.GetWallCount",
+      "string_file_offset": 5593992,
+      "string_rva": 5597064,
+      "wrapper_rvas": [
+        315616
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793624,
+          "wrapper_va": 4509920,
+          "wrapper_rva": 315616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "HitPat_Check",
+      "full_name": "BMvTbl.HitPat_Check",
+      "string_file_offset": 5596500,
+      "string_rva": 5599572,
+      "wrapper_rvas": [
+        4752048
+      ],
+      "script_uses": 6,
+      "evidence": [
+        {
+          "registration_rva": 4778297,
+          "wrapper_va": 8946352,
+          "wrapper_rva": 4752048
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsActivePlayer",
+      "full_name": "BMvTbl.IsActivePlayer",
+      "string_file_offset": 5594612,
+      "string_rva": 5597684,
+      "wrapper_rvas": [
+        4766736
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774106,
+          "wrapper_va": 8961040,
+          "wrapper_rva": 4766736
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsBgmAuto",
+      "full_name": "BMvTbl.IsBgmAuto",
+      "string_file_offset": 5594688,
+      "string_rva": 5597760,
+      "wrapper_rvas": [
+        4745760
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746519,
+          "wrapper_va": 8940064,
+          "wrapper_rva": 4745760
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsBgmMute",
+      "full_name": "BMvTbl.IsBgmMute",
+      "string_file_offset": 5594700,
+      "string_rva": 5597772,
+      "wrapper_rvas": [
+        4745744
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746550,
+          "wrapper_va": 8940048,
+          "wrapper_rva": 4745744
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsBound",
+      "full_name": "BMvTbl.IsBound",
+      "string_file_offset": 5594032,
+      "string_rva": 5597104,
+      "wrapper_rvas": [
+        196832
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793469,
+          "wrapper_va": 4391136,
+          "wrapper_rva": 196832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsCapture",
+      "full_name": "BMvTbl.IsCapture",
+      "string_file_offset": 5594060,
+      "string_rva": 5597132,
+      "wrapper_rvas": [
+        315568
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4793438,
+          "wrapper_va": 4509872,
+          "wrapper_rva": 315568
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsCpu",
+      "full_name": "BMvTbl.IsCpu",
+      "string_file_offset": 5597776,
+      "string_rva": 5600848,
+      "wrapper_rvas": [
+        4747824
+      ],
+      "script_uses": 19,
+      "evidence": [
+        {
+          "registration_rva": 4780112,
+          "wrapper_va": 8942128,
+          "wrapper_rva": 4747824
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsDown",
+      "full_name": "BMvTbl.IsDown",
+      "string_file_offset": 5594188,
+      "string_rva": 5597260,
+      "wrapper_rvas": [
+        315664,
+        315808
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784902,
+          "wrapper_va": 4510112,
+          "wrapper_rva": 315808
+        },
+        {
+          "registration_rva": 4794027,
+          "wrapper_va": 4509968,
+          "wrapper_rva": 315664
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsExistAtkCatchRect",
+      "full_name": "BMvTbl.IsExistAtkCatchRect",
+      "string_file_offset": 5596688,
+      "string_rva": 5599760,
+      "wrapper_rvas": [
+        4753184
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777967,
+          "wrapper_va": 8947488,
+          "wrapper_rva": 4753184
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsFileAlive",
+      "full_name": "BMvTbl.IsFileAlive",
+      "string_file_offset": 5594428,
+      "string_rva": 5597500,
+      "wrapper_rvas": [
+        4772000
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792748,
+          "wrapper_va": 8966304,
+          "wrapper_rva": 4772000
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsFrameUpdate",
+      "full_name": "BMvTbl.IsFrameUpdate",
+      "string_file_offset": 5598948,
+      "string_rva": 5602020,
+      "wrapper_rvas": [
+        315616
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783862,
+          "wrapper_va": 4509920,
+          "wrapper_rva": 315616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsLanding",
+      "full_name": "BMvTbl.IsLanding",
+      "string_file_offset": 5599328,
+      "string_rva": 5602400,
+      "wrapper_rvas": [
+        196944
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783994,
+          "wrapper_va": 4391248,
+          "wrapper_rva": 196944
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsMissionSample",
+      "full_name": "BMvTbl.IsMissionSample",
+      "string_file_offset": 5597748,
+      "string_rva": 5600820,
+      "wrapper_rvas": [
+        4747696
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780178,
+          "wrapper_va": 8942000,
+          "wrapper_rva": 4747696
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsSelectBgm",
+      "full_name": "BMvTbl.IsSelectBgm",
+      "string_file_offset": 5594712,
+      "string_rva": 5597784,
+      "wrapper_rvas": [
+        4745808
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746457,
+          "wrapper_va": 8940112,
+          "wrapper_rva": 4745808
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsStartSide",
+      "full_name": "BMvTbl.IsStartSide",
+      "string_file_offset": 5597736,
+      "string_rva": 5600808,
+      "wrapper_rvas": [
+        4747760
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780145,
+          "wrapper_va": 8942064,
+          "wrapper_rva": 4747760
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsStartTrigger",
+      "full_name": "BMvTbl.IsStartTrigger",
+      "string_file_offset": 5594936,
+      "string_rva": 5598008,
+      "wrapper_rvas": [
+        4765408
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774568,
+          "wrapper_va": 8959712,
+          "wrapper_rva": 4765408
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsTrainingBattle",
+      "full_name": "BMvTbl.IsTrainingBattle",
+      "string_file_offset": 5598716,
+      "string_rva": 5601788,
+      "wrapper_rvas": [
+        4756848
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4788014,
+          "wrapper_va": 8951152,
+          "wrapper_rva": 4756848
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "IsUpdate",
+      "full_name": "BMvTbl.IsUpdate",
+      "string_file_offset": 5598996,
+      "string_rva": 5602068,
+      "wrapper_rvas": [
+        315600
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4783829,
+          "wrapper_va": 4509904,
+          "wrapper_rva": 315600
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "JumpFrameID",
+      "full_name": "BMvTbl.JumpFrameID",
+      "string_file_offset": 5595528,
+      "string_rva": 5598600,
+      "wrapper_rvas": [
+        4757232
+      ],
+      "script_uses": 641,
+      "evidence": [
+        {
+          "registration_rva": 4776185,
+          "wrapper_va": 8951536,
+          "wrapper_rva": 4757232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "JumpFrameID_Reserve",
+      "full_name": "BMvTbl.JumpFrameID_Reserve",
+      "string_file_offset": 5595484,
+      "string_rva": 5598556,
+      "wrapper_rvas": [
+        4757168
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776218,
+          "wrapper_va": 8951472,
+          "wrapper_rva": 4757168
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MoveStartPosition",
+      "full_name": "BMvTbl.MoveStartPosition",
+      "string_file_offset": 5597060,
+      "string_rva": 5600132,
+      "wrapper_rvas": [
+        4768928
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777208,
+          "wrapper_va": 8963232,
+          "wrapper_rva": 4768928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MvBoundStatus",
+      "full_name": "BMvTbl.MvBoundStatus",
+      "string_file_offset": 5594196,
+      "string_rva": 5597268,
+      "wrapper_rvas": [
+        315664
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4794044,
+          "wrapper_va": 4509968,
+          "wrapper_rva": 315664
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MvBoundVectorStatus",
+      "full_name": "BMvTbl.MvBoundVectorStatus",
+      "string_file_offset": 5595260,
+      "string_rva": 5598332,
+      "wrapper_rvas": [
+        196864
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4794427,
+          "wrapper_va": 4391168,
+          "wrapper_rva": 196864
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MvHitStatus",
+      "full_name": "BMvTbl.MvHitStatus",
+      "string_file_offset": 5598696,
+      "string_rva": 5601768,
+      "wrapper_rvas": [
+        315808
+      ],
+      "script_uses": 14,
+      "evidence": [
+        {
+          "registration_rva": 4784925,
+          "wrapper_va": 4510112,
+          "wrapper_rva": 315808
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MvStageStatus",
+      "full_name": "BMvTbl.MvStageStatus",
+      "string_file_offset": 5600132,
+      "string_rva": 5603204,
+      "wrapper_rvas": [
+        315792
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4788145,
+          "wrapper_va": 4510096,
+          "wrapper_rva": 315792
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "MvStatus",
+      "full_name": "BMvTbl.MvStatus",
+      "string_file_offset": 5599220,
+      "string_rva": 5602292,
+      "wrapper_rvas": [
+        315728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4784242,
+          "wrapper_va": 4510032,
+          "wrapper_rva": 315728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "PcGauge_Set",
+      "full_name": "BMvTbl.PcGauge_Set",
+      "string_file_offset": 5596580,
+      "string_rva": 5599652,
+      "wrapper_rvas": [
+        4752816
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4778165,
+          "wrapper_va": 8947120,
+          "wrapper_rva": 4752816
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAirJumpOK",
+      "full_name": "BMvTbl.SetAirJumpOK",
+      "string_file_offset": 5595660,
+      "string_rva": 5598732,
+      "wrapper_rvas": [
+        4762704
+      ],
+      "script_uses": 3,
+      "evidence": [
+        {
+          "registration_rva": 4775888,
+          "wrapper_va": 8957008,
+          "wrapper_rva": 4762704
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAliveFlag",
+      "full_name": "BMvTbl.SetAliveFlag",
+      "string_file_offset": 5596744,
+      "string_rva": 5599816,
+      "wrapper_rvas": [
+        4750400
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778858,
+          "wrapper_va": 8944704,
+          "wrapper_rva": 4750400
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAngle",
+      "full_name": "BMvTbl.SetAngle",
+      "string_file_offset": 5597036,
+      "string_rva": 5600108,
+      "wrapper_rvas": [
+        4768416
+      ],
+      "script_uses": 66,
+      "evidence": [
+        {
+          "registration_rva": 4777274,
+          "wrapper_va": 8962720,
+          "wrapper_rva": 4768416
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAsFlag",
+      "full_name": "BMvTbl.SetAsFlag",
+      "string_file_offset": 5597368,
+      "string_rva": 5600440,
+      "wrapper_rvas": [
+        4754080
+      ],
+      "script_uses": 13,
+      "evidence": [
+        {
+          "registration_rva": 4777703,
+          "wrapper_va": 8948384,
+          "wrapper_rva": 4754080
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAsPosStatusFlag",
+      "full_name": "BMvTbl.SetAsPosStatusFlag",
+      "string_file_offset": 5597328,
+      "string_rva": 5600400,
+      "wrapper_rvas": [
+        4754256
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777769,
+          "wrapper_va": 8948560,
+          "wrapper_rva": 4754256
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAsStatusFlag",
+      "full_name": "BMvTbl.SetAsStatusFlag",
+      "string_file_offset": 5597312,
+      "string_rva": 5600384,
+      "wrapper_rvas": [
+        4754432
+      ],
+      "script_uses": 46,
+      "evidence": [
+        {
+          "registration_rva": 4777736,
+          "wrapper_va": 8948736,
+          "wrapper_rva": 4754432
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAtkCatchFlag",
+      "full_name": "BMvTbl.SetAtkCatchFlag",
+      "string_file_offset": 5597264,
+      "string_rva": 5600336,
+      "wrapper_rvas": [
+        4753296
+      ],
+      "script_uses": 10,
+      "evidence": [
+        {
+          "registration_rva": 4777901,
+          "wrapper_va": 8947600,
+          "wrapper_rva": 4753296
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetAtkGuardFlag",
+      "full_name": "BMvTbl.SetAtkGuardFlag",
+      "string_file_offset": 5597280,
+      "string_rva": 5600352,
+      "wrapper_rvas": [
+        4753904
+      ],
+      "script_uses": 36,
+      "evidence": [
+        {
+          "registration_rva": 4777802,
+          "wrapper_va": 8948208,
+          "wrapper_rva": 4753904
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetBattleBgm",
+      "full_name": "BMvTbl.SetBattleBgm",
+      "string_file_offset": 5594672,
+      "string_rva": 5597744,
+      "wrapper_rvas": [
+        4745616
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4746612,
+          "wrapper_va": 8939920,
+          "wrapper_rva": 4745616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetBoundFinalize",
+      "full_name": "BMvTbl.SetBoundFinalize",
+      "string_file_offset": 5594532,
+      "string_rva": 5597604,
+      "wrapper_rvas": [
+        4772688
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792593,
+          "wrapper_va": 8966992,
+          "wrapper_rva": 4772688
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetBoundStatus",
+      "full_name": "BMvTbl.SetBoundStatus",
+      "string_file_offset": 5594516,
+      "string_rva": 5597588,
+      "wrapper_rvas": [
+        4772880
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792562,
+          "wrapper_va": 8967184,
+          "wrapper_rva": 4772880
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCaptureHitFlag",
+      "full_name": "BMvTbl.SetCaptureHitFlag",
+      "string_file_offset": 5596836,
+      "string_rva": 5599908,
+      "wrapper_rvas": [
+        4750464
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778759,
+          "wrapper_va": 8944768,
+          "wrapper_rva": 4750464
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCelestialVorpalMode",
+      "full_name": "BMvTbl.SetCelestialVorpalMode",
+      "string_file_offset": 5597980,
+      "string_rva": 5601052,
+      "wrapper_rvas": [
+        4748752
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779419,
+          "wrapper_va": 8943056,
+          "wrapper_rva": 4748752
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetChipDamStatus",
+      "full_name": "BMvTbl.SetChipDamStatus",
+      "string_file_offset": 5597244,
+      "string_rva": 5600316,
+      "wrapper_rvas": [
+        4753616
+      ],
+      "script_uses": 6,
+      "evidence": [
+        {
+          "registration_rva": 4777868,
+          "wrapper_va": 8947920,
+          "wrapper_rva": 4753616
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetComboLimit",
+      "full_name": "BMvTbl.SetComboLimit",
+      "string_file_offset": 5596244,
+      "string_rva": 5599316,
+      "wrapper_rvas": [
+        4763104
+      ],
+      "script_uses": 7,
+      "evidence": [
+        {
+          "registration_rva": 4775756,
+          "wrapper_va": 8957408,
+          "wrapper_rva": 4763104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetComboRateValue",
+      "full_name": "BMvTbl.SetComboRateValue",
+      "string_file_offset": 5598500,
+      "string_rva": 5601572,
+      "wrapper_rvas": [
+        4748320
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779551,
+          "wrapper_va": 8942624,
+          "wrapper_rva": 4748320
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCommandFailTime",
+      "full_name": "BMvTbl.SetCommandFailTime",
+      "string_file_offset": 5595856,
+      "string_rva": 5598928,
+      "wrapper_rvas": [
+        4757584
+      ],
+      "script_uses": 19,
+      "evidence": [
+        {
+          "registration_rva": 4776581,
+          "wrapper_va": 8951888,
+          "wrapper_rva": 4757584
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCommandLongDelay",
+      "full_name": "BMvTbl.SetCommandLongDelay",
+      "string_file_offset": 5595964,
+      "string_rva": 5599036,
+      "wrapper_rvas": [
+        4760832
+      ],
+      "script_uses": 67,
+      "evidence": [
+        {
+          "registration_rva": 4776383,
+          "wrapper_va": 8955136,
+          "wrapper_rva": 4760832
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCommandShortDelay",
+      "full_name": "BMvTbl.SetCommandShortDelay",
+      "string_file_offset": 5595912,
+      "string_rva": 5598984,
+      "wrapper_rvas": [
+        4760752
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4776416,
+          "wrapper_va": 8955056,
+          "wrapper_rva": 4760752
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetCounterHitFlag",
+      "full_name": "BMvTbl.SetCounterHitFlag",
+      "string_file_offset": 5596760,
+      "string_rva": 5599832,
+      "wrapper_rvas": [
+        4750320
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778891,
+          "wrapper_va": 8944624,
+          "wrapper_rva": 4750320
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetDeleteMoveTable",
+      "full_name": "BMvTbl.SetDeleteMoveTable",
+      "string_file_offset": 5594900,
+      "string_rva": 5597972,
+      "wrapper_rvas": [
+        4765216
+      ],
+      "script_uses": 93,
+      "evidence": [
+        {
+          "registration_rva": 4774634,
+          "wrapper_va": 8959520,
+          "wrapper_rva": 4765216
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetDrawAlpha",
+      "full_name": "BMvTbl.SetDrawAlpha",
+      "string_file_offset": 5596876,
+      "string_rva": 5599948,
+      "wrapper_rvas": [
+        4750592
+      ],
+      "script_uses": 7,
+      "evidence": [
+        {
+          "registration_rva": 4778693,
+          "wrapper_va": 8944896,
+          "wrapper_rva": 4750592
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetFinalize",
+      "full_name": "BMvTbl.SetFinalize",
+      "string_file_offset": 5594852,
+      "string_rva": 5597924,
+      "wrapper_rvas": [
+        4765152
+      ],
+      "script_uses": 389,
+      "evidence": [
+        {
+          "registration_rva": 4774667,
+          "wrapper_va": 8959456,
+          "wrapper_rva": 4765152
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetFinalizeCode",
+      "full_name": "BMvTbl.SetFinalizeCode",
+      "string_file_offset": 5594864,
+      "string_rva": 5597936,
+      "wrapper_rvas": [
+        4765104
+      ],
+      "script_uses": 28,
+      "evidence": [
+        {
+          "registration_rva": 4774700,
+          "wrapper_va": 8959408,
+          "wrapper_rva": 4765104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetForceUkemiTimeLimitFlag",
+      "full_name": "BMvTbl.SetForceUkemiTimeLimitFlag",
+      "string_file_offset": 5598180,
+      "string_rva": 5601252,
+      "wrapper_rvas": [
+        4750144
+      ],
+      "script_uses": 23,
+      "evidence": [
+        {
+          "registration_rva": 4778990,
+          "wrapper_va": 8944448,
+          "wrapper_rva": 4750144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetGrdLimit",
+      "full_name": "BMvTbl.SetGrdLimit",
+      "string_file_offset": 5597944,
+      "string_rva": 5601016,
+      "wrapper_rvas": [
+        4748592
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4779485,
+          "wrapper_va": 8942896,
+          "wrapper_rva": 4748592
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetGuardFinalize",
+      "full_name": "BMvTbl.SetGuardFinalize",
+      "string_file_offset": 5594456,
+      "string_rva": 5597528,
+      "wrapper_rvas": [
+        4772272
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792686,
+          "wrapper_va": 8966576,
+          "wrapper_rva": 4772272
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetGuardStatus",
+      "full_name": "BMvTbl.SetGuardStatus",
+      "string_file_offset": 5594500,
+      "string_rva": 5597572,
+      "wrapper_rvas": [
+        4772464
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4792655,
+          "wrapper_va": 8966768,
+          "wrapper_rva": 4772464
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetHan6LayerMask",
+      "full_name": "BMvTbl.SetHan6LayerMask",
+      "string_file_offset": 5598408,
+      "string_rva": 5601480,
+      "wrapper_rvas": [
+        4747968
+      ],
+      "script_uses": 55,
+      "evidence": [
+        {
+          "registration_rva": 4779650,
+          "wrapper_va": 8942272,
+          "wrapper_rva": 4747968
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetHitCheckFlag",
+      "full_name": "BMvTbl.SetHitCheckFlag",
+      "string_file_offset": 5596452,
+      "string_rva": 5599524,
+      "wrapper_rvas": [
+        4751808
+      ],
+      "script_uses": 194,
+      "evidence": [
+        {
+          "registration_rva": 4778330,
+          "wrapper_va": 8946112,
+          "wrapper_rva": 4751808
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetHitStop",
+      "full_name": "BMvTbl.SetHitStop",
+      "string_file_offset": 5597232,
+      "string_rva": 5600304,
+      "wrapper_rvas": [
+        4767216
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4776911,
+          "wrapper_va": 8961520,
+          "wrapper_rva": 4767216
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetHoseiBaseMinValue",
+      "full_name": "BMvTbl.SetHoseiBaseMinValue",
+      "string_file_offset": 5598024,
+      "string_rva": 5601096,
+      "wrapper_rvas": [
+        4748944
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779353,
+          "wrapper_va": 8943248,
+          "wrapper_rva": 4748944
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetHoseiMinValue",
+      "full_name": "BMvTbl.SetHoseiMinValue",
+      "string_file_offset": 5598064,
+      "string_rva": 5601136,
+      "wrapper_rvas": [
+        4749120
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779287,
+          "wrapper_va": 8943424,
+          "wrapper_rva": 4749120
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetInvAtkFlag",
+      "full_name": "BMvTbl.SetInvAtkFlag",
+      "string_file_offset": 5598132,
+      "string_rva": 5601204,
+      "wrapper_rvas": [
+        4749600
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779155,
+          "wrapper_va": 8943904,
+          "wrapper_rva": 4749600
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetInvDefFlag",
+      "full_name": "BMvTbl.SetInvDefFlag",
+      "string_file_offset": 5598084,
+      "string_rva": 5601156,
+      "wrapper_rvas": [
+        4749536
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779188,
+          "wrapper_va": 8943840,
+          "wrapper_rva": 4749536
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetKasanariValue",
+      "full_name": "BMvTbl.SetKasanariValue",
+      "string_file_offset": 5596856,
+      "string_rva": 5599928,
+      "wrapper_rvas": [
+        4750656
+      ],
+      "script_uses": 8,
+      "evidence": [
+        {
+          "registration_rva": 4778660,
+          "wrapper_va": 8944960,
+          "wrapper_rva": 4750656
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetLP",
+      "full_name": "BMvTbl.SetLP",
+      "string_file_offset": 5596276,
+      "string_rva": 5599348,
+      "wrapper_rvas": [
+        4763264
+      ],
+      "script_uses": 1438,
+      "evidence": [
+        {
+          "registration_rva": 4775591,
+          "wrapper_va": 8957568,
+          "wrapper_rva": 4763264
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetLPEx",
+      "full_name": "BMvTbl.SetLPEx",
+      "string_file_offset": 5596268,
+      "string_rva": 5599340,
+      "wrapper_rvas": [
+        4763440
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4775690,
+          "wrapper_va": 8957744,
+          "wrapper_rva": 4763440
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMoveCode",
+      "full_name": "BMvTbl.SetMoveCode",
+      "string_file_offset": 5596180,
+      "string_rva": 5599252,
+      "wrapper_rvas": [
+        4764864
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4774799,
+          "wrapper_va": 8959168,
+          "wrapper_rva": 4764864
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMoveCodeEx",
+      "full_name": "BMvTbl.SetMoveCodeEx",
+      "string_file_offset": 5596148,
+      "string_rva": 5599220,
+      "wrapper_rvas": [
+        4764960
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4774865,
+          "wrapper_va": 8959264,
+          "wrapper_rva": 4764960
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMoveableFlag",
+      "full_name": "BMvTbl.SetMoveableFlag",
+      "string_file_offset": 5597400,
+      "string_rva": 5600472,
+      "wrapper_rvas": [
+        4754928
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4777637,
+          "wrapper_va": 8949232,
+          "wrapper_rva": 4754928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMoveableFlagEx",
+      "full_name": "BMvTbl.SetMoveableFlagEx",
+      "string_file_offset": 5597348,
+      "string_rva": 5600420,
+      "wrapper_rvas": [
+        4754656
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4777670,
+          "wrapper_va": 8948960,
+          "wrapper_rva": 4754656
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMuki",
+      "full_name": "BMvTbl.SetMuki",
+      "string_file_offset": 5595104,
+      "string_rva": 5598176,
+      "wrapper_rvas": [
+        4766528
+      ],
+      "script_uses": 187,
+      "evidence": [
+        {
+          "registration_rva": 4774205,
+          "wrapper_va": 8960832,
+          "wrapper_rva": 4766528
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMvAction",
+      "full_name": "BMvTbl.SetMvAction",
+      "string_file_offset": 5596072,
+      "string_rva": 5599144,
+      "wrapper_rvas": [
+        4764768
+      ],
+      "script_uses": 62,
+      "evidence": [
+        {
+          "registration_rva": 4775063,
+          "wrapper_va": 8959072,
+          "wrapper_rva": 4764768
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetMvHitStatus",
+      "full_name": "BMvTbl.SetMvHitStatus",
+      "string_file_offset": 5595756,
+      "string_rva": 5598828,
+      "wrapper_rvas": [
+        4767328
+      ],
+      "script_uses": 15,
+      "evidence": [
+        {
+          "registration_rva": 4776779,
+          "wrapper_va": 8961632,
+          "wrapper_rva": 4767328
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetNextMoveTable",
+      "full_name": "BMvTbl.SetNextMoveTable",
+      "string_file_offset": 5594880,
+      "string_rva": 5597952,
+      "wrapper_rvas": [
+        4765232
+      ],
+      "script_uses": 202,
+      "evidence": [
+        {
+          "registration_rva": 4774601,
+          "wrapper_va": 8959536,
+          "wrapper_rva": 4765232
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetNoHoseiFlag",
+      "full_name": "BMvTbl.SetNoHoseiFlag",
+      "string_file_offset": 5596996,
+      "string_rva": 5600068,
+      "wrapper_rvas": [
+        4751104
+      ],
+      "script_uses": 108,
+      "evidence": [
+        {
+          "registration_rva": 4778495,
+          "wrapper_va": 8945408,
+          "wrapper_rva": 4751104
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetNoHoseiHitFlag",
+      "full_name": "BMvTbl.SetNoHoseiHitFlag",
+      "string_file_offset": 5596800,
+      "string_rva": 5599872,
+      "wrapper_rvas": [
+        4751040
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4778825,
+          "wrapper_va": 8945344,
+          "wrapper_rva": 4751040
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetNoUkemiTimeLimitFlag",
+      "full_name": "BMvTbl.SetNoUkemiTimeLimitFlag",
+      "string_file_offset": 5596932,
+      "string_rva": 5600004,
+      "wrapper_rvas": [
+        4750912
+      ],
+      "script_uses": 2,
+      "evidence": [
+        {
+          "registration_rva": 4778528,
+          "wrapper_va": 8945216,
+          "wrapper_rva": 4750912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPP",
+      "full_name": "BMvTbl.SetPP",
+      "string_file_offset": 5596316,
+      "string_rva": 5599388,
+      "wrapper_rvas": [
+        4763648
+      ],
+      "script_uses": 439,
+      "evidence": [
+        {
+          "registration_rva": 4775492,
+          "wrapper_va": 8957952,
+          "wrapper_rva": 4763648
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPartnerFlag",
+      "full_name": "BMvTbl.SetPartnerFlag",
+      "string_file_offset": 5596728,
+      "string_rva": 5599800,
+      "wrapper_rvas": [
+        4750208
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778957,
+          "wrapper_va": 8944512,
+          "wrapper_rva": 4750208
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPattern",
+      "full_name": "BMvTbl.SetPattern",
+      "string_file_offset": 5594568,
+      "string_rva": 5597640,
+      "wrapper_rvas": [
+        4771216
+      ],
+      "script_uses": 264,
+      "evidence": [
+        {
+          "registration_rva": 4774139,
+          "wrapper_va": 8965520,
+          "wrapper_rva": 4771216
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPattern_Reserve",
+      "full_name": "BMvTbl.SetPattern_Reserve",
+      "string_file_offset": 5594580,
+      "string_rva": 5597652,
+      "wrapper_rvas": [
+        4771152
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4774172,
+          "wrapper_va": 8965456,
+          "wrapper_rva": 4771152
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPosition",
+      "full_name": "BMvTbl.SetPosition",
+      "string_file_offset": 5597112,
+      "string_rva": 5600184,
+      "wrapper_rvas": [
+        2104432,
+        4769008
+      ],
+      "script_uses": 437,
+      "evidence": [
+        {
+          "registration_rva": 4777175,
+          "wrapper_va": 8963312,
+          "wrapper_rva": 4769008
+        },
+        {
+          "registration_rva": 4819925,
+          "wrapper_va": 6298736,
+          "wrapper_rva": 2104432
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetPrio",
+      "full_name": "BMvTbl.SetPrio",
+      "string_file_offset": 5595476,
+      "string_rva": 5598548,
+      "wrapper_rvas": [
+        145280,
+        4761072
+      ],
+      "script_uses": 25,
+      "evidence": [
+        {
+          "registration_rva": 4776317,
+          "wrapper_va": 8955376,
+          "wrapper_rva": 4761072
+        },
+        {
+          "registration_rva": 4820468,
+          "wrapper_va": 4339584,
+          "wrapper_rva": 145280
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetRecoverMvFlags",
+      "full_name": "BMvTbl.SetRecoverMvFlags",
+      "string_file_offset": 5597584,
+      "string_rva": 5600656,
+      "wrapper_rvas": [
+        4744912
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780409,
+          "wrapper_va": 8939216,
+          "wrapper_rva": 4744912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetRoundEnd",
+      "full_name": "BMvTbl.SetRoundEnd",
+      "string_file_offset": 5597416,
+      "string_rva": 5600488,
+      "wrapper_rvas": [
+        4755792
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777538,
+          "wrapper_va": 8950096,
+          "wrapper_rva": 4755792
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetRoundStart",
+      "full_name": "BMvTbl.SetRoundStart",
+      "string_file_offset": 5597428,
+      "string_rva": 5600500,
+      "wrapper_rvas": [
+        4755712
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777571,
+          "wrapper_va": 8950016,
+          "wrapper_rva": 4755712
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetRoundStartType",
+      "full_name": "BMvTbl.SetRoundStartType",
+      "string_file_offset": 5597380,
+      "string_rva": 5600452,
+      "wrapper_rvas": [
+        4755632
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777604,
+          "wrapper_va": 8949936,
+          "wrapper_rva": 4755632
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSP",
+      "full_name": "BMvTbl.SetSP",
+      "string_file_offset": 5596324,
+      "string_rva": 5599396,
+      "wrapper_rvas": [
+        4763920
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4775393,
+          "wrapper_va": 8958224,
+          "wrapper_rva": 4763920
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetScale",
+      "full_name": "BMvTbl.SetScale",
+      "string_file_offset": 5597012,
+      "string_rva": 5600084,
+      "wrapper_rvas": [
+        4768224
+      ],
+      "script_uses": 50,
+      "evidence": [
+        {
+          "registration_rva": 4777340,
+          "wrapper_va": 8962528,
+          "wrapper_rva": 4768224
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSkillLv",
+      "full_name": "BMvTbl.SetSkillLv",
+      "string_file_offset": 5596108,
+      "string_rva": 5599180,
+      "wrapper_rvas": [
+        4764480
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775030,
+          "wrapper_va": 8958784,
+          "wrapper_rva": 4764480
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSousaiFlag",
+      "full_name": "BMvTbl.SetSousaiFlag",
+      "string_file_offset": 5596652,
+      "string_rva": 5599724,
+      "wrapper_rvas": [
+        4749952
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778033,
+          "wrapper_va": 8944256,
+          "wrapper_rva": 4749952
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSpPrio",
+      "full_name": "BMvTbl.SetSpPrio",
+      "string_file_offset": 5595952,
+      "string_rva": 5599024,
+      "wrapper_rvas": [
+        4760912
+      ],
+      "script_uses": 4,
+      "evidence": [
+        {
+          "registration_rva": 4776350,
+          "wrapper_va": 8955216,
+          "wrapper_rva": 4760912
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSparkDisableAttack",
+      "full_name": "BMvTbl.SetSparkDisableAttack",
+      "string_file_offset": 5596024,
+      "string_rva": 5599096,
+      "wrapper_rvas": [
+        4764624
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775129,
+          "wrapper_va": 8958928,
+          "wrapper_rva": 4764624
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSparkDisableMove",
+      "full_name": "BMvTbl.SetSparkDisableMove",
+      "string_file_offset": 5595984,
+      "string_rva": 5599056,
+      "wrapper_rvas": [
+        4764528
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4775195,
+          "wrapper_va": 8958832,
+          "wrapper_rva": 4764528
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetSuperArmorFlag",
+      "full_name": "BMvTbl.SetSuperArmorFlag",
+      "string_file_offset": 5596956,
+      "string_rva": 5600028,
+      "wrapper_rvas": [
+        4750848
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778561,
+          "wrapper_va": 8945152,
+          "wrapper_rva": 4750848
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetTutoMvFlag",
+      "full_name": "BMvTbl.SetTutoMvFlag",
+      "string_file_offset": 5598300,
+      "string_rva": 5601372,
+      "wrapper_rvas": [
+        4747920
+      ],
+      "script_uses": 27,
+      "evidence": [
+        {
+          "registration_rva": 4779881,
+          "wrapper_va": 8942224,
+          "wrapper_rva": 4747920
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVector",
+      "full_name": "BMvTbl.SetVector",
+      "string_file_offset": 5597204,
+      "string_rva": 5600276,
+      "wrapper_rvas": [
+        4770592
+      ],
+      "script_uses": 471,
+      "evidence": [
+        {
+          "registration_rva": 4776977,
+          "wrapper_va": 8964896,
+          "wrapper_rva": 4770592
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVector_CCharaVector",
+      "full_name": "BMvTbl.SetVector_CCharaVector",
+      "string_file_offset": 5597168,
+      "string_rva": 5600240,
+      "wrapper_rvas": [
+        4770432
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4777043,
+          "wrapper_va": 8964736,
+          "wrapper_rva": 4770432
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVector_MaxX",
+      "full_name": "BMvTbl.SetVector_MaxX",
+      "string_file_offset": 5597140,
+      "string_rva": 5600212,
+      "wrapper_rvas": [
+        4770528
+      ],
+      "script_uses": 26,
+      "evidence": [
+        {
+          "registration_rva": 4777109,
+          "wrapper_va": 8964832,
+          "wrapper_rva": 4770528
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVirtualGuardFlag",
+      "full_name": "BMvTbl.SetVirtualGuardFlag",
+      "string_file_offset": 5596912,
+      "string_rva": 5599984,
+      "wrapper_rvas": [
+        4750720
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4778627,
+          "wrapper_va": 8945024,
+          "wrapper_rva": 4750720
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVsAtkValue",
+      "full_name": "BMvTbl.SetVsAtkValue",
+      "string_file_offset": 5598164,
+      "string_rva": 5601236,
+      "wrapper_rvas": [
+        4749728
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779089,
+          "wrapper_va": 8944032,
+          "wrapper_rva": 4749728
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVsDefValue",
+      "full_name": "BMvTbl.SetVsDefValue",
+      "string_file_offset": 5598116,
+      "string_rva": 5601188,
+      "wrapper_rvas": [
+        4749664
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779122,
+          "wrapper_va": 8943968,
+          "wrapper_rva": 4749664
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetVsValue",
+      "full_name": "BMvTbl.SetVsValue",
+      "string_file_offset": 5598208,
+      "string_rva": 5601280,
+      "wrapper_rvas": [
+        4749216
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4779023,
+          "wrapper_va": 8943520,
+          "wrapper_rva": 4749216
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "SetWallCount",
+      "full_name": "BMvTbl.SetWallCount",
+      "string_file_offset": 5595692,
+      "string_rva": 5598764,
+      "wrapper_rvas": [
+        4762880
+      ],
+      "script_uses": 5,
+      "evidence": [
+        {
+          "registration_rva": 4775822,
+          "wrapper_va": 8957184,
+          "wrapper_rva": 4762880
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "TM_GetCancelShieldTiming",
+      "full_name": "BMvTbl.TM_GetCancelShieldTiming",
+      "string_file_offset": 5598240,
+      "string_rva": 5601312,
+      "wrapper_rvas": [
+        4746896
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780046,
+          "wrapper_va": 8941200,
+          "wrapper_rva": 4746896
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "TM_SetDownStatus",
+      "full_name": "BMvTbl.TM_SetDownStatus",
+      "string_file_offset": 5598220,
+      "string_rva": 5601292,
+      "wrapper_rvas": [
+        4747024
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4780013,
+          "wrapper_va": 8941328,
+          "wrapper_rva": 4747024
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "TalkScript_IsDone",
+      "full_name": "BMvTbl.TalkScript_IsDone",
+      "string_file_offset": 5597484,
+      "string_rva": 5600556,
+      "wrapper_rvas": [
+        4756928
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4777406,
+          "wrapper_va": 8951232,
+          "wrapper_rva": 4756928
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "TobiParamEndFlag_Func",
+      "full_name": "BMvTbl.TobiParamEndFlag_Func",
+      "string_file_offset": 5595588,
+      "string_rva": 5598660,
+      "wrapper_rvas": [
+        4762144
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4776020,
+          "wrapper_va": 8956448,
+          "wrapper_rva": 4762144
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "TobiParam_Func",
+      "full_name": "BMvTbl.TobiParam_Func",
+      "string_file_offset": 5595572,
+      "string_rva": 5598644,
+      "wrapper_rvas": [
+        4762384
+      ],
+      "script_uses": 82,
+      "evidence": [
+        {
+          "registration_rva": 4775987,
+          "wrapper_va": 8956688,
+          "wrapper_rva": 4762384
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "UseSkill_Check",
+      "full_name": "BMvTbl.UseSkill_Check",
+      "string_file_offset": 5596484,
+      "string_rva": 5599556,
+      "wrapper_rvas": [
+        4752272
+      ],
+      "script_uses": 1,
+      "evidence": [
+        {
+          "registration_rva": 4778264,
+          "wrapper_va": 8946576,
+          "wrapper_rva": 4752272
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "VGuard_CheckKeep",
+      "full_name": "BMvTbl.VGuard_CheckKeep",
+      "string_file_offset": 5595084,
+      "string_rva": 5598156,
+      "wrapper_rvas": [
+        4766352
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774304,
+          "wrapper_va": 8960656,
+          "wrapper_rva": 4766352
+        }
+      ]
+    },
+    {
+      "namespace": "BMvTbl",
+      "name": "VGuard_Time",
+      "full_name": "BMvTbl.VGuard_Time",
+      "string_file_offset": 5595040,
+      "string_rva": 5598112,
+      "wrapper_rvas": [
+        4766288
+      ],
+      "script_uses": 0,
+      "evidence": [
+        {
+          "registration_rva": 4774337,
+          "wrapper_va": 8960592,
+          "wrapper_rva": 4766288
+        }
+      ]
+    }
+  ]
+}

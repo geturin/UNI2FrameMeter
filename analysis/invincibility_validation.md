@@ -33,14 +33,21 @@ Sources:
   recording confirmed that P1 changed 23 -> 0 while the unchanged Kuon P2
   remained 23.
 - Entity `+0x674`: action-local logic frame.
-- Entity `+0x680` is **not** a stable move id. Its values changed between
-  sessions and must remain diagnostic only.
-- Entity `+0x4A0` bit 0 is an immediate head-invulnerability filter. It is set
+- Entity `+0x680` is **not** a stable move id: its absolute values change
+  between sessions and must never be mapped to a move. Across the controlled
+  captures, however, a relative value change together with the `+0x674` reset
+  consistently marks a new action instance, including chained follow-ups.
+- Entity `+0x4A0` bit 0 is the head-attribute rejection filter, but the mask is
+  live only while its timed-state lifetime at `+0x4AC` is positive. It is set
   on action frames 3-10 in the Kuon A recording and 3-11 in the Hyde A
-  recording, then clears on the next sampled logic frame.
-- Entity `+0x60` bit 8 is the immediate vulnerable/full-invulnerable switch.
-  It is clear on action frames 1-15 in the Kuon B recording and 1-13 in the
-  Hyde B recording, then becomes set on the next sampled logic frame.
+  recording. Gating the mask fixes expired values lingering after the window.
+- The current action descriptor is reached through `[[entity+0x648]+0x10C]`.
+  Its byte `+0x0D` is read by the native strike/throw predicates: values 3, 4,
+  and 5 mean strike, throw, and both/full respectively.
+- Entity bytes `+0x204..+0x207` are four independent system invulnerability
+  countdowns: strike, throw, extended strike, and extended throw. Wake-up and
+  VO-style invulnerability use these timers. Full is descriptor type 5 or the
+  simultaneous effective native strike and throw results.
 
 The Wiki/script information is validation data only. Runtime classification
 does not identify a character or move and does not consult a move frame table.
@@ -49,7 +56,8 @@ frame; no completed-action recognition or retroactive annotation remains.
 
 `AirDive` is an internal attack category (aerial special attacks that move the
 attacker). Its filter is visible at `+0x4A0` bit 6. It is registered as a
-confirmed runtime attribute but its config `display` switch defaults to false.
+confirmed runtime attribute, while its config `display` switch retains the
+requested default of false.
 
 `+0x6B8/+0x6C8` must not be treated as a live invulnerability result. Their
 Param1-like bits persist through recovery, and unrelated air actions can carry

@@ -7,18 +7,38 @@ from ctypes import wintypes
 import hashlib
 from pathlib import Path
 import struct
+import threading
+import time
 import tkinter as tk
+from tkinter import ttk
 
-from debug_capture import DebugCapture
-from frame_timeline import EMPTY_FRAME, FrameBands, FrameTimeline
-from semantic_engine import SemanticEngine
-from uni2_frame_reader import (
-    BATTLE_TICK_OFFSET,
-    ENTITY_COUNT,
-    ENTITY_POOL_OFFSET,
-    ENTITY_STRIDE,
+from combat_properties import (
+    CancelProperties,
+    InvincibilityProperties,
+    read_cancel_properties,
+    read_invincibility_properties,
 )
-from uni2_probe import EXPECTED_SHA256, require_process
+from battle_objects import (
+    projectile_judgment_by_owner,
+    read_battle_objects,
+)
+from debug_capture import DebugCapture
+from display_config import DisplayConfig
+from frame_timeline import (
+    EMPTY_FRAME,
+    FrameBands,
+    FrameTimeline,
+    TimelineSettings,
+    primary_band_runs,
+)
+from semantic_engine import DEFAULT_PROFILE, SemanticEngine
+from runtime_layout import (
+    ENTITY_COUNT,
+    ENTITY_STRIDE,
+    resolve_runtime_layout,
+    validate_runtime_layout,
+)
+from uni2_probe import require_process
 
 
 TRANSPARENT = "#010203"
@@ -26,7 +46,7 @@ GRID = "#313844"
 EMPTY = "#080a0e"
 LOCKED = "#cf3f83"
 HITSTOP = "#f3c64d"
-BUILD_ID = "2026-08-14-neutral-gap-timeline-v8"
+BUILD_ID = "v0.5-dedicated-tick-sampler"
 ROOT = Path(__file__).resolve().parents[1]
 
 GWL_EXSTYLE = -20
@@ -40,6 +60,11 @@ SW_SHOWNOACTIVATE = 4
 user32 = ctypes.WinDLL("user32", use_last_error=True)
 user32.GetAsyncKeyState.argtypes = [ctypes.c_int]
 user32.GetAsyncKeyState.restype = ctypes.c_short
+winmm = ctypes.WinDLL("winmm", use_last_error=True)
+winmm.timeBeginPeriod.argtypes = [wintypes.UINT]
+winmm.timeBeginPeriod.restype = wintypes.UINT
+winmm.timeEndPeriod.argtypes = [wintypes.UINT]
+winmm.timeEndPeriod.restype = wintypes.UINT
 
 
 class RECT(ctypes.Structure):
@@ -122,23 +147,42 @@ class Overlay:
         raw_states: bool = False,
         debug_hotkey: str = "F8",
         log_dir: Path = ROOT / "log",
+        profile: Path = DEFAULT_PROFILE,
     ):
         self.pid, self.process, self.module, digest = require_process()
-        if digest != EXPECTED_SHA256:
+        try:
+            self.layout = resolve_runtime_layout(Path(self.process.image_path()))
+            validate_runtime_layout(self.process, self.module.base, self.layout)
+        except Exception:
             self.process.close()
-            raise RuntimeError("uni2.exe SHA-256 does not match this overlay profile")
+            raise
+        print(
+            "[UNI2 overlay] runtime layout: "
+            f"tick=+0x{self.layout.battle_tick_offset:X} "
+            f"entities=+0x{self.layout.entity_pool_offset:X} "
+            f"objects=+0x{self.layout.object_count_offset:X}/"
+            f"+0x{self.layout.object_pointers_offset:X}",
+            flush=True,
+        )
         self.game_hwnd = game_window(self.pid)
         if not self.game_hwnd:
             self.process.close()
             raise RuntimeError("unable to find the UNI2 game window")
 
-        self.tick_address = self.module.base + BATTLE_TICK_OFFSET
-        self.pool_address = self.module.base + ENTITY_POOL_OFFSET
+        self.tick_address = self.module.base + self.layout.battle_tick_offset
+        self.pool_address = self.module.base + self.layout.entity_pool_offset
         self.pool_size = ENTITY_STRIDE * ENTITY_COUNT
         self.previous_tick: int | None = None
         self.previous_actionable: tuple[bool, bool] | None = None
-        self.timeline = FrameTimeline()
-        self.semantic_engine = SemanticEngine(raw_states=raw_states)
+        self.profile = profile.resolve()
+        self.display_config = DisplayConfig.load(self.profile)
+        self.timeline_settings = TimelineSettings.load(profile)
+        self.timeline = FrameTimeline(
+            capacity=self.timeline_settings.length_frames,
+            idle_reset_frames=self.timeline_settings.idle_reset_frames,
+            tail_gap=self.timeline_settings.wrap_gap_frames,
+        )
+        self.semantic_engine = SemanticEngine(profile=profile, raw_states=raw_states)
         self.semantic_colors = self.semantic_engine.colors
         self.duration = duration
         self.raw_states = raw_states
@@ -147,9 +191,9 @@ class Overlay:
         self.debug_key_down = False
         self.debug_capture = DebugCapture(
             log_dir,
-            ENTITY_POOL_OFFSET,
+            self.layout.entity_pool_offset,
             self.pool_size,
-            BATTLE_TICK_OFFSET,
+            self.layout.battle_tick_offset,
             digest,
             BUILD_ID,
             "raw" if raw_states else "confirmed",
@@ -182,10 +226,72 @@ class Overlay:
         self.last_bounds: tuple[int, int, int, int] | None = None
         self.visible = False
         self.last_entities = (EMPTY_FRAME, EMPTY_FRAME)
+        self.projectile_judgment = (False, False)
+        self.closed = False
+        self.timer_resolution_active = False
+        self.state_lock = threading.RLock()
+        self.stop_sampling = threading.Event()
+        self.sampling_thread: threading.Thread | None = None
+        self.sampling_error: BaseException | None = None
+        self.sample_generation = 0
+        self.rendered_generation = 0
         self.root.protocol("WM_DELETE_WINDOW", self.close)
+        self.create_control_window()
+
+    def create_control_window(self) -> None:
+        self.control_window = tk.Toplevel(self.root)
+        self.control_window.title("UNI2 Frame Display")
+        self.control_window.resizable(False, False)
+        self.control_window.attributes("-topmost", True)
+        self.control_window.protocol("WM_DELETE_WINDOW", self.close)
+        container = ttk.Frame(self.control_window, padding=8)
+        container.grid(row=0, column=0, sticky="nsew")
+        self.display_variables: dict[str, tk.BooleanVar] = {}
+        for row, item in enumerate(self.display_config.items()):
+            variable = tk.BooleanVar(value=item.display)
+            self.display_variables[item.token] = variable
+            checkbox = ttk.Checkbutton(
+                container,
+                text=item.token,
+                variable=variable,
+                command=lambda token=item.token: self.toggle_display(token),
+            )
+            if item.status != "confirmed":
+                checkbox.state(["disabled"])
+            checkbox.grid(row=row, column=0, sticky="w", pady=1)
+        self.control_window.update_idletasks()
+        self.control_window.geometry("+20+20")
+
+    def toggle_display(self, token: str) -> None:
+        variable = self.display_variables[token]
+        display = bool(variable.get())
+        try:
+            with self.state_lock:
+                self.display_config.set_display(token, display)
+                self.semantic_engine.set_attribute_display(token, display)
+                # Existing cells were classified under the former visibility
+                # set. Clear them so the checkbox is effective immediately.
+                self.timeline.reset()
+                self.semantic_engine.reset()
+                self.previous_actionable = None
+                self.sample_generation += 1
+        except (OSError, ValueError, KeyError) as error:
+            variable.set(not display)
+            print(f"[UNI2 overlay] unable to update {token}: {error}", flush=True)
+            return
 
     def close(self) -> None:
-        path = self.debug_capture.stop()
+        if self.closed:
+            return
+        self.closed = True
+        self.stop_sampling.set()
+        if (
+            self.sampling_thread is not None
+            and self.sampling_thread is not threading.current_thread()
+        ):
+            self.sampling_thread.join(timeout=2.0)
+        with self.state_lock:
+            path = self.debug_capture.stop()
         if path is not None:
             print(f"[UNI2 overlay] debug recording stopped: {path.resolve()}", flush=True)
         self.process.close()
@@ -213,15 +319,21 @@ class Overlay:
         tick = u32(raw_tick, 0)
         if tick == self.previous_tick:
             return False
-        if self.previous_tick is not None and tick < self.previous_tick:
-            self.timeline.reset()
-            self.semantic_engine.reset()
-        self.previous_tick = tick
 
         pool = self.process.read(self.pool_address, self.pool_size)
         if pool is None:
             raise RuntimeError("entity pool became unreadable")
+        battle_objects = read_battle_objects(
+            self.process,
+            self.module.base,
+            self.layout.object_count_offset,
+            self.layout.object_pointers_offset,
+        )
+        self.projectile_judgment = projectile_judgment_by_owner(battle_objects)
         player_entities: dict[int, bytes] = {}
+        primary_entity_slots: dict[int, int] = {}
+        cancel_properties: dict[int, CancelProperties] = {}
+        invincibility_properties: dict[int, InvincibilityProperties] = {}
         attack_judgment = {0: False, 1: False}
         debug_entities: list[dict[str, object]] = []
         for slot in range(ENTITY_COUNT):
@@ -233,6 +345,13 @@ class Overlay:
             if player in (0, 1):
                 if player not in player_entities:
                     player_entities[player] = entity
+                    primary_entity_slots[player] = slot
+                    cancel_properties[player] = read_cancel_properties(
+                        self.process, entity
+                    )
+                    invincibility_properties[player] = read_invincibility_properties(
+                        self.process, entity
+                    )
                 attack_judgment[player] = bool(
                     attack_judgment[player] or u32(entity, 0x64C)
                 )
@@ -245,7 +364,11 @@ class Overlay:
                     "character_id": entity[0x05],
                     "state": u32(entity, 0x24),
                     "movable": u32(entity, 0x440),
-                    "action_type": u32(entity, 0x4B0),
+                    "landing_lock_044c": u32(entity, 0x44C),
+                    "attack_filter_04b0": u32(entity, 0x4B0),
+                    "chip_clear_057c": u32(entity, 0x57C),
+                    "move_code_06ac": u32(entity, 0x6AC),
+                    "action_instance_0680": u32(entity, 0x680),
                     "vulnerability_0060": u32(entity, 0x60),
                     "hit_filter_04a0": u32(entity, 0x4A0),
                     "descriptor": u32(entity, 0x644),
@@ -254,22 +377,50 @@ class Overlay:
                     "action_frame": u32(entity, 0x674),
                     "flags_06b8": u32(entity, 0x6B8),
                     "flags_06c8": u32(entity, 0x6C8),
-                    "action_record": u32(entity, 0x680),
+                    "contact_flags_06ac": u32(entity, 0x6AC),
+                    "cs_capability_0840": u32(entity, 0x840),
                     "control_state": u32(entity, 0xB6C),
                     "hitstop": u32(entity, 0x1E4),
                     "label": state_label,
                 }
-            if self.debug_capture.active:
-                debug_entity["references"] = {
-                    "descriptor": self.debug_pointer_preview(u32(entity, 0x644)),
-                    "animation": self.debug_pointer_preview(u32(entity, 0x648)),
-                    "attack": self.debug_pointer_preview(u32(entity, 0x64C)),
-                }
+            if player in (0, 1) and primary_entity_slots.get(player) == slot:
+                debug_entity["cancel_properties"] = cancel_properties[player].debug_dict()
+                debug_entity["invincibility_properties"] = (
+                    invincibility_properties[player].debug_dict()
+                )
             debug_entities.append(debug_entity)
+
+        # The pool and dependent objects take several ReadProcessMemory calls.
+        # Accept the snapshot only if the game's logic tick stayed unchanged
+        # throughout those essential reads. Otherwise state from tick N+1
+        # could be labelled as N and then counted a second time on the next
+        # pass, which visibly turns a real 2F active window into 3F.
+        raw_tick_after = self.process.read(self.tick_address, 4)
+        if raw_tick_after is None:
+            raise RuntimeError("battle tick became unreadable")
+        if u32(raw_tick_after, 0) != tick:
+            return False
+
+        if self.previous_tick is not None and tick < self.previous_tick:
+            self.timeline.reset()
+            self.semantic_engine.reset()
+            self.last_entities = (EMPTY_FRAME, EMPTY_FRAME)
+        self.previous_tick = tick
+
         players: dict[int, FrameBands] = {}
         for player, entity in player_entities.items():
+            external_tokens = (
+                cancel_properties[player].tokens()
+                + invincibility_properties[player].tokens()
+            )
             result = self.semantic_engine.classify(
-                entity, player, attack_judgment[player]
+                entity,
+                player,
+                attack_judgment[player],
+                external_tokens=external_tokens,
+                world_tokens=("active_projectile",)
+                if self.projectile_judgment[player]
+                else (),
             )
             players[player] = result.frame
         p1 = players.get(0, EMPTY_FRAME)
@@ -279,13 +430,36 @@ class Overlay:
             labels = tuple("FREE" if value else "LOCK" for value in actionable)
             print(f"[UNI2 overlay] tick={tick} P1={labels[0]} P2={labels[1]}", flush=True)
             self.previous_actionable = actionable
-        self.last_entities = (p1, p2)
         self.timeline.push(p1, p2)
+        self.last_entities = (p1, p2)
+        # Pointer previews are diagnostic-only and intentionally happen after
+        # the coherent gameplay snapshot has been committed. They can never
+        # alter or duplicate a frame-meter cell.
+        if self.debug_capture.active:
+            for debug_entity in debug_entities:
+                debug_entity["references"] = {
+                    "descriptor": self.debug_pointer_preview(
+                        int(debug_entity["descriptor"])
+                    ),
+                    "animation": self.debug_pointer_preview(
+                        int(debug_entity["animation_frame"])
+                    ),
+                    "attack": self.debug_pointer_preview(
+                        int(debug_entity["attack_data"])
+                    ),
+                }
         self.debug_capture.record(
             tick,
             pool,
             {
                 "entities": debug_entities,
+                # Fireballs and other created battle objects live outside the
+                # fixed character entity pool. Preserve their known runtime
+                # fields in the JSON sidecar while keeping the U2RG v1 binary
+                # capture layout backwards compatible.
+                "battle_objects": [
+                    item.debug_dict() for item in battle_objects
+                ],
                 "display": [
                     {
                         "actionable": frame.actionable,
@@ -313,20 +487,41 @@ class Overlay:
                 ],
             },
         )
+        self.sample_generation += 1
         return True
 
+    def sampling_loop(self) -> None:
+        """Track game logic ticks independently from the Tk renderer."""
+        try:
+            while not self.stop_sampling.is_set():
+                with self.state_lock:
+                    changed = self.sample()
+                if not changed:
+                    # timeBeginPeriod(1) makes this approximately a 1 ms wait,
+                    # giving us many observations per 60 Hz game frame without
+                    # burning an entire CPU core.
+                    time.sleep(0.001)
+        except BaseException as error:
+            self.sampling_error = error
+            self.stop_sampling.set()
+
     def render(self, width: int, height: int) -> None:
+        # Copy the model quickly, then release the sampler before doing the
+        # comparatively expensive Tk canvas reconstruction.
+        with self.state_lock:
+            frames = list(self.timeline.frames)
+            current_column = self.timeline.last_written_index
+            self.rendered_generation = self.sample_generation
         self.canvas.delete("all")
-        if not self.timeline.frames:
+        if not frames:
             return
-        bar_width = min(width - 24, 1120)
+        bar_width = min(width - 24, self.timeline_settings.max_width_pixels)
         grid_left = (width - bar_width) // 2
         grid_right = grid_left + bar_width
         gap = 4
         row_height = 52
         first_y = height - (row_height * 2 + gap + 12)
         cell_width = (grid_right - grid_left) / self.timeline.capacity
-        frames = self.timeline.frames
 
         for player in range(2):
             y = first_y + player * (row_height + gap)
@@ -335,9 +530,9 @@ class Overlay:
                 x1 = grid_left + (column + 1) * cell_width - 1
                 frame = frames[column][player] if column < len(frames) else EMPTY_FRAME
                 self.canvas.create_rectangle(x0, y, x1, y + row_height, fill=EMPTY, outline="")
-                # Free/actionable always wins over every secondary state.
-                # The EMPTY rectangle drawn above remains untouched/black.
-                if frame.relevant and not frame.actionable:
+                # Actionable character-local states remain EMPTY/black, but a
+                # live world object can make an otherwise-free frame relevant.
+                if frame.relevant:
                     tokens = frame.codes or ("locked",)
                     lane_height = row_height / len(tokens)
                     for lane, token in enumerate(tokens):
@@ -361,15 +556,50 @@ class Overlay:
                         )
                 self.canvas.create_rectangle(x0, y, x1, y + row_height, outline=GRID)
 
+        if self.timeline_settings.show_primary_run_counts:
+            for player in range(2):
+                row_y = first_y + player * (row_height + gap)
+                label_y = row_y - 7 if player == 0 else row_y + row_height + 7
+                for run in primary_band_runs(frames, player):
+                    center_column = (run.first_column + run.last_column + 1) / 2
+                    label_x = grid_left + center_column * cell_width
+                    self.canvas.create_text(
+                        label_x,
+                        label_y,
+                        text=str(run.frames),
+                        fill=self.timeline_settings.primary_run_count_color,
+                        font=(
+                            "Segoe UI",
+                            self.timeline_settings.primary_run_count_font_size,
+                            "bold",
+                        ),
+                    )
+
+        if current_column is not None:
+            cursor_x = grid_left + (current_column + 1) * cell_width - 1
+            for player in range(2):
+                y = first_y + player * (row_height + gap)
+                self.canvas.create_line(
+                    cursor_x,
+                    y,
+                    cursor_x,
+                    y + row_height,
+                    fill=self.timeline_settings.current_frame_border_color,
+                    width=2,
+                )
+
     def update(self) -> None:
         try:
+            if self.sampling_error is not None:
+                raise RuntimeError("dedicated game-tick sampler failed") from self.sampling_error
             game_is_foreground = foreground_pid() == self.pid
             key_down = bool(
                 game_is_foreground
                 and user32.GetAsyncKeyState(self.debug_hotkey_code) & 0x8000
             )
             if key_down and not self.debug_key_down:
-                path = self.debug_capture.toggle()
+                with self.state_lock:
+                    path = self.debug_capture.toggle()
                 if self.debug_capture.active:
                     print(
                         f"[UNI2 overlay] debug recording started: {path.resolve()}",
@@ -381,7 +611,8 @@ class Overlay:
                         flush=True,
                     )
             self.debug_key_down = key_down
-            changed = self.sample()
+            with self.state_lock:
+                changed = self.sample_generation != self.rendered_generation
             bounds = client_bounds(self.game_hwnd)
             should_show = (
                 bounds is not None
@@ -406,13 +637,26 @@ class Overlay:
         except Exception:
             self.close()
             raise
-        self.root.after(2, self.update)
+        # Rendering is intentionally paced separately from game-state reads.
+        self.root.after(4, self.update)
 
     def run(self) -> None:
-        self.update()
-        if self.duration is not None:
-            self.root.after(max(1, int(self.duration * 1000)), self.close)
-        self.root.mainloop()
+        self.timer_resolution_active = winmm.timeBeginPeriod(1) == 0
+        try:
+            self.sampling_thread = threading.Thread(
+                target=self.sampling_loop,
+                name="UNI2TickSampler",
+                daemon=True,
+            )
+            self.sampling_thread.start()
+            self.update()
+            if self.duration is not None:
+                self.root.after(max(1, int(self.duration * 1000)), self.close)
+            self.root.mainloop()
+        finally:
+            if self.timer_resolution_active:
+                winmm.timeEndPeriod(1)
+                self.timer_resolution_active = False
 
 
 def main() -> int:
@@ -434,16 +678,35 @@ def main() -> int:
         default=ROOT / "log",
         help="debug recording directory (default: ./log)",
     )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=DEFAULT_PROFILE,
+        help="semantic and timeline config (default: ./frame_semantics.json)",
+    )
     args = parser.parse_args()
     print(
         f"[UNI2 overlay] build={BUILD_ID}; mode={'raw' if args.raw_states else 'confirmed'}; "
-        f"debug={args.debug_hotkey.upper()}; actionable cells=black"
+        f"debug={args.debug_hotkey.upper()}; live display controls enabled; "
+        f"config={args.config.resolve()}"
     )
+    if not args.raw_states:
+        startup_engine = SemanticEngine(profile=args.config)
+        print(
+            "[UNI2 overlay] colors: "
+            f"N={startup_engine.colors['normal_cancel']} "
+            f"SP={startup_engine.colors['special_cancel']} "
+            f"EX={startup_engine.colors['ex_cancel']} "
+            f"CS={startup_engine.colors['cs_cancel']} "
+            f"FULL={startup_engine.colors['full_invincible']} "
+            f"THROW={startup_engine.colors['throw_invincible']}"
+        )
     Overlay(
         args.duration,
         raw_states=args.raw_states,
         debug_hotkey=args.debug_hotkey,
         log_dir=args.log_dir,
+        profile=args.config,
     ).run()
     return 0
 
