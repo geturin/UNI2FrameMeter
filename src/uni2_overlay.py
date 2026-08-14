@@ -38,7 +38,7 @@ from runtime_layout import (
     resolve_runtime_layout,
     validate_runtime_layout,
 )
-from uni2_probe import require_process
+from process_memory import require_process
 
 
 TRANSPARENT = "#010203"
