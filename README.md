@@ -4,6 +4,10 @@
 
 A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It displays both players' frame-by-frame action states at the bottom of the game window, making startup, active frames, recovery, frame advantage, invincibility, and cancel windows easier to understand.
 
+## Demonstration video
+
+[Watch on YouTube](https://youtu.be/O8JgjDnPLmE)
+
 ## Main features
 
 - Two-row timeline: P1 on top and P2 on the bottom.
