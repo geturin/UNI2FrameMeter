@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "image_sha256": "55615E8B2A91BE57EDD5EFF68EC0E283D8F0591F1977BB6F0B8A8DDB7AF2EC22",
+  "tokens": {
+    "hard_lock": {"order": 10, "color": "#cf3f83"},
+    "startup": {"order": 20, "color": "#55bd70"},
+    "active": {"order": 30, "color": "#e45151"},
+    "recovery": {"order": 40, "color": "#3d62c4"},
+    "attack": {"order": 50, "color": "#f0ad38"},
+    "head_invincible": {"order": 60, "color": "#18d9ec"},
+    "full_invincible": {"order": 70, "color": "#f4ed74"},
+    "dive_invincible": {"order": 80, "color": "#9871e8"}
+  },
+  "runtime_attributes": [
+    {
+      "token": "head_invincible",
+      "display": true,
+      "status": "confirmed",
+      "description": "Head-attribute invulnerability",
+      "offset": "0x4A0",
+      "mask": "0x00000001",
+      "equals": "0x00000001"
+    },
+    {
+      "token": "full_invincible",
+      "display": true,
+      "status": "confirmed",
+      "description": "Full strike/damage invulnerability",
+      "offset": "0x60",
+      "mask": "0x00000100",
+      "equals": "0x00000000"
+    },
+    {
+      "token": "dive_invincible",
+      "display": false,
+      "status": "confirmed",
+      "description": "Invulnerability to attacks carrying Def_HitCheckFlag_AirDive",
+      "offset": "0x4A0",
+      "mask": "0x00000040",
+      "equals": "0x00000040"
+    }
+  ]
+}

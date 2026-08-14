@@ -1,0 +1,13 @@
+{
+  "Kuon": {
+    "立ち弱攻撃": {
+      "input": "5A",
+      "startup": 6,
+      "active": 2,
+      "recovery": 14,
+      "overall": 21,
+      "on_block": -4,
+      "source": "https://mizuumi.wiki/w/Under_Night_In-Birth/UNI2/Kuon"
+    }
+  }
+}
