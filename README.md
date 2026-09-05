@@ -12,7 +12,7 @@ A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It 
 
 - Two-row timeline: P1 on top and P2 on the bottom.
 - Displays startup, attack judgment, recovery, and periods when action is restricted.
-- Optional display of cancel properties, invincibility properties, and active projectiles.
+- Optional display of cancel properties, invincibility properties, two-way guard assistance, and active projectiles.
 - Multiple properties on the same frame are shown as layered colors.
 - Automatically labels the length of continuous color sections.
 - Preserves the result after both players become free so it can be inspected afterward.
@@ -48,7 +48,7 @@ The timeline is visible only while the game is foreground and not minimized. Clo
 - Every cell represents one game frame.
 - A white line on the right edge marks the latest recorded cell.
 - When the first color remains unchanged, its duration is shown above P1 and below P2.
-- The timeline freezes and preserves the result when both players can act and no active projectile remains.
+- The timeline freezes and preserves the result when both players can act and neither active projectiles nor two-way guard assistance need to be displayed.
 - If action resumes after a short pause, the elapsed time appears as black cells instead of joining the two actions directly.
 - By default, after 60 consecutive idle frames, the next action begins a new sequence from the left.
 - When the timeline fills, it wraps and uses a black gap to separate new and old content.
@@ -58,6 +58,8 @@ The base colors represent restricted action, startup, attack judgment, and recov
 ## Control window
 
 A small control window opens with the tool. Check or uncheck an item to show or hide that property immediately.
+
+`two_way_guard` is enabled by default and marks horizontal guard-direction assistance in purple. For example, when P1 Kuon uses a relevant 623 move, the band appears on the benefiting P2 row, including while P2 can act freely; it does not indicate recovery. It applies to the opposing main character's attacks. Overhead, low, and other guard requirements still apply, and independent projectiles use their own direction properties.
 
 - Changes take effect immediately.
 - Choices are saved automatically to `frame_semantics.json`.

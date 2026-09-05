@@ -17,8 +17,8 @@ class FrameBands:
     hitstop: int = 0
     codes: tuple[Hashable, ...] = ()
     # Authoritative action-permission result. Ordinary character-local states
-    # remain black while true, but an independently active world object such
-    # as a projectile may still make the frame relevant and add a color band.
+    # remain black while true, but independent buffs and active world objects
+    # may still make the frame relevant and add a color band.
     actionable: bool = False
 
 

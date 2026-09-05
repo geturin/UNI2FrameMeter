@@ -83,6 +83,10 @@
       "order": 70,
       "color": "#fff200"
     },
+    "two_way_guard": {
+      "order": 75,
+      "color": "#b59cff"
+    },
     "active_projectile": {
       "order": 80,
       "color": "#ff8a3d"
@@ -166,6 +170,12 @@
       "display": false,
       "status": "confirmed",
       "description": "Descriptor full invincibility or simultaneous native strike and throw invincibility"
+    },
+    {
+      "token": "two_way_guard",
+      "display": true,
+      "status": "confirmed",
+      "description": "Both horizontal guard directions against the opponent main character's attacks while (opponent entity+0x63E & 0x13) == 0x01; shown on the recipient even when actionable, independent of guard permission and attack height; separate projectile entities have their own flags"
     },
     {
       "token": "active_projectile",

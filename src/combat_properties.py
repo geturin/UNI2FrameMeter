@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import struct
-from typing import Protocol
+from typing import Mapping, Protocol
 
 
 class MemoryReader(Protocol):
@@ -15,6 +15,46 @@ def _u32(data: bytes, offset: int) -> int:
 
 def _i32(data: bytes, offset: int) -> int:
     return struct.unpack_from("<i", data, offset)[0]
+
+
+@dataclass(frozen=True)
+class GuardDirectionProperties:
+    source_player: int
+    source_guard_plus_flags: int | None
+    two_way_guard: bool
+
+    def tokens(self) -> tuple[str, ...]:
+        return ("two_way_guard",) if self.two_way_guard else ()
+
+    def debug_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+def guard_direction_by_player(
+    entities: Mapping[int, bytes],
+) -> dict[int, GuardDirectionProperties]:
+    """Project each main character's guard-direction assistance to its opponent.
+
+    SetGuardPlusFlag writes the move user's byte +0x63E. Native guard-direction
+    check 0x536ED0 reads that byte from the *attacker*: bit 0 enables reverse
+    guard, bit 1 disables normal guard, and bit 4 suppresses reverse guard.
+    This records explicit assistance against that main character's attacks,
+    independently of held input, guard permission, attack height and contact.
+    Independently spawned projectiles use their own attack entity's flags.
+    """
+    result: dict[int, GuardDirectionProperties] = {}
+    for player in (0, 1):
+        if player not in entities:
+            continue
+        source_player = 1 - player
+        source = entities.get(source_player)
+        flags = source[0x63E] if source is not None else None
+        result[player] = GuardDirectionProperties(
+            source_player=source_player,
+            source_guard_plus_flags=flags,
+            two_way_guard=flags is not None and (flags & 0x13) == 0x01,
+        )
+    return result
 
 
 @dataclass(frozen=True)

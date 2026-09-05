@@ -15,6 +15,7 @@ from tkinter import ttk
 from combat_properties import (
     CancelProperties,
     InvincibilityProperties,
+    guard_direction_by_player,
     read_cancel_properties,
     read_invincibility_properties,
 )
@@ -371,6 +372,7 @@ class Overlay:
                     "action_instance_0680": u32(entity, 0x680),
                     "vulnerability_0060": u32(entity, 0x60),
                     "hit_filter_04a0": u32(entity, 0x4A0),
+                    "guard_plus_063e": entity[0x63E],
                     "descriptor": u32(entity, 0x644),
                     "animation_frame": u32(entity, 0x648),
                     "attack_data": u32(entity, 0x64C),
@@ -389,6 +391,17 @@ class Overlay:
                     invincibility_properties[player].debug_dict()
                 )
             debug_entities.append(debug_entity)
+
+        guard_direction_properties = guard_direction_by_player(player_entities)
+        for debug_entity in debug_entities:
+            player = debug_entity["player"]
+            if primary_entity_slots.get(player) != debug_entity["slot"]:
+                continue
+            guard = guard_direction_properties[player]
+            debug_entity["guard_direction_properties"] = {
+                **guard.debug_dict(),
+                "source_slot": primary_entity_slots.get(guard.source_player),
+            }
 
         # The pool and dependent objects take several ReadProcessMemory calls.
         # Accept the snapshot only if the game's logic tick stayed unchanged
@@ -418,6 +431,7 @@ class Overlay:
                 player,
                 attack_judgment[player],
                 external_tokens=external_tokens,
+                status_tokens=guard_direction_properties[player].tokens(),
                 world_tokens=("active_projectile",)
                 if self.projectile_judgment[player]
                 else (),
@@ -530,8 +544,8 @@ class Overlay:
                 x1 = grid_left + (column + 1) * cell_width - 1
                 frame = frames[column][player] if column < len(frames) else EMPTY_FRAME
                 self.canvas.create_rectangle(x0, y, x1, y + row_height, fill=EMPTY, outline="")
-                # Actionable character-local states remain EMPTY/black, but a
-                # live world object can make an otherwise-free frame relevant.
+                # Independent buffs and live world objects can make an
+                # otherwise-free frame relevant without changing actionability.
                 if frame.relevant:
                     tokens = frame.codes or ("locked",)
                     lane_height = row_height / len(tokens)

@@ -252,6 +252,7 @@ class SemanticEngine:
         attack_judgment: bool = False,
         external_tokens: tuple[str, ...] = (),
         world_tokens: tuple[str, ...] = (),
+        status_tokens: tuple[str, ...] = (),
     ) -> SemanticResult:
         snapshot = EntitySnapshot.parse(data)
         if self.raw_states:
@@ -260,16 +261,19 @@ class SemanticEngine:
             frame = self._confirmed_frame(
                 snapshot, player, attack_judgment, external_tokens
             )
-        displayed_world_tokens = tuple(
+        # Buffs such as two-way guard remain meaningful while the recipient
+        # can act. Keep them separate from action-bound cancel/invincibility
+        # attributes, which the confirmed frame deliberately hides when free.
+        displayed_independent_tokens = tuple(
             token
-            for token in world_tokens
+            for token in world_tokens + status_tokens
             if self.external_attributes.get(token, False)
         )
-        if displayed_world_tokens:
+        if displayed_independent_tokens:
             frame = replace(
                 frame,
                 relevant=True,
-                codes=self.order_tokens(frame.codes + displayed_world_tokens),
+                codes=self.order_tokens(frame.codes + displayed_independent_tokens),
             )
         return SemanticResult(frame)
 
