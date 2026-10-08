@@ -1,9 +1,9 @@
-name: Windows hook candidate
+name: Windows release
 on:
   workflow_dispatch:
     inputs:
       publish:
-        description: Publish the verified candidate as a prerelease
+        description: Publish the verified stable release as latest
         type: boolean
         default: true
 permissions:
@@ -50,7 +50,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0-rc.2').Path
+          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0').Path
           $exe = Join-Path $app UNI2FrameMeter.exe
           & (Join-Path $app uni2-frame-meter-host.exe) --self-check
           if ($LASTEXITCODE -ne 0) { throw 'Native helper self-check failed' }
@@ -64,7 +64,7 @@ jobs:
           if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw 'Packaged self-check failed' }
           Get-Content $report
           $selfCheck = Get-Content $report -Raw | ConvertFrom-Json
-          if ($selfCheck.build -ne 'v0.6.0-rc.2' -or $selfCheck.display_switches -ne 25) { throw 'Unexpected candidate profile' }
+          if ($selfCheck.build -ne 'v0.6.0' -or $selfCheck.display_switches -ne 25) { throw 'Unexpected release profile' }
           # Exercise migration inside the actual frozen executable: the
           # baseline must be embedded, not just supplied beside the EXE.
           $legacy = Get-Content (Join-Path $app frame_semantics.json) -Raw | ConvertFrom-Json
@@ -420,7 +420,7 @@ jobs:
             [UnmanagedFunctionPointer(CallingConvention.StdCall)] public delegate uint Start(IntPtr request);
           }
           "@
-          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0-rc.2/uni2-frame-meter.dll")
+          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0/uni2-frame-meter.dll")
           if ($h -eq [IntPtr]::Zero) { throw 'Collector load failed' }
           try {
             $f = [Dll]::GetProcAddress($h,'FrameMeterStart')
@@ -460,12 +460,26 @@ jobs:
         with:
           name: windows-package
           path: package
-      - name: Publish verified candidate
+      - name: Publish verified stable release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           COMMIT: ${{ github.sha }}
         run: |
-          gh release create v0.6.0-rc.2 package/*.zip package/SHA256SUMS.txt \
-            --target "$COMMIT" --prerelease --title 'UNI2 Frame Meter v0.6.0-rc.2' \
-            --notes 'Adds color squares beside each display option, removes running tick/sequence numbers, and adds native hitstun, guardstun, down, captured, posture, hitstop, counter-hit vulnerability and assault state bands. Existing display choices and colors are preserved when merging new options. Hook-based Training Mode frame meter for the supported 4ebed985 EXE. Extract the complete ZIP and run UNI2FrameMeter.exe after starting the game. Original game files are unchanged; the collector hooks the native battle-step function in process memory and publishes completed snapshots to the overlay. Restart the game when upgrading the DLL. Native Windows checkbox persistence, rendered GDI colors, package startup, visible error handling, configuration and DLL guards verified. The previous candidate works in user Training Mode testing; the new state bands and coexistence with other plugins remain for user testing. Unsupported EXEs are rejected. See the README for compatibility and SHA-256 checksums.'
+          cat > release-notes.md <<'RELEASE_NOTES'
+          Stable Training Mode release, accepted in user testing. Capture and display behavior are unchanged from v0.6.0-rc.2; this release updates the version and documentation.
+
+          - Native battle-update snapshots replace the old external memory scanner.
+          - Each display checkbox has a matching timeline color square; running tick/sequence numbers are removed.
+          - Detailed hitstun, guardstun, down and captured states are enabled by default. Optional bands cover hitstop, Counter-hit vulnerability, airborne/crouching posture, and ground/air Assault.
+          - Corrects the Throw/FireBall marker distinction and preserves existing colors and display choices when adding new options.
+
+          Download the Windows ZIP, extract it completely, and start UNI2FrameMeter.exe while the game is running in Training Mode. **Restart the game before upgrading the DLL.** Keep your existing frame_semantics.json to retain settings.
+
+          Supports the inspected 4ebed985 EXE only; unsupported versions are rejected. Counter-hit vulnerability is not a confirmed hit result, Down state does not distinguish hard/soft knockdowns, and full Chain Shift eligibility remains disabled. See the [English README](https://github.com/geturin/UNI2FrameMeter/blob/main/README.md) or [中文说明](https://github.com/geturin/UNI2FrameMeter/blob/main/README.zh-CN.md).
+
+          Verified on native Windows: checkbox persistence and rendered GDI colors, packaged startup/error handling, embedded configuration migration, and the PE32 DLL guard. Cloud development checks use owned fixtures; the game-use result comes from user testing. SHA256SUMS.txt and the package's SHA256.json provide download and component checksums. Original game files, assets and credentials are not included. Earlier candidates remain available.
+          RELEASE_NOTES
+          gh release create v0.6.0 package/*.zip package/SHA256SUMS.txt \
+            --target "$COMMIT" --latest --title 'UNI2 Frame Meter v0.6.0' \
+            --notes-file release-notes.md

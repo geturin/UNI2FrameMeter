@@ -54,7 +54,7 @@ GRID = "#313844"
 EMPTY = "#080a0e"
 LOCKED = "#cf3f83"
 HITSTOP = "#f3c64d"
-BUILD_ID = "v0.6.0-rc.2"
+BUILD_ID = "v0.6.0"
 ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
 
 
