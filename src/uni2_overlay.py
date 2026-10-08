@@ -4,6 +4,7 @@ import argparse
 import colorsys
 import ctypes
 from ctypes import wintypes
+from copy import deepcopy
 import hashlib
 import json
 import os
@@ -13,7 +14,6 @@ import struct
 import threading
 import time
 import tkinter as tk
-from tkinter import ttk
 
 from combat_properties import (
     CancelProperties,
@@ -28,6 +28,7 @@ from battle_objects import (
 )
 from debug_capture import DebugCapture
 from display_config import DisplayConfig
+from display_controls import DisplayControls
 from frame_timeline import (
     EMPTY_FRAME,
     FrameBands,
@@ -53,7 +54,7 @@ GRID = "#313844"
 EMPTY = "#080a0e"
 LOCKED = "#cf3f83"
 HITSTOP = "#f3c64d"
-BUILD_ID = "v0.6.0-rc.1"
+BUILD_ID = "v0.6.0-rc.2"
 ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
 
 
@@ -296,34 +297,39 @@ class Overlay:
         self.control_window.resizable(False, False)
         self.control_window.attributes("-topmost", True)
         self.control_window.protocol("WM_DELETE_WINDOW", self.close)
-        container = ttk.Frame(self.control_window, padding=8)
-        container.grid(row=0, column=0, sticky="nsew")
-        self.display_variables: dict[str, tk.BooleanVar] = {}
-        for row, item in enumerate(self.display_config.items()):
-            variable = tk.BooleanVar(value=item.display)
-            self.display_variables[item.token] = variable
-            checkbox = ttk.Checkbutton(
-                container,
-                text=item.token,
-                variable=variable,
-                command=lambda token=item.token: self.toggle_display(token),
-            )
-            if item.status != "confirmed":
-                checkbox.state(["disabled"])
-            checkbox.grid(row=row, column=0, sticky="w", pady=1)
+        self.display_controls = DisplayControls(
+            self.control_window,
+            self.display_config.items(),
+            self.semantic_colors,
+            self.toggle_display,
+            labels={token: style.get("label", token) for token, style in self.semantic_engine.token_styles.items()},
+        )
+        self.display_controls.grid(row=0, column=0, sticky="nsew")
+        self.display_variables = self.display_controls.variables
+        self.status_variable = self.display_controls.status_variable
         self.control_window.update_idletasks()
-        self.status_variable = tk.StringVar(value="Native hook connected · waiting for game logic")
-        ttk.Label(container, textvariable=self.status_variable, wraplength=300).grid(row=len(self.display_variables), column=0, sticky="w", pady=(6, 0))
-        self.capture_status = "Native hook connected · waiting for game logic"
+        self.capture_status = "Waiting for Training Mode"
+        self.capture_status_until: float | None = None
+        self.display_controls.show_status(self.capture_status)
         self.control_window.geometry("+20+20")
 
     def toggle_display(self, token: str) -> None:
         variable = self.display_variables[token]
         display = bool(variable.get())
+        old_display = next(item.display for item in self.display_config.items() if item.token == token)
         try:
             with self.state_lock:
-                self.display_config.set_display(token, display)
-                self.semantic_engine.set_attribute_display(token, display)
+                old_document = deepcopy(self.display_config.document)
+                old_external = self.semantic_engine.external_attributes.copy()
+                old_runtime = self.semantic_engine.runtime_attributes
+                try:
+                    self.semantic_engine.set_attribute_display(token, display)
+                    self.display_config.set_display(token, display)
+                except (OSError, ValueError, KeyError):
+                    self.display_config.document = old_document
+                    self.semantic_engine.external_attributes = old_external
+                    self.semantic_engine.runtime_attributes = old_runtime
+                    raise
                 # Existing cells were classified under the former visibility
                 # set. Clear them so the checkbox is effective immediately.
                 self.timeline.reset()
@@ -331,9 +337,11 @@ class Overlay:
                 self.previous_actionable = None
                 self.sample_generation += 1
         except (OSError, ValueError, KeyError) as error:
-            variable.set(not display)
+            variable.set(old_display)
+            self.display_controls.refresh_swatch(token)
             report_error(error)
             return
+        self.display_controls.refresh_swatch(token)
 
     def close(self) -> None:
         if self.closed:
@@ -391,6 +399,7 @@ class Overlay:
         self.previous_tick = None
         self.previous_actionable = None
         self.capture_status = message
+        self.capture_status_until = time.monotonic() + 2.0
         self.sample_generation += 1
 
     def sample(self) -> bool:
@@ -400,20 +409,21 @@ class Overlay:
         self.previous_invalid_packets = self.hook_client.invalid_packets
         if rejected_delta:
             self.native_rejected_packets += rejected_delta
-            self.reset_display(f"Native snapshot rejected: {self.native_rejected_packets} packets · timeline reset")
+            self.reset_display("Capture reset")
             changed = True
         if self.hook_client.status == FM_SUSPENDED:
             if self.last_native_status != FM_SUSPENDED:
-                self.reset_display("Waiting for a supported offline battle · capture suspended")
+                self.reset_display("Waiting for Training Mode")
+                self.capture_status_until = None
                 changed = True
             self.last_native_status = FM_SUSPENDED
             return changed
         self.last_native_status = self.hook_client.status
         for snapshot in packets:
             if snapshot.dropped_before:
-                self.reset_display(f"Snapshot gap: {self.hook_client.dropped_frames} frames dropped · timeline reset")
+                self.reset_display("Frame gap · timeline reset")
             if snapshot.flags & FM_RESET:
-                self.reset_display("Native game state reset · waiting for current logic")
+                self.reset_display("Capture reset")
             if not snapshot.flags & FM_VALID:
                 continue
             changed = self.sample_snapshot(snapshot) or changed
@@ -434,7 +444,7 @@ class Overlay:
         )
         if any(item.active_marker and item.object_type == 2 and item.owner in (0, 1) and item.frame_attack_data_pointer is None for item in battle_objects):
             self.incomplete_packets += 1
-            self.reset_display("Incomplete native projectile snapshot · timeline reset")
+            self.reset_display("Capture reset")
             return False
         self.projectile_judgment = projectile_judgment_by_owner(battle_objects)
         player_entities: dict[int, bytes] = {}
@@ -469,7 +479,7 @@ class Overlay:
                     "slot": slot,
                     "player": player,
                     "character_id": entity[0x05],
-                    "raw_state_0024": u32(entity, 0x24),
+                    "data_delay_0024": struct.unpack_from("<H", entity, 0x24)[0],
                     "movable": entity[MOVABLE_OFFSET],
                     "landing_lock": struct.unpack_from("<i", entity, LANDING_LOCK_OFFSET)[0],
                     "attack_filter": u32(entity, ATTACK_FILTER_OFFSET),
@@ -496,7 +506,7 @@ class Overlay:
 
         if any(value.read_error for value in cancel_properties.values()) or any(value.read_error for value in invincibility_properties.values()):
             self.incomplete_packets += 1
-            self.reset_display("Incomplete native descriptor snapshot · waiting for complete data")
+            self.reset_display("Capture reset")
             return False
         guard_direction_properties = guard_direction_by_player(player_entities)
         for debug_entity in debug_entities:
@@ -510,10 +520,10 @@ class Overlay:
             }
 
         if self.previous_tick is not None and tick < self.previous_tick:
-            self.reset_display("Native logic tick moved backwards · timeline reset")
+            self.reset_display("Capture reset")
         elif self.previous_tick is not None and tick > self.previous_tick + 1:
             self.native_tick_gaps += tick - self.previous_tick - 1
-            self.reset_display(f"Native logic gap: {self.native_tick_gaps} ticks missed · timeline reset")
+            self.reset_display("Frame gap · timeline reset")
         self.previous_tick = tick
 
         players: dict[int, FrameBands] = {}
@@ -528,7 +538,10 @@ class Overlay:
                 attack_judgment[player],
                 external_tokens=external_tokens,
                 native_actionable=cancel_properties[player].native_actionable,
-                status_tokens=guard_direction_properties[player].tokens(),
+                status_tokens=(
+                    guard_direction_properties[player].tokens()
+                    + cancel_properties[player].posture_tokens()
+                ),
                 world_tokens=("active_projectile",)
                 if self.projectile_judgment[player]
                 else (),
@@ -610,10 +623,9 @@ class Overlay:
                 ],
             },
         )
-        if self.hook_client.dropped_frames or self.native_tick_gaps or self.native_rejected_packets or self.incomplete_packets:
-            self.capture_status = f"Tick {tick} · gaps {self.native_tick_gaps}, dropped {self.hook_client.dropped_frames}, rejected {self.native_rejected_packets}, incomplete {self.incomplete_packets} · timeline reset"
-        else:
-            self.capture_status = f"Native logic tick {tick} · sequence {snapshot.sequence}"
+        if self.capture_status == "Waiting for Training Mode":
+            self.capture_status = ""
+            self.capture_status_until = None
         self.sample_generation += 1
         return True
 
@@ -742,9 +754,11 @@ class Overlay:
             self.debug_key_down = key_down
             with self.state_lock:
                 changed = self.sample_generation != self.rendered_generation
+                if self.capture_status_until is not None and time.monotonic() >= self.capture_status_until:
+                    self.capture_status = ""
+                    self.capture_status_until = None
                 status = self.capture_status
-            if self.status_variable.get() != status:
-                self.status_variable.set(status)
+            self.display_controls.show_status(status)
             bounds = client_bounds(self.game_hwnd)
             should_show = (
                 bounds is not None

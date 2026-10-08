@@ -9,6 +9,7 @@ from runtime_layout import (
     MOVABLE_OFFSET, LANDING_LOCK_OFFSET, SECOND_MOVABLE_OFFSET, SECOND_TIMER_OFFSET,
     OVERRIDE_STATUS_OFFSET, OVERRIDE_TIMER_OFFSET, STRIKE_TIMERS, THROW_TIMERS,
     GUARD_PLUS_OFFSET, HIT_FILTER_OFFSET, HIT_FILTER_TIMER_OFFSET,
+    POSTURE_OVERRIDE_OFFSET, POSTURE_OVERRIDE_TIMER_OFFSET,
 )
 
 
@@ -91,6 +92,8 @@ class CancelProperties:
     ex: bool
     chain_shift: bool
     read_error: str | None = None
+    descriptor_posture: int | None = None
+    posture: int | None = None
 
     def tokens(self) -> tuple[str, ...]:
         return tuple(
@@ -106,6 +109,18 @@ class CancelProperties:
 
     def debug_dict(self) -> dict[str, object]:
         return asdict(self)
+
+    def posture_tokens(self) -> tuple[str, ...]:
+        """Native effective posture; independent of action permission.
+
+        0x4260B0/0x426130 return true for values 1/2 respectively.
+        Standing is deliberately omitted so neutral frames stay uncluttered.
+        """
+        if self.posture == 1:
+            return ("airborne",)
+        if self.posture == 2:
+            return ("crouching",)
+        return ()
 
 
 def _cancel_rule_matches(rule: int, impact_result: int) -> bool:
@@ -129,6 +144,7 @@ def read_cancel_properties(
     descriptor_special_rule: int | None = None
     descriptor_status1: int | None = None
     descriptor_actionable: int | None = None
+    descriptor_posture: int | None = None
     read_error: str | None = None
 
     if not animation_pointer:
@@ -142,15 +158,17 @@ def read_cancel_properties(
             if not descriptor_pointer:
                 read_error = "null_descriptor_pointer"
             else:
-                # One coherent read covers descriptor +0x0D through +0x1B.
-                raw = reader.read(descriptor_pointer + 0x0D, 0x0F)
-                if raw is None or len(raw) != 0x0F:
+                # One immutable native packet read covers +0x0C..+0x1B,
+                # including the posture byte used by original CheckPosState.
+                raw = reader.read(descriptor_pointer + 0x0C, 0x10)
+                if raw is None or len(raw) != 0x10:
                     read_error = "unreadable_cancel_descriptor"
                 else:
-                    descriptor_normal_rule = raw[0x01]  # descriptor+0x0E
-                    descriptor_special_rule = raw[0x02]  # descriptor+0x0F
-                    descriptor_actionable = raw[0x04]  # descriptor+0x11
-                    descriptor_status1 = _u32(raw, 0x0B)  # descriptor+0x18
+                    descriptor_posture = raw[0x00]  # descriptor+0x0C
+                    descriptor_normal_rule = raw[0x02]  # descriptor+0x0E
+                    descriptor_special_rule = raw[0x03]  # descriptor+0x0F
+                    descriptor_actionable = raw[0x05]  # descriptor+0x11
+                    descriptor_status1 = _u32(raw, 0x0C)  # descriptor+0x18
 
     override_timer = _i32(entity, OVERRIDE_TIMER_OFFSET)
     override_status = _u32(entity, OVERRIDE_STATUS_OFFSET)
@@ -202,6 +220,12 @@ def read_cancel_properties(
         ex=locked and bool((dynamic_flags & 0x01) or (status1 & 0x01)),
         chain_shift=locked and bool((dynamic_flags & 0x02) or (status1 & 0x08)),
         read_error=read_error,
+        descriptor_posture=descriptor_posture,
+        posture=(
+            entity[POSTURE_OVERRIDE_OFFSET]
+            if _i32(entity, POSTURE_OVERRIDE_TIMER_OFFSET) > 0
+            else descriptor_posture
+        ),
     )
 
 

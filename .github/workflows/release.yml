@@ -50,7 +50,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0-rc.1').Path
+          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0-rc.2').Path
           $exe = Join-Path $app UNI2FrameMeter.exe
           & (Join-Path $app uni2-frame-meter-host.exe) --self-check
           if ($LASTEXITCODE -ne 0) { throw 'Native helper self-check failed' }
@@ -63,6 +63,25 @@ jobs:
           if (!$p.WaitForExit(30000)) { $p.Kill(); throw 'Packaged self-check timed out' }
           if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw 'Packaged self-check failed' }
           Get-Content $report
+          $selfCheck = Get-Content $report -Raw | ConvertFrom-Json
+          if ($selfCheck.build -ne 'v0.6.0-rc.2' -or $selfCheck.display_switches -ne 25) { throw 'Unexpected candidate profile' }
+          # Exercise migration inside the actual frozen executable: the
+          # baseline must be embedded, not just supplied beside the EXE.
+          $legacy = Get-Content (Join-Path $app frame_semantics.json) -Raw | ConvertFrom-Json
+          $newTokens = @('hitstun','guardstun','knockdown','capture','airborne','crouching','hitstop','counter_hit_vulnerable','ground_assault','air_assault')
+          foreach ($token in $newTokens) { $legacy.tokens.PSObject.Properties.Remove($token) }
+          $legacy.external_attributes = @($legacy.external_attributes | Where-Object { $_.token -notin $newTokens })
+          $legacy.runtime_attributes = @($legacy.runtime_attributes | Where-Object { $_.token -notin $newTokens })
+          $legacyPath = Join-Path $PWD legacy-profile.json
+          $legacy | ConvertTo-Json -Depth 20 | Set-Content -Encoding utf8 $legacyPath
+          $beforeHash = (Get-FileHash $legacyPath).Hash
+          $migrationReport = Join-Path $PWD migration-check.json
+          $p = Start-Process -FilePath $exe -ArgumentList @('--self-check','--config',"`"$legacyPath`"",'--self-check-report',"`"$migrationReport`"") -PassThru
+          if (!$p.WaitForExit(30000)) { $p.Kill(); throw 'Packaged migration check timed out' }
+          if ($p.ExitCode -ne 0 -or !(Test-Path $migrationReport)) { throw 'Packaged migration check failed' }
+          $migrated = Get-Content $migrationReport -Raw | ConvertFrom-Json
+          if ($migrated.display_switches -ne 25 -or (Get-FileHash $legacyPath).Hash -ne $beforeHash) { throw 'Embedded profile migration failed' }
+          Write-Host 'PASS: actual packaged executable merges new options without rewriting old profile'
           Add-Type -TypeDefinition @'
           using System;
           using System.Runtime.InteropServices;
@@ -114,6 +133,277 @@ jobs:
             $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $app $entry.Name)).Hash.ToLowerInvariant()
             if ($actual -ne $entry.Value) { throw "Package checksum mismatch: $($entry.Name)" }
           }
+      - name: Verify Windows controls and rendered status colors
+        shell: pwsh
+        run: |
+          $source = @'
+          """Private owned UI fixture. Imports production Tk controls, never the game."""
+          from __future__ import annotations
+
+          import argparse
+          import ast
+          from copy import deepcopy
+          import ctypes
+          import json
+          import os
+          from pathlib import Path
+          import sys
+          import tempfile
+          import threading
+          import time
+          import tkinter as tk
+          from unittest.mock import patch
+
+
+          parser = argparse.ArgumentParser()
+          parser.add_argument("--project", type=Path, default=Path(__file__).resolve().parents[2])
+          parser.add_argument("--report", type=Path, default=Path("ui-check.json"))
+          parser.add_argument("--hold", type=float, default=0.0)
+          parser.add_argument("--screenshot", type=Path)
+          args = parser.parse_args()
+          project = args.project.resolve()
+          sys.path.insert(0, str(project / "src"))
+
+          from app_errors import APP_TITLE
+          from display_config import DisplayConfig
+          from display_controls import DisplayControls
+          from frame_timeline import FrameTimeline, TimelineSettings, EMPTY_FRAME
+          from semantic_engine import SemanticEngine
+
+
+          errors = []
+          checks = []
+          overlay_source = (project / "src" / "uni2_overlay.py").read_text(encoding="utf-8")
+          if os.name == "nt":
+              import uni2_overlay
+              uni2_overlay.report_error = errors.append
+              Overlay = uni2_overlay.Overlay
+          else:
+              # Tk/X11 smoke exercise of the exact same production methods. The Windows
+              # CI path imports the complete actual module and uses native GDI pixels.
+              tree = ast.parse(overlay_source)
+              cls = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == "Overlay")
+              cls.body = [node for node in cls.body if isinstance(node, ast.FunctionDef) and node.name in (
+                  "create_control_window", "toggle_display", "reset_display"
+              )]
+              namespace = dict(tk=tk, APP_TITLE=APP_TITLE, DisplayControls=DisplayControls,
+                               deepcopy=deepcopy, report_error=errors.append,
+                               EMPTY_FRAME=EMPTY_FRAME, time=time)
+              exec(compile(ast.Module(body=[cls], type_ignores=[]), "production-overlay-methods", "exec"), namespace)
+              Overlay = namespace["Overlay"]
+
+
+          def ck(label: str, condition: object) -> None:
+              if not condition:
+                  raise AssertionError(label)
+              checks.append(label)
+
+
+          def surface_color(canvas: tk.Canvas) -> str:
+              if os.name != "nt":
+                  return canvas.itemcget(1, "fill")
+              user = ctypes.WinDLL("user32", use_last_error=True)
+              gdi = ctypes.WinDLL("gdi32", use_last_error=True)
+              user.GetDC.argtypes = [ctypes.c_void_p]
+              user.GetDC.restype = ctypes.c_void_p
+              user.ReleaseDC.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+              user.ReleaseDC.restype = ctypes.c_int
+              gdi.GetPixel.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_int]
+              gdi.GetPixel.restype = ctypes.c_uint32
+              dc = user.GetDC(canvas.winfo_id())
+              if not dc:
+                  raise ctypes.WinError(ctypes.get_last_error())
+              try:
+                  color = gdi.GetPixel(dc, 8, 8)
+                  if color == 0xFFFFFFFF:
+                      raise RuntimeError("Color swatch pixel was not readable")
+                  return f"#{color & 255:02x}{(color >> 8) & 255:02x}{(color >> 16) & 255:02x}"
+              finally:
+                  user.ReleaseDC(canvas.winfo_id(), dc)
+
+
+          def hex_color(widget: tk.Widget, color: str) -> str:
+              red, green, blue = widget.winfo_rgb(color)
+              return f"#{red // 257:02x}{green // 257:02x}{blue // 257:02x}"
+
+
+          with tempfile.TemporaryDirectory(prefix="frame-meter-owned-ui-") as scratch:
+              profile = Path(scratch) / "frame_semantics.json"
+              profile.write_bytes((project / "frame_semantics.json").read_bytes())
+              instance = Overlay.__new__(Overlay)
+              instance.root = tk.Tk()
+              instance.root.withdraw()
+              instance.close = instance.root.destroy
+              instance.display_config = DisplayConfig.load(profile)
+              instance.semantic_engine = SemanticEngine(profile)
+              instance.semantic_colors = instance.semantic_engine.colors
+              settings = TimelineSettings.load(profile)
+              instance.timeline = FrameTimeline(settings.length_frames, settings.idle_reset_frames, settings.wrap_gap_frames)
+              instance.state_lock = threading.RLock()
+              instance.previous_actionable = None
+              instance.sample_generation = 0
+              try:
+                  instance.create_control_window()
+                  instance.root.update()
+                  controls = instance.display_controls
+                  items = instance.display_config.items()
+                  ck("dynamic row count equals display profile", len(controls.swatches) == len(items))
+                  ck("one color square for every checkbox", set(controls.checkboxes) == set(controls.swatches))
+                  ck("same colors dictionary as actual timeline", controls.colors is instance.semantic_colors)
+                  for item in items:
+                      canvas = controls.swatches[item.token]
+                      checkbox = controls.checkboxes[item.token]
+                      ck(item.token + " square is 16 pixels", canvas.winfo_width() == 16 and canvas.winfo_height() == 16)
+                      ck(item.token + " profile label is used", checkbox.cget("text") == instance.semantic_engine.token_styles[item.token].get("label", item.token))
+                      ck(item.token + " square is immediately to the right", canvas.winfo_x() > checkbox.winfo_x() + checkbox.winfo_width())
+                      ck(item.token + " square shares checkbox row", canvas.grid_info()["row"] == checkbox.grid_info()["row"])
+                      initial = bool(controls.variables[item.token].get())
+                      if item.status != "confirmed":
+                          ck(item.token + " unconfirmed control disabled", checkbox.instate(["disabled"]))
+                          controls.variables[item.token].set(True)
+                          controls.refresh_swatch(item.token)
+                          instance.root.update()
+                          ck(item.token + " disabled square remains empty", canvas.itemcget(1, "fill") == "")
+                          if os.name == "nt":
+                              ck(item.token + " disabled actual GDI pixel is empty", surface_color(canvas) == hex_color(canvas, canvas.cget("background")))
+                          controls.variables[item.token].set(initial)
+                          controls.refresh_swatch(item.token)
+                          continue
+                      for stage in ("toggle", "restore"):
+                          checkbox.invoke()
+                          instance.root.update()
+                          value = bool(controls.variables[item.token].get())
+                          expected = instance.semantic_colors[item.token] if value else ""
+                          ck(item.token + " " + stage + " square follows checkbox", canvas.itemcget(1, "fill") == expected)
+                          saved = DisplayConfig.load(profile)
+                          ck(item.token + " " + stage + " actual file saved", next(i.display for i in saved.items() if i.token == item.token) == value)
+                          # GetPixel sees the surface actually painted by Windows, not
+                          # just the requested Tk item configuration.
+                          if os.name == "nt":
+                              rendered = hex_color(canvas, expected or canvas.cget("background"))
+                              ck(item.token + " " + stage + " actual GDI pixel", surface_color(canvas) == rendered)
+                      ck(item.token + " original checkbox restored", bool(controls.variables[item.token].get()) == initial)
+                  candidate = next(item.token for item in items if item.status == "confirmed")
+                  old_document = deepcopy(instance.display_config.document)
+                  old_external = instance.semantic_engine.external_attributes.copy()
+                  old_runtime = instance.semantic_engine.runtime_attributes
+                  original_disk = profile.read_bytes()
+                  old_display = bool(controls.variables[candidate].get())
+                  old_generation = instance.sample_generation
+                  real_save = instance.display_config.set_display
+
+                  def failing_save(token: str, value: bool) -> None:
+                      for section in ("runtime_attributes", "external_attributes"):
+                          for raw in instance.display_config.document.get(section, []):
+                              if raw.get("token") == token:
+                                  raw["display"] = value
+                      raise OSError("Owned UI fixture: permission denied while saving display preference")
+
+                  instance.display_config.set_display = failing_save
+                  controls.checkboxes[candidate].invoke()
+                  instance.root.update()
+                  instance.display_config.set_display = real_save
+                  ck("save error logged visibly through original error route", len(errors) == 1 and isinstance(errors[0], OSError))
+                  ck("failed save restores checkbox", bool(controls.variables[candidate].get()) == old_display)
+                  ck("failed save restores in-memory profile", instance.display_config.document == old_document)
+                  ck("failed save leaves existing saved file untouched", profile.read_bytes() == original_disk)
+                  ck("failed save restores external semantic switches", instance.semantic_engine.external_attributes == old_external)
+                  ck("failed save restores runtime semantic switches", instance.semantic_engine.runtime_attributes == old_runtime)
+                  ck("failed save preserves timeline generation", instance.sample_generation == old_generation)
+                  ck("failed save restores matching square", controls.swatches[candidate].itemcget(1, "fill") == (instance.semantic_colors[candidate] if old_display else ""))
+                  if os.name == "nt":
+                      canvas = controls.swatches[candidate]
+                      expected = instance.semantic_colors[candidate] if old_display else canvas.cget("background")
+                      ck("failed save restores actual rendered GDI pixel", surface_color(canvas) == hex_color(canvas, expected))
+                  controls.show_status("")
+                  instance.root.update()
+                  normal_height = instance.control_window.winfo_height()
+                  ck("normal state has no status text", controls.status_variable.get() == "")
+                  ck("normal state hides status row", controls.status_label.winfo_manager() == "")
+                  controls.show_status("Frame gap · timeline reset")
+                  instance.root.update()
+                  ck("short exceptional state is visible", controls.status_label.winfo_ismapped())
+                  ck("exception state has no tick or sequence counters", "tick" not in controls.status_variable.get().lower() and "sequence" not in controls.status_variable.get().lower())
+                  controls.show_status("")
+                  instance.root.update()
+                  ck("normal state removes extra status row height", instance.control_window.winfo_height() == normal_height)
+                  ck("old monotonically increasing status removed from production source", "Native logic tick {tick}" not in overlay_source and "· sequence {snapshot.sequence}" not in overlay_source)
+                  compact = Overlay.__new__(Overlay)
+                  compact.root = instance.root
+                  compact.close = lambda: None
+                  compact.display_config = DisplayConfig.load(profile)
+                  compact.semantic_engine = SemanticEngine(profile)
+                  compact.semantic_colors = compact.semantic_engine.colors
+                  compact.timeline = FrameTimeline(settings.length_frames, settings.idle_reset_frames, settings.wrap_gap_frames)
+                  compact.state_lock = threading.RLock()
+                  compact.previous_actionable = None
+                  compact.sample_generation = 0
+                  try:
+                      with patch.object(DisplayControls, "winfo_screenheight", return_value=520):
+                          compact.create_control_window()
+                      compact.display_controls.show_status("")
+                      instance.root.update()
+                      small = compact.display_controls
+                      ck("limited-height display chooses two columns once", small.column_count == 2)
+                      ck("limited-height layout preserves title/taskbar margin", compact.control_window.winfo_height() <= 400)
+                      compact_dimensions = [compact.control_window.winfo_width(), compact.control_window.winfo_height()]
+                      for index, item in enumerate(compact.display_config.items()):
+                          checkbox = small.checkboxes[item.token]
+                          canvas = small.swatches[item.token]
+                          group, row = divmod(index, small.status_row)
+                          ck(item.token + " compact checkbox retains ordered group", checkbox.grid_info()["column"] == group * 2 and checkbox.grid_info()["row"] == row)
+                          ck(item.token + " compact color is beside its checkbox", canvas.grid_info()["column"] == group * 2 + 1 and canvas.grid_info()["row"] == row)
+                          if item.status != "confirmed":
+                              continue
+                          for stage in ("toggle", "restore"):
+                              checkbox.invoke()
+                              instance.root.update()
+                              value = bool(small.variables[item.token].get())
+                              expected = compact.semantic_colors[item.token] if value else ""
+                              ck(item.token + " compact " + stage + " color follows checkbox", canvas.itemcget(1, "fill") == expected)
+                              if os.name == "nt":
+                                  ck(item.token + " compact " + stage + " actual GDI pixel", surface_color(canvas) == hex_color(canvas, expected or canvas.cget("background")))
+                      small.show_status("Capture reset")
+                      instance.root.update()
+                      ck("compact exceptional row spans both checkbox groups", small.status_label.grid_info()["columnspan"] == 4)
+                  finally:
+                      compact.control_window.destroy()
+                      instance.root.update()
+                  if args.screenshot:
+                      from PIL import ImageGrab
+                      instance.control_window.lift()
+                      instance.root.update()
+                      time.sleep(0.2)
+                      x = instance.control_window.winfo_rootx()
+                      y = instance.control_window.winfo_rooty()
+                      width = instance.control_window.winfo_width()
+                      height = instance.control_window.winfo_height()
+                      args.screenshot.parent.mkdir(parents=True, exist_ok=True)
+                      ImageGrab.grab(bbox=(x, y, x + width, y + height),
+                                     xdisplay=os.environ.get("DISPLAY") if os.name != "nt" else None).save(args.screenshot)
+                  window_dimensions = [instance.control_window.winfo_width(), instance.control_window.winfo_height()]
+                  screen_dimensions = [instance.control_window.winfo_screenwidth(), instance.control_window.winfo_screenheight()]
+                  ck("normal control window fits the current display", all(a <= b for a, b in zip(window_dimensions, screen_dimensions)))
+                  if args.hold:
+                      until = time.monotonic() + args.hold
+                      while time.monotonic() < until:
+                          instance.root.update()
+                          time.sleep(0.02)
+              finally:
+                  instance.root.destroy()
+
+          report = dict(ok=True, passed=len(checks), checks=checks, native_windows=os.name == "nt",
+                        window_dimensions=window_dimensions, screen_dimensions=screen_dimensions,
+                        compact_window_dimensions=compact_dimensions,
+                        original_game_started=False, hooks_installed=False,
+                        scope="Production control window, dynamic profile colors, checkbox persistence, failed-save rollback, compact status")
+          args.report.parent.mkdir(parents=True, exist_ok=True)
+          args.report.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report))
+          '@
+          [IO.File]::WriteAllText("$PWD/ui-check.py",$source,[Text.UTF8Encoding]::new($false))
+          python "$PWD/ui-check.py" --project "$PWD" --report "$PWD/ui-check.json"
+          if ($LASTEXITCODE -ne 0) { throw 'Native Windows controls check failed' }
       - name: Native PE32 DLL guard
         shell: pwsh
         run: |
@@ -130,7 +420,7 @@ jobs:
             [UnmanagedFunctionPointer(CallingConvention.StdCall)] public delegate uint Start(IntPtr request);
           }
           "@
-          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0-rc.1/uni2-frame-meter.dll")
+          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0-rc.2/uni2-frame-meter.dll")
           if ($h -eq [IntPtr]::Zero) { throw 'Collector load failed' }
           try {
             $f = [Dll]::GetProcAddress($h,'FrameMeterStart')
@@ -153,7 +443,10 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: self-check-report
-          path: self-check.json
+          path: |
+            self-check.json
+            migration-check.json
+            ui-check.json
           retention-days: 7
   publish:
     needs: windows
@@ -173,6 +466,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
           COMMIT: ${{ github.sha }}
         run: |
-          gh release create v0.6.0-rc.1 package/*.zip package/SHA256SUMS.txt \
-            --target "$COMMIT" --prerelease --title 'UNI2 Frame Meter v0.6.0-rc.1' \
-            --notes 'Hook-based Training Mode frame meter for the supported 4ebed985 EXE. Extract the complete ZIP and run UNI2FrameMeter.exe after starting the game. Original game files are unchanged; the collector hooks the native battle-step function in process memory and publishes completed snapshots to the overlay. Restart the game when upgrading the DLL. Native Windows package startup, visible error handling, configuration and DLL guards verified; live-game timeline accuracy and coexistence with other plugins remain for user testing. Unsupported EXEs are rejected. See the README for compatibility and SHA-256 checksums.'
+          gh release create v0.6.0-rc.2 package/*.zip package/SHA256SUMS.txt \
+            --target "$COMMIT" --prerelease --title 'UNI2 Frame Meter v0.6.0-rc.2' \
+            --notes 'Adds color squares beside each display option, removes running tick/sequence numbers, and adds native hitstun, guardstun, down, captured, posture, hitstop, counter-hit vulnerability and assault state bands. Existing display choices and colors are preserved when merging new options. Hook-based Training Mode frame meter for the supported 4ebed985 EXE. Extract the complete ZIP and run UNI2FrameMeter.exe after starting the game. Original game files are unchanged; the collector hooks the native battle-step function in process memory and publishes completed snapshots to the overlay. Restart the game when upgrading the DLL. Native Windows checkbox persistence, rendered GDI colors, package startup, visible error handling, configuration and DLL guards verified. The previous candidate works in user Training Mode testing; the new state bands and coexistence with other plugins remain for user testing. Unsupported EXEs are rejected. See the README for compatibility and SHA-256 checksums.'

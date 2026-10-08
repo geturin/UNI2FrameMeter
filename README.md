@@ -4,7 +4,7 @@
 
 A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It displays both players' frame-by-frame action states at the bottom of the game window, making startup, active frames, recovery, frame advantage, invincibility, and cancel windows easier to understand.
 
-**0.6.0-rc.1 is a native-hook candidate.** A 32-bit helper loads the Frame Meter DLL into the game. The DLL observes the original battle update function and sends complete per-tick snapshots to the separate overlay through shared memory. The original game functions continue to run; no battle simulation or game-script patch is required. Training Mode display behavior still needs testing in the actual game by users.
+**0.6.0-rc.2 is a native-hook candidate.** A 32-bit helper loads the Frame Meter DLL into the game. The DLL observes the original battle update function and sends complete per-tick snapshots to the separate overlay through shared memory. The original game functions continue to run; no battle simulation or game-script patch is required. The previous candidate works in the user's Training Mode testing; the new state bands need checking in the game.
 
 ## Demonstration video
 
@@ -72,11 +72,11 @@ Cells follow the game's original elapsed battle-update counter. Paused menus and
 
 The base colors represent restricted action, startup, attack judgment, and recovery. Extra properties such as cancel, invincibility, and projectile state are layered in the same cell. Their colors can be changed in the config file.
 
-The native actionable predicate replaces the older landing and guard-return shortcuts. Cancel bands describe the sampled native cancel predicates, not every character's complete command eligibility. Missing or overwritten snapshots reset the timeline and show a counter instead of inventing frames.
+The native actionable predicate replaces the older landing and guard-return shortcuts. Cancel bands describe the sampled native cancel predicates, not every character's complete command eligibility. Missing or overwritten snapshots reset the timeline and briefly show a reset message; diagnostic counters remain in F8 captures.
 
 ## Control window
 
-A small control window opens with the tool. Check or uncheck an item to show or hide that property immediately.
+A small control window opens with the tool. Check or uncheck an item to show or hide that property immediately. The square on its right shows the exact timeline color when enabled; unchecked or unavailable items have an empty square. Running tick and sequence numbers are no longer shown.
 
 `two_way_guard` is enabled by default and marks horizontal guard-direction assistance in purple. For example, when P1 Kuon uses a relevant 623 move, the band appears on the benefiting P2 row, including while P2 can act freely; it does not indicate recovery. It applies to the opposing main character's attacks. Overhead, low, and other guard requirements still apply, and independent projectiles use their own direction properties.
 
@@ -85,6 +85,24 @@ A small control window opens with the tool. Check or uncheck an item to show or 
 - Gray items are not currently available and cannot be enabled.
 - `cs_cancel` remains incomplete and disabled; the display does not imply that Chain Shift is available.
 - Closing the control window also closes the timeline.
+
+### Detailed states
+
+The new categories read native state flags, not action-name guesses:
+
+| Display item | Meaning | Default |
+| --- | --- | --- |
+| Hitstun / Guardstun | Native hit or guard restraint | On |
+| Down state | Native down flag during restraint, including its recovery interval | On |
+| Captured | Restrained by a capture/throw | On |
+| Hitstop | Positive native per-character hitstop timer | Off |
+| Counter-hit vulnerable | Native vulnerability flag; not a Counter Hit result or guarantee | Off |
+| Airborne / Crouching | Current native posture, including timed overrides | Off |
+| Ground assault / Air assault | The game's corresponding action markers | Off |
+
+Detailed restraint colors replace the generic action-restricted color. Turning one off restores that generic color. Other enabled properties appear as additional bands, including posture while freely actionable. Hitstop remains an extra band: it does not remove freeze frames from move durations. Counter Hit also depends on the attacking move and training settings. Down state does not distinguish hard and soft knockdowns. Full Chain Shift eligibility, dash/backdash, landing recovery, and tech-window eligibility are not claimed by these categories.
+
+Keep your existing `frame_semantics.json` when upgrading to retain colors, choices, and timeline settings. New built-in options are merged automatically and saved on the next display change. Built-in predicate definitions follow the application version.
 
 ## Editing the config file
 
@@ -190,7 +208,7 @@ The ZIP is written to `release`. The [release workflow](.github/workflows/releas
 
 This version **injects a DLL and installs detours in the game's running memory**. It leaves the EXE and game resource files on disk unchanged and reads game state for display while the original battle functions execute normally. Use in Training Mode is recommended. Compatibility with anti-cheat systems or online play is not guaranteed.
 
-The candidate has not been tested by launching the original game during development. Package and fixture checks cannot establish live Training Mode accuracy; report any missing, incorrect, or interrupted frame display after testing.
+The previous hook candidate was confirmed working by a user in Training Mode. The new state categories are based on the supported EXE's native fields. Development checks use owned fixtures and do not launch the game; verify the new bands in Training Mode and report incorrect or interrupted displays.
 
 This is an unofficial community project and is not affiliated with FRENCH-BREAD, Arc System Works, or any other rights holder. UNDER NIGHT IN-BIRTH and related names belong to their respective owners.
 

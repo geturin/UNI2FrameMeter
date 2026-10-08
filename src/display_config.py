@@ -4,6 +4,8 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
+from semantic_profile import load_profile
+
 
 @dataclass(frozen=True)
 class DisplayItem:
@@ -21,9 +23,7 @@ class DisplayConfig:
 
     @classmethod
     def load(cls, path: Path) -> "DisplayConfig":
-        document = json.loads(path.read_text(encoding="utf-8"))
-        if document.get("schema_version") != 2:
-            raise ValueError("unsupported frame-semantics profile schema")
+        document = load_profile(path)
         return cls(path, document)
 
     def items(self) -> tuple[DisplayItem, ...]:

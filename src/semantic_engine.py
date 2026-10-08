@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-import json
 from pathlib import Path
 import struct
 import sys
 from typing import Any
+
+from semantic_profile import load_profile
+from combat_states import BoundState
 
 from frame_timeline import FrameBands
 from runtime_layout import (
@@ -22,12 +24,13 @@ def runtime_directory() -> Path:
 
 DEFAULT_PROFILE = runtime_directory() / "frame_semantics.json"
 
-# Battle_Std itself uses this exact union when it needs to ask whether the
-# current move is an attack, a skill or a throw.  These are MoveCode bank 0
-# bits at entity+0x6B8, not the timed HitCheck structures at +0x49C/+0x4AC.
+# These are the game's named MoveCode bank 0 flags at entity+0x6B8.
+# The meter treats Attack, Skill and Throw as attack actions for phase
+# tracking. FireBall (0x04) is a different flag, not Throw (0x20).
+# Neither bank is the timed HitCheck structure at +0x49C/+0x4AC.
 MOVE_CODE_ATTACK = 0x01
 MOVE_CODE_SKILL = 0x02
-MOVE_CODE_THROW = 0x04
+MOVE_CODE_THROW = 0x20
 ATTACK_MOVE_CODE_MASK = MOVE_CODE_ATTACK | MOVE_CODE_SKILL | MOVE_CODE_THROW
 
 
@@ -53,7 +56,9 @@ class EntitySnapshot:
     def parse(cls, data: bytes, native_actionable: bool | None = None) -> "EntitySnapshot":
         return cls(
             raw=data,
-            state_code=u32(data, 0x24),  # raw diagnostic field; no new enum inferred
+            # Historical field name retained internally. +0x24 is a WORD
+            # DataDelay diagnostic, not a character-state enumeration.
+            state_code=struct.unpack_from("<H", data, 0x24)[0],
             movable=data[MOVABLE_OFFSET],
             move_code=u32(data, MOVE_CODE_OFFSET),
             action_instance=u32(data, ACTION_INSTANCE_OFFSET),
@@ -82,12 +87,29 @@ class RuntimeCondition:
     mask: int
     equals: int | None = None
     not_equals: int | None = None
+    size: int = 4
+    signed: bool = False
+    greater_than: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.size not in (1, 2, 4) or self.offset < 0:
+            raise ValueError("runtime condition has an invalid field layout")
+        if not 0 <= self.mask < (1 << (self.size * 8)):
+            raise ValueError("runtime condition mask exceeds its field width")
+        if self.signed and self.mask != (1 << (self.size * 8)) - 1:
+            raise ValueError("signed runtime conditions require a full-width mask")
 
     def matches(self, data: bytes) -> bool:
-        value = u32(data, self.offset) & self.mask
+        if self.offset + self.size > len(data):
+            raise ValueError("runtime condition is outside the native snapshot")
+        value = int.from_bytes(data[self.offset:self.offset + self.size], "little") & self.mask
+        if self.signed and value & (1 << (self.size * 8 - 1)):
+            value -= 1 << (self.size * 8)
         if self.equals is not None and value != self.equals:
             return False
         if self.not_equals is not None and value == self.not_equals:
+            return False
+        if self.greater_than is not None and value <= self.greater_than:
             return False
         return True
 
@@ -98,6 +120,7 @@ class RuntimeAttribute:
     display: bool
     status: str
     condition_groups: tuple[tuple[RuntimeCondition, ...], ...]
+    scope: str = "action"
 
     def matches(self, data: bytes) -> bool:
         return any(
@@ -129,9 +152,7 @@ class SemanticEngine:
     """Convert each live entity snapshot directly into one display cell."""
 
     def __init__(self, profile: Path = DEFAULT_PROFILE, raw_states: bool = False):
-        document = json.loads(profile.read_text(encoding="utf-8"))
-        if document.get("schema_version") != 2:
-            raise ValueError("unsupported frame-semantics profile schema")
+        document = load_profile(profile)
         self.raw_states = raw_states
         self.token_styles: dict[str, dict[str, Any]] = document["tokens"]
         def parse_condition(condition: dict[str, Any]) -> RuntimeCondition:
@@ -146,6 +167,13 @@ class SemanticEngine:
                 not_equals=(
                     int(condition["not_equals"], 0)
                     if "not_equals" in condition
+                    else None
+                ),
+                size=int(condition.get("size", 4)),
+                signed=bool(condition.get("signed", False)),
+                greater_than=(
+                    int(condition["greater_than"], 0)
+                    if "greater_than" in condition
                     else None
                 ),
             )
@@ -165,6 +193,7 @@ class SemanticEngine:
                 display=bool(attribute["display"]),
                 status=str(attribute["status"]),
                 condition_groups=parse_groups(attribute),
+                scope=str(attribute.get("scope", "action")),
             )
             for attribute in document["runtime_attributes"]
         )
@@ -260,7 +289,7 @@ class SemanticEngine:
             token
             for token in world_tokens + status_tokens
             if self.external_attributes.get(token, False)
-        )
+        ) + self._runtime_tokens(snapshot, independent=True)
         if displayed_independent_tokens:
             frame = replace(
                 frame,
@@ -269,11 +298,12 @@ class SemanticEngine:
             )
         return SemanticResult(frame)
 
-    def _runtime_tokens(self, snapshot: EntitySnapshot) -> tuple[str, ...]:
+    def _runtime_tokens(self, snapshot: EntitySnapshot, independent: bool = False) -> tuple[str, ...]:
         return tuple(
             attribute.token
             for attribute in self.runtime_attributes
-            if attribute.display and attribute.matches(snapshot.raw)
+            if attribute.display and (attribute.scope == "independent") == independent
+            and attribute.matches(snapshot.raw)
         )
 
     def _confirmed_frame(
@@ -287,9 +317,14 @@ class SemanticEngine:
         if snapshot.actionable:
             tracker.reset()
             return FrameBands(False, action_frame=snapshot.action_frame, actionable=True)
-        if not snapshot.attack_action:
+        state_token = BoundState.parse(snapshot.raw).token
+        if state_token is not None or not snapshot.attack_action:
             tracker.reset()
-            phase = "control_lock"
+            phase = (
+                state_token
+                if state_token is not None and self.external_attributes.get(state_token, False)
+                else "control_lock"
+            )
         else:
             new_action = (
                 not tracker.active
@@ -308,10 +343,9 @@ class SemanticEngine:
                 phase = "recovery"
             else:
                 phase = "startup"
-        # The internal active phase and the confirmed attack judgment describe
-        # the same frames in every validated capture. Keep the phase for
-        # startup/recovery tracking, but render only the attack token so those
-        # frames do not occupy two identical semantic bands.
+        # During an attack action, draw its active phase once using the attack
+        # token. A native bound-state band may coexist with a current attack
+        # record; the record alone does not prove a hit or collision result.
         tokens = [] if phase == "active" else [phase]
         if attack_judgment:
             tokens.append("attack")
@@ -337,7 +371,7 @@ class SemanticEngine:
             return FrameBands(False, action_frame=snapshot.action_frame, actionable=True)
         codes: list[tuple[int, object]] = [(0, "locked")]
         if snapshot.state_code:
-            codes.append((100 + snapshot.state_code, ("state", snapshot.state_code)))
+            codes.append((100 + snapshot.state_code, ("data_delay", snapshot.state_code)))
         if snapshot.move_code:
             codes.append((200, ("move_code", snapshot.move_code)))
         if snapshot.control_state:

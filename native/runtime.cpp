@@ -91,7 +91,9 @@ void capture_entity_animation(FmSlot& slot,const uint8_t* entity) {
     const auto* pointers=add_chunk(slot,static_cast<uintptr_t>(animation)+0x10c,8,true);
     if (!pointers) return;
     const uint32_t descriptor=u32(pointers);
-    if (descriptor) add_chunk(slot,static_cast<uintptr_t>(descriptor)+0x0d,0x0f,true);
+    // Include the native posture byte immediately before the existing
+    // invincibility/cancel fields, in the same completed-frame snapshot.
+    if (descriptor) add_chunk(slot,static_cast<uintptr_t>(descriptor)+0x0c,0x10,true);
 }
 void reset(uint32_t tick,uint32_t scene) {
     if (!has_frame) return;

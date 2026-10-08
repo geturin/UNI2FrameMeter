@@ -90,6 +90,56 @@
     "active_projectile": {
       "order": 80,
       "color": "#ff8a3d"
+    },
+    "hitstun": {
+      "order": 11,
+      "color": "#e45465",
+      "label": "Hitstun"
+    },
+    "guardstun": {
+      "order": 12,
+      "color": "#70a2e3",
+      "label": "Guardstun"
+    },
+    "knockdown": {
+      "order": 13,
+      "color": "#9b79c9",
+      "label": "Down state"
+    },
+    "capture": {
+      "order": 14,
+      "color": "#cf688d",
+      "label": "Captured"
+    },
+    "hitstop": {
+      "order": 85,
+      "color": "#d0d4db",
+      "label": "Hitstop"
+    },
+    "counter_hit_vulnerable": {
+      "order": 90,
+      "color": "#ef6676",
+      "label": "Counter-hit vulnerable"
+    },
+    "airborne": {
+      "order": 95,
+      "color": "#93d1ff",
+      "label": "Airborne"
+    },
+    "crouching": {
+      "order": 96,
+      "color": "#74c7a8",
+      "label": "Crouching"
+    },
+    "ground_assault": {
+      "order": 97,
+      "color": "#cfdf83",
+      "label": "Ground assault"
+    },
+    "air_assault": {
+      "order": 98,
+      "color": "#d4b282",
+      "label": "Air assault"
     }
   },
   "external_attributes": [
@@ -182,7 +232,85 @@
       "display": false,
       "status": "confirmed",
       "description": "Per-owner native dynamic FireBall object with a current animation-frame attack record"
+    },
+    {
+      "token": "hitstun",
+      "display": true,
+      "status": "confirmed",
+      "description": "Native BtlMvStd.GetBoundStatus: +0x234 DWORD nonzero and +0x1E4 BYTE zero, excluding capture and down; replaces generic control lock while original action permission is false"
+    },
+    {
+      "token": "guardstun",
+      "display": true,
+      "status": "confirmed",
+      "description": "Native BtlMvStd.GetBoundStatus: +0x234 DWORD nonzero and +0x1E4 BYTE nonzero, excluding capture and down; replaces generic control lock while original action permission is false"
+    },
+    {
+      "token": "knockdown",
+      "display": true,
+      "status": "confirmed",
+      "description": "Native bound state and signed WORD +0x248 nonzero, excluding capture; shows down-state flag, not a hard-knockdown promise or a recovered-action duration"
+    },
+    {
+      "token": "capture",
+      "display": true,
+      "status": "confirmed",
+      "description": "Native BtlMvStd.GetBoundStatus isCapture: BYTE +0x78 nonzero; includes throw capture and other forced restraints, takes precedence over bound guard/hit/down flags"
+    },
+    {
+      "token": "airborne",
+      "display": false,
+      "status": "confirmed",
+      "description": "Native CheckPosState effective posture equals 1: active signed DWORD +0x478 override uses BYTE +0x46C, otherwise current animation descriptor BYTE +0x0C; independent of free/locked permission"
+    },
+    {
+      "token": "crouching",
+      "display": false,
+      "status": "confirmed",
+      "description": "Native CheckPosState effective posture equals 2: active signed DWORD +0x478 override uses BYTE +0x46C, otherwise current animation descriptor BYTE +0x0C; independent of free/locked permission"
     }
   ],
-  "runtime_attributes": []
+  "runtime_attributes": [
+    {
+      "token": "hitstop",
+      "display": false,
+      "status": "confirmed",
+      "scope": "independent",
+      "offset": "0x1DE",
+      "size": 2,
+      "signed": true,
+      "mask": "0xFFFF",
+      "greater_than": "0",
+      "description": "Native character-local signed hitstop counter greater than zero; additional band, not a replacement for attack-phase counting and not global/super freeze"
+    },
+    {
+      "token": "counter_hit_vulnerable",
+      "display": false,
+      "status": "confirmed",
+      "scope": "independent",
+      "offset": "0x1FC",
+      "size": 1,
+      "mask": "0xFF",
+      "not_equals": "0",
+      "description": "Native BMvTbl.GetCounterHitFlag BYTE +0x1FC nonzero: vulnerability flag, not a confirmed counter hit; attack NoCounter and training overrides can suppress the final counter result"
+    },
+    {
+      "token": "ground_assault",
+      "display": false,
+      "status": "confirmed",
+      "offset": "0x6D4",
+      "mask": "0x1",
+      "not_equals": "0",
+      "description": "Current strict ground-Assault motion marker, MoveCode bank 7 bit 0; does not label attacks derived from Assault"
+    },
+    {
+      "token": "air_assault",
+      "display": false,
+      "status": "confirmed",
+      "offset": "0x6D4",
+      "mask": "0x2",
+      "not_equals": "0",
+      "description": "Current strict air-Assault motion marker, MoveCode bank 7 bit 1; does not label attacks derived from Assault"
+    }
+  ]
 }

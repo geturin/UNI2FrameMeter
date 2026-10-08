@@ -1,5 +1,5 @@
 param(
-    [string]$Version = "v0.6.0-rc.1"
+    [string]$Version = "v0.6.0-rc.2"
 )
 
 $ErrorActionPreference = "Stop"
@@ -11,6 +11,10 @@ $workDir = Join-Path $projectRoot "build"
 $specDir = Join-Path $workDir "spec"
 $pyInstallerDist = Join-Path $workDir "pyinstaller-dist"
 $nativeDir = Join-Path $workDir "native"
+$overlaySource = Get-Content -Raw -LiteralPath (Join-Path $projectRoot "src\uni2_overlay.py")
+if ($overlaySource -notmatch ('BUILD_ID\s*=\s*"' + [regex]::Escape($Version) + '"')) {
+    throw "Release version does not match the overlay BUILD_ID: $Version"
+}
 
 foreach ($name in @("uni2-frame-meter.dll", "uni2-frame-meter-host.exe")) {
     if (!(Test-Path -LiteralPath (Join-Path $nativeDir $name))) {
@@ -24,6 +28,7 @@ python -m PyInstaller `
     --onefile `
     --windowed `
     --name "UNI2FrameMeter" `
+    --add-data "$(Join-Path $projectRoot 'frame_semantics.json');." `
     --workpath (Join-Path $workDir "pyinstaller") `
     --specpath $specDir `
     --distpath $pyInstallerDist `
