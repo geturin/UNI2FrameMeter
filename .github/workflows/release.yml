@@ -56,6 +56,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Native helper self-check failed' }
           & (Join-Path $app uni2-frame-meter-host.exe) --attach 0
           if ($LASTEXITCODE -ne 1) { throw 'Invalid PID was not rejected' }
+          # This nonzero exit was the expected rejection, not a failed step.
+          $global:LASTEXITCODE = 0
           $report = Join-Path $PWD self-check.json
           $p = Start-Process -FilePath $exe -ArgumentList @('--self-check','--self-check-report',"`"$report`"") -PassThru
           if (!$p.WaitForExit(30000)) { $p.Kill(); throw 'Packaged self-check timed out' }
