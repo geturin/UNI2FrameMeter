@@ -4,9 +4,13 @@
 
 A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It displays both players' frame-by-frame action states at the bottom of the game window, making startup, active frames, recovery, frame advantage, invincibility, and cancel windows easier to understand.
 
+**0.6.0-rc.1 is a native-hook candidate.** A 32-bit helper loads the Frame Meter DLL into the game. The DLL observes the original battle update function and sends complete per-tick snapshots to the separate overlay through shared memory. The original game functions continue to run; no battle simulation or game-script patch is required. Training Mode display behavior still needs testing in the actual game by users.
+
 ## Demonstration video
 
 [Watch on YouTube](https://youtu.be/O8JgjDnPLmE)
+
+This video demonstrates the older 0.5 overlay and its display features, not verification of the new hook-based build.
 
 ## Main features
 
@@ -16,31 +20,42 @@ A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It 
 - Multiple properties on the same frame are shown as layered colors.
 - Automatically labels the length of continuous color sections.
 - Preserves the result after both players become free so it can be inspected afterward.
-- Uses a separate transparent overlay and does not modify game files or game memory.
+- Uses a separate transparent overlay, fed by native game-state snapshots.
 
 ## Requirements
 
-- Windows 10 or Windows 11
+- Windows 10 or Windows 11 (64-bit)
 - Steam version of UNDER NIGHT IN-BIRTH II Sys:Celes
 - Windowed or borderless display mode
 
-The tool is not locked to a specific game version. New characters, balance changes, and move-data updates normally require no tool update. If an incompatible engine change occurs, the program stops with an error instead of continuing with invalid data.
+This candidate supports the inspected 32-bit `uni2.exe` only:
+
+- File size: **6,921,216 bytes**.
+- SHA-256: `4ebed985ecbf330ab8e495573361e49df20bb555263289d1aff5425fac9b7ed9`.
+
+The helper checks the EXE identity, loaded-image layout, and hook entry before attaching. An unsupported EXE produces a visible error without installing a hook. Game updates can change native functions or data structures and may require a compatibility update. This replaces EXE-signature discovery and external polling with snapshots from the native update function; it does not make the tool independent of game versions.
 
 ## Installation and use
 
-1. Download and extract the release package.
-2. Keep these two files in the same folder:
+1. Download the candidate ZIP from [Releases](https://github.com/geturin/UNI2FrameMeter/releases) and extract it completely.
+2. Keep these four files in the same folder:
 
 ```text
 UNI2FrameMeter.exe
 frame_semantics.json
+uni2-frame-meter-host.exe
+uni2-frame-meter.dll
 ```
 
 3. Start the game and enter Training Mode.
 4. Double-click `UNI2FrameMeter.exe`.
 5. Return to the game. The timeline appears at the bottom of the game window.
 
-The timeline is visible only while the game is foreground and not minimized. Close the `UNI2 Frame Display` control window to exit the tool.
+The timeline is visible only while the game is foreground and not minimized. Close the `UNI2 Frame Meter` control window to stop capture and exit the overlay. A thin hook remains loaded in the game until the game exits. **Restart the game before upgrading the tool** so that a previous DLL is not reused.
+
+The packaged overlay contains its Python/Tk runtime; installing Python separately is unnecessary. The 32-bit helper handles attachment to the 32-bit game, while the overlay runs as a separate 64-bit application.
+
+Capture is limited to the game's training battle modes. Other modes continue through the original function without recording frame data.
 
 ## Reading the timeline
 
@@ -53,7 +68,11 @@ The timeline is visible only while the game is foreground and not minimized. Clo
 - By default, after 60 consecutive idle frames, the next action begins a new sequence from the left.
 - When the timeline fills, it wraps and uses a black gap to separate new and old content.
 
+Cells follow the game's original elapsed battle-update counter. Paused menus and render-only calls do not advance the meter. Native slowdown and freeze intervals are included, so the displayed durations are elapsed game frames, not move-data durations with all freezes removed. Raw phase and scheduler values are retained in F8 diagnostic captures.
+
 The base colors represent restricted action, startup, attack judgment, and recovery. Extra properties such as cancel, invincibility, and projectile state are layered in the same cell. Their colors can be changed in the config file.
+
+The native actionable predicate replaces the older landing and guard-return shortcuts. Cancel bands describe the sampled native cancel predicates, not every character's complete command eligibility. Missing or overwritten snapshots reset the timeline and show a counter instead of inventing frames.
 
 ## Control window
 
@@ -64,6 +83,7 @@ A small control window opens with the tool. Check or uncheck an item to show or 
 - Changes take effect immediately.
 - Choices are saved automatically to `frame_semantics.json`.
 - Gray items are not currently available and cannot be enabled.
+- `cs_cancel` remains incomplete and disabled; the display does not imply that Chain Shift is available.
 - Closing the control window also closes the timeline.
 
 ## Editing the config file
@@ -136,18 +156,42 @@ The control window can also change these `display` options directly.
 - Make sure Training Mode is open.
 - Make sure the game is foreground and not minimized.
 - Use windowed or borderless mode instead of exclusive fullscreen.
-- Make sure `frame_semantics.json` is beside the EXE.
+- Make sure the config, helper, and DLL are beside `UNI2FrameMeter.exe`.
+- Read the error dialog if attachment fails; it identifies an unsupported game build or missing package files.
 
 ### The tool stops working after a game update
 
-Normal character and balance updates should not cause a problem. If the tool reports that it cannot recognize the current game structure, wait for a compatibility update and include the game version and complete error message in your report.
+With the supplied updated EXE, the old battle-tick and entity-pool signatures no longer matched, and the character-object layout changed. The old GUI raised a startup exception before opening its window, so it appeared to crash. Its SHA-256 was recorded for diagnostics, not used to reject the build.
+
+This candidate replaces that scan with a checked native-hook profile and displays failures instead of silently closing. It still requires a compatible profile after relevant game updates. Include the complete error message and EXE SHA-256 when reporting a problem. Error logs are saved under `%LOCALAPPDATA%\UNI2FrameMeter\logs`; the dialog shows the actual log path.
 
 ### Windows shows a security warning
 
 Unsigned personal releases may trigger SmartScreen. Download only from this project's official release page and compare the file SHA-256 with the value published there.
 
+## Building from source
+
+First build the 32-bit helper and DLL with Python 3 and the i686 MinGW-w64 C/C++ compilers, for example on Linux:
+
+```bash
+python3 build_native.py --cc i686-w64-mingw32-gcc-posix --cxx i686-w64-mingw32-g++-posix
+```
+
+Then use 64-bit Python 3.12 on Windows. Keep the two generated native files in `build/native`, install PyInstaller, and package the overlay:
+
+```powershell
+python -m pip install PyInstaller==6.16.0
+./build_release.ps1
+```
+
+The ZIP is written to `release`. The [release workflow](.github/workflows/release.yml) performs the native build and Windows packaging in separate jobs; no game installation is needed for packaging.
+
 ## Safety and disclaimer
 
-This is an external, read-only overlay. It does not inject a DLL or modify game files or game memory. Use in Training Mode is recommended.
+This version **injects a DLL and installs detours in the game's running memory**. It leaves the EXE and game resource files on disk unchanged and reads game state for display while the original battle functions execute normally. Use in Training Mode is recommended. Compatibility with anti-cheat systems or online play is not guaranteed.
+
+The candidate has not been tested by launching the original game during development. Package and fixture checks cannot establish live Training Mode accuracy; report any missing, incorrect, or interrupted frame display after testing.
 
 This is an unofficial community project and is not affiliated with FRENCH-BREAD, Arc System Works, or any other rights holder. UNDER NIGHT IN-BIRTH and related names belong to their respective owners.
+
+The project is distributed under the [MIT License](LICENSE), copyright geturin. MinHook and its bundled disassembler use the [BSD 2-Clause License](vendor/minhook/LICENSE.txt); their notices are included in the release package. Game code and assets are not included.

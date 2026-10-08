@@ -76,6 +76,8 @@ kernel32.ReadProcessMemory.argtypes = [
     ctypes.POINTER(ctypes.c_size_t),
 ]
 kernel32.ReadProcessMemory.restype = wintypes.BOOL
+kernel32.GetExitCodeProcess.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+kernel32.GetExitCodeProcess.restype = wintypes.BOOL
 
 
 def win_error(message: str) -> OSError:
@@ -106,6 +108,12 @@ class ProcessHandle:
 
     def __exit__(self, exc_type, exc, tb) -> None:
         self.close()
+
+    def is_running(self) -> bool:
+        code = wintypes.DWORD()
+        if not self.handle or not kernel32.GetExitCodeProcess(self.handle, ctypes.byref(code)):
+            return False
+        return code.value == 259  # STILL_ACTIVE
 
     def image_path(self) -> str:
         capacity = wintypes.DWORD(32768)

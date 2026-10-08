@@ -4,6 +4,13 @@ from dataclasses import asdict, dataclass
 import struct
 from typing import Mapping, Protocol
 
+from runtime_layout import (
+    ANIMATION_OFFSET, DYNAMIC_FLAGS_OFFSET, DYNAMIC_TIMER_OFFSET,
+    MOVABLE_OFFSET, LANDING_LOCK_OFFSET, SECOND_MOVABLE_OFFSET, SECOND_TIMER_OFFSET,
+    OVERRIDE_STATUS_OFFSET, OVERRIDE_TIMER_OFFSET, STRIKE_TIMERS, THROW_TIMERS,
+    GUARD_PLUS_OFFSET, HIT_FILTER_OFFSET, HIT_FILTER_TIMER_OFFSET,
+)
+
 
 class MemoryReader(Protocol):
     def read(self, address: int, size: int) -> bytes | None: ...
@@ -35,8 +42,8 @@ def guard_direction_by_player(
 ) -> dict[int, GuardDirectionProperties]:
     """Project each main character's guard-direction assistance to its opponent.
 
-    SetGuardPlusFlag writes the move user's byte +0x63E. Native guard-direction
-    check 0x536ED0 reads that byte from the *attacker*: bit 0 enables reverse
+    SetGuardPlusFlag writes the move user's byte +0x64A. Native guard-direction
+    check reads that byte from the *attacker*: bit 0 enables reverse
     guard, bit 1 disables normal guard, and bit 4 suppresses reverse guard.
     This records explicit assistance against that main character's attacks,
     independently of held input, guard permission, attack height and contact.
@@ -48,7 +55,7 @@ def guard_direction_by_player(
             continue
         source_player = 1 - player
         source = entities.get(source_player)
-        flags = source[0x63E] if source is not None else None
+        flags = source[GUARD_PLUS_OFFSET] if source is not None else None
         result[player] = GuardDirectionProperties(
             source_player=source_player,
             source_guard_plus_flags=flags,
@@ -59,7 +66,7 @@ def guard_direction_by_player(
 
 @dataclass(frozen=True)
 class CancelProperties:
-    """Per-frame reconstruction of native BCMDTbl.CheckCancel (0x42B480).
+    """Per-frame reconstruction of native BCMDTbl.CheckCancel (0x42B350).
 
     Nothing here reads the conditional result cache at entity+0x798..+0x79D.
     The persistent descriptor, timed overrides and impact flags are sampled
@@ -102,7 +109,7 @@ class CancelProperties:
 
 
 def _cancel_rule_matches(rule: int, impact_result: int) -> bool:
-    """Exact behavior of helper 0x42B3D0."""
+    """Exact behavior of helper 0x42B2A0."""
 
     if rule == 1:  # _CancelFlag_Hit
         return bool(impact_result & 0x07)
@@ -116,7 +123,7 @@ def _cancel_rule_matches(rule: int, impact_result: int) -> bool:
 def read_cancel_properties(
     reader: MemoryReader, entity: bytes
 ) -> CancelProperties:
-    animation_pointer = _u32(entity, 0x648)
+    animation_pointer = _u32(entity, ANIMATION_OFFSET)
     descriptor_pointer: int | None = None
     descriptor_normal_rule: int | None = None
     descriptor_special_rule: int | None = None
@@ -145,8 +152,8 @@ def read_cancel_properties(
                     descriptor_actionable = raw[0x04]  # descriptor+0x11
                     descriptor_status1 = _u32(raw, 0x0B)  # descriptor+0x18
 
-    override_timer = _i32(entity, 0x46C)
-    override_status = _u32(entity, 0x460)
+    override_timer = _i32(entity, OVERRIDE_TIMER_OFFSET)
+    override_status = _u32(entity, OVERRIDE_STATUS_OFFSET)
     impact_flags = _u32(entity, 0x1CC)
     # CheckCancel converts +0x1CC to 0=no result, 1=contact, 2=damage.
     impact_result = 0 if impact_flags == 0 else (2 if impact_flags & 0x02 else 1)
@@ -161,19 +168,19 @@ def read_cancel_properties(
         if special_override != 0xFF:
             special_rule = special_override
 
-    # Exact freely-actionable shortcut at 0x424B80. A successful shortcut
+    # Exact freely-actionable shortcut at 0x424A20. A successful shortcut
     # makes native CheckCancel return 0xFF; timeline free cells remain black.
     native_actionable = False
     if descriptor_actionable is not None:
-        if _i32(entity, 0x44C) > 0:
-            native_actionable = entity[0x440] != 0
-        elif _i32(entity, 0x45C) > 0:
-            native_actionable = entity[0x450] != 0
+        if _i32(entity, LANDING_LOCK_OFFSET) > 0:
+            native_actionable = entity[MOVABLE_OFFSET] != 0
+        elif _i32(entity, SECOND_TIMER_OFFSET) > 0:
+            native_actionable = entity[SECOND_MOVABLE_OFFSET] != 0
         else:
             native_actionable = descriptor_actionable != 0
 
-    dynamic_timer = _i32(entity, 0x48C)
-    dynamic_flags = _u32(entity, 0x480) if dynamic_timer > 0 else 0
+    dynamic_timer = _i32(entity, DYNAMIC_TIMER_OFFSET)
+    dynamic_flags = _u32(entity, DYNAMIC_FLAGS_OFFSET) if dynamic_timer > 0 else 0
     status1 = descriptor_status1 or 0
     locked = not native_actionable and descriptor_pointer is not None
     return CancelProperties(
@@ -244,12 +251,12 @@ def read_invincibility_properties(
     """Read the inputs used by the native attribute rejection predicates.
 
     Current descriptor byte +0x0D is consumed by native strike/throw checks
-    0x42DB70/0x42DB30. Values 3, 4 and 5 mean strike, throw and both/full.
-    The per-attribute defender mask at entity+0x4A0 is valid only while its
-    timed-state timer at +0x4AC is active (native 0x557170).
+    0x42DB50/0x42DB10. Values 3, 4 and 5 mean strike, throw and both/full.
+    The per-attribute defender mask at entity+0x49C is valid only while its
+    timed-state timer at +0x4A8 is active (native 0x5587C0).
     """
 
-    animation_pointer = _u32(entity, 0x648)
+    animation_pointer = _u32(entity, ANIMATION_OFFSET)
     descriptor_pointer: int | None = None
     descriptor_invincibility: int | None = None
     read_error: str | None = None
@@ -270,10 +277,10 @@ def read_invincibility_properties(
                 else:
                     descriptor_invincibility = raw_value[0]
 
-    hit_filter_timer = _u32(entity, 0x4AC)
-    hit_filter = _u32(entity, 0x4A0) if hit_filter_timer > 0 else 0
-    strike_timer = max(entity[0x204], entity[0x206])
-    throw_timer = max(entity[0x205], entity[0x207])
+    hit_filter_timer = _i32(entity, HIT_FILTER_TIMER_OFFSET)
+    hit_filter = _u32(entity, HIT_FILTER_OFFSET) if hit_filter_timer > 0 else 0
+    strike_timer = max(entity[offset] for offset in STRIKE_TIMERS)
+    throw_timer = max(entity[offset] for offset in THROW_TIMERS)
     descriptor_strike = descriptor_invincibility in (3, 5)
     descriptor_throw = descriptor_invincibility in (4, 5)
     strike = descriptor_strike or strike_timer > 0

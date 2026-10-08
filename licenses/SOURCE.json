@@ -1,0 +1,20 @@
+{
+  "purpose": "Redistribution notices for the packaged Python 3.12 and Tcl/Tk runtime. These files are licenses, not game data.",
+  "files": [
+    {
+      "name": "Python-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.12.12/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    },
+    {
+      "name": "Tcl-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/tcltk/tcl/core-8-6-14/license.terms",
+      "sha256": "c0a69a2bfd757361ec7e6143973b103c90409316b49e9c88db26ad6388e79f16"
+    },
+    {
+      "name": "Tk-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/tcltk/tk/core-8-6-14/license.terms",
+      "sha256": "2cde822b93ca16ae535c954b7dfe658b4ad10df2a193628d1b358f1765e8b198"
+    }
+  ]
+}

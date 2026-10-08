@@ -8,19 +8,23 @@ import sys
 from typing import Any
 
 from frame_timeline import FrameBands
+from runtime_layout import (
+    MOVE_CODE_OFFSET, ACTION_FRAME_OFFSET, ACTION_INSTANCE_OFFSET,
+    MOVABLE_OFFSET, LANDING_LOCK_OFFSET, HITSTOP_OFFSET, LABEL_OFFSET, LABEL_BYTES,
+)
 
 
 def runtime_directory() -> Path:
     if getattr(sys, "frozen", False):
         return Path(sys.executable).resolve().parent
-    return Path.cwd()
+    return Path(__file__).resolve().parents[1]
 
 
 DEFAULT_PROFILE = runtime_directory() / "frame_semantics.json"
 
 # Battle_Std itself uses this exact union when it needs to ask whether the
 # current move is an attack, a skill or a throw.  These are MoveCode bank 0
-# bits at entity+0x6AC, not the timed HitCheck structures at +0x4A0/+0x4B0.
+# bits at entity+0x6B8, not the timed HitCheck structures at +0x49C/+0x4AC.
 MOVE_CODE_ATTACK = 0x01
 MOVE_CODE_SKILL = 0x02
 MOVE_CODE_THROW = 0x04
@@ -29,14 +33,6 @@ ATTACK_MOVE_CODE_MASK = MOVE_CODE_ATTACK | MOVE_CODE_SKILL | MOVE_CODE_THROW
 
 def u32(data: bytes, offset: int) -> int:
     return struct.unpack_from("<I", data, offset)[0]
-
-
-def is_actionable(movable: int, state_label: bytes = b"") -> bool:
-    return movable != 0 or state_label.startswith(b"Mv_Modori_Guard")
-
-
-def is_control_locked(movable: int, state_label: bytes = b"") -> bool:
-    return not is_actionable(movable, state_label)
 
 
 @dataclass(frozen=True)
@@ -49,36 +45,31 @@ class EntitySnapshot:
     landing_lock: int
     action_frame: int
     hitstop: int
-    control_state: int
+    control_state: int | None
     state_label: bytes
+    native_actionable: bool | None = None
 
     @classmethod
-    def parse(cls, data: bytes) -> "EntitySnapshot":
+    def parse(cls, data: bytes, native_actionable: bool | None = None) -> "EntitySnapshot":
         return cls(
             raw=data,
-            state_code=u32(data, 0x24),
-            movable=u32(data, 0x440),
-            move_code=u32(data, 0x6AC),
-            action_instance=u32(data, 0x680),
-            landing_lock=u32(data, 0x44C),
-            action_frame=u32(data, 0x674),
-            hitstop=u32(data, 0x1E4),
-            control_state=u32(data, 0xB6C),
-            state_label=data[0xACC:0xB20].split(b"\0", 1)[0],
+            state_code=u32(data, 0x24),  # raw diagnostic field; no new enum inferred
+            movable=data[MOVABLE_OFFSET],
+            move_code=u32(data, MOVE_CODE_OFFSET),
+            action_instance=u32(data, ACTION_INSTANCE_OFFSET),
+            landing_lock=struct.unpack_from("<i", data, LANDING_LOCK_OFFSET)[0],
+            action_frame=u32(data, ACTION_FRAME_OFFSET),
+            hitstop=struct.unpack_from("<h", data, HITSTOP_OFFSET)[0],
+            control_state=None,
+            state_label=data[LABEL_OFFSET:LABEL_OFFSET + LABEL_BYTES].split(b"\0", 1)[0],
+            native_actionable=native_actionable,
         )
 
     @property
     def actionable(self) -> bool:
-        if is_actionable(self.movable, self.state_label):
-            return True
-        # During the generic landing transition (+0xB6C == 2), +0x44C
-        # counts forced recovery down to zero. The remaining presentation is
-        # guard-cancellable even though ordinary movement stays disabled.
-        return (
-            not self.attack_action
-            and self.control_state == 2
-            and self.landing_lock == 0
-        )
+        if self.native_actionable is not None:
+            return self.native_actionable
+        raise RuntimeError("The native action-permission predicate was not supplied for this snapshot")
 
     @property
     def attack_action(self) -> bool:
@@ -253,8 +244,9 @@ class SemanticEngine:
         external_tokens: tuple[str, ...] = (),
         world_tokens: tuple[str, ...] = (),
         status_tokens: tuple[str, ...] = (),
+        native_actionable: bool | None = None,
     ) -> SemanticResult:
-        snapshot = EntitySnapshot.parse(data)
+        snapshot = EntitySnapshot.parse(data, native_actionable=native_actionable)
         if self.raw_states:
             frame = self._raw_frame(snapshot)
         else:

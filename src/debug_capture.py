@@ -53,8 +53,17 @@ class DebugCapture:
         stem = self.directory / f"uni2_debug_{stamp}"
         self.binary_path = stem.with_suffix(".bin")
         self.events_path = stem.with_suffix(".jsonl")
-        self.binary = self.binary_path.open("wb")
-        self.events = self.events_path.open("w", encoding="utf-8", newline="\n")
+        try:
+            self.binary = self.binary_path.open("wb")
+            self.events = self.events_path.open("w", encoding="utf-8", newline="\n")
+        except OSError:
+            if self.binary is not None:
+                self.binary.close()
+                self.binary = None
+            if self.events is not None:
+                self.events.close()
+                self.events = None
+            raise
         self.binary.write(b"U2RG")
         self.binary.write(
             struct.pack(
@@ -108,6 +117,7 @@ class DebugCapture:
             "image_sha256": self.image_sha256,
             "overlay_build": self.build_id,
             "display_mode": self.display_mode,
+            "collection": "native-hook-snapshot",
             "tick_offset": self.tick_offset,
             "region_offset": self.region_offset,
             "region_size": self.region_size,

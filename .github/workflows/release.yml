@@ -1,0 +1,176 @@
+name: Windows hook candidate
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the verified candidate as a prerelease
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: frame-meter-release
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install PE32 compiler
+        run: sudo apt-get update -qq && sudo apt-get install -y gcc-mingw-w64-i686 g++-mingw-w64-i686
+      - name: Build collector and helper
+        run: python3 build_native.py --cc i686-w64-mingw32-gcc-posix --cxx i686-w64-mingw32-g++-posix
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pe32-collector
+          path: build/native/
+          retention-days: 7
+  windows:
+    needs: native
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: pe32-collector
+          path: build/native/
+      - name: Build portable overlay
+        shell: pwsh
+        run: |
+          python -m pip install --disable-pip-version-check PyInstaller==6.16.0
+          if ($LASTEXITCODE -ne 0) { throw 'PyInstaller install failed' }
+          ./build_release.ps1
+      - name: Verify packaged self-check and visible startup errors
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0-rc.1').Path
+          $exe = Join-Path $app UNI2FrameMeter.exe
+          & (Join-Path $app uni2-frame-meter-host.exe) --self-check
+          if ($LASTEXITCODE -ne 0) { throw 'Native helper self-check failed' }
+          & (Join-Path $app uni2-frame-meter-host.exe) --attach 0
+          if ($LASTEXITCODE -ne 1) { throw 'Invalid PID was not rejected' }
+          $report = Join-Path $PWD self-check.json
+          $p = Start-Process -FilePath $exe -ArgumentList @('--self-check','--self-check-report',"`"$report`"") -PassThru
+          if (!$p.WaitForExit(30000)) { $p.Kill(); throw 'Packaged self-check timed out' }
+          if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw 'Packaged self-check failed' }
+          Get-Content $report
+          Add-Type -TypeDefinition @'
+          using System;
+          using System.Runtime.InteropServices;
+          using System.Text;
+          public static class Ui {
+            public delegate bool Visitor(IntPtr h,IntPtr arg);
+            [DllImport("user32.dll")] public static extern bool EnumWindows(Visitor visitor,IntPtr arg);
+            [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr h,out uint pid);
+            [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern int GetWindowText(IntPtr h,StringBuilder text,int n);
+            [DllImport("user32.dll")] public static extern IntPtr SendMessage(IntPtr h,uint msg,IntPtr w,IntPtr l);
+            public static IntPtr FindError() {
+              IntPtr found=IntPtr.Zero;
+              EnumWindows(delegate(IntPtr h,IntPtr arg) {
+                uint owner;GetWindowThreadProcessId(h,out owner);
+                var title=new StringBuilder(512);GetWindowText(h,title,title.Capacity);
+                if(title.ToString()=="UNI2 Frame Meter") { found=h;return false; }
+                return true;
+              },IntPtr.Zero);
+              return found;
+            }
+          }
+          '@
+          $p = Start-Process -FilePath $exe -PassThru
+          try {
+            $dialog = [IntPtr]::Zero
+            for ($i=0;$i -lt 300;$i++) {
+              $dialog = [Ui]::FindError()
+              if ($dialog -ne [IntPtr]::Zero) { break }
+              if ($p.HasExited) { throw 'Application exited without a visible error dialog' }
+              Start-Sleep -Milliseconds 100
+            }
+            if ($dialog -eq [IntPtr]::Zero) { throw 'Startup error dialog not found' }
+            # PyInstaller onefile uses a bootloader parent and an app child.
+            $owner = [uint32]0
+            [Ui]::GetWindowThreadProcessId($dialog,[ref]$owner) | Out-Null
+            $cursor = $owner
+            for ($i=0;$i -lt 4 -and $cursor -ne $p.Id;$i++) {
+              $node = Get-CimInstance Win32_Process -Filter "ProcessId=$cursor"
+              if (!$node) { break }
+              $cursor = [uint32]$node.ParentProcessId
+            }
+            if ($cursor -ne $p.Id) { throw 'Error dialog is not owned by the launched package' }
+            [Ui]::SendMessage($dialog,0x10,[IntPtr]::Zero,[IntPtr]::Zero) | Out-Null
+            if (!$p.WaitForExit(5000) -or $p.ExitCode -ne 1) { throw 'Error dialog did not close with exit code 1' }
+            Write-Host 'PASS: packaged configuration/ABI self-check and visible no-game startup error'
+          } finally { if (!$p.HasExited) { $p.Kill(); $p.WaitForExit() } }
+          $receipt = Get-Content (Join-Path $app SHA256.json) -Raw | ConvertFrom-Json
+          foreach ($entry in $receipt.PSObject.Properties) {
+            $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $app $entry.Name)).Hash.ToLowerInvariant()
+            if ($actual -ne $entry.Value) { throw "Package checksum mismatch: $($entry.Name)" }
+          }
+      - name: Native PE32 DLL guard
+        shell: pwsh
+        run: |
+          $source = @'
+          $ErrorActionPreference = 'Stop'
+          if ([IntPtr]::Size -ne 4) { throw 'A 32-bit host is required' }
+          Add-Type -TypeDefinition @"
+          using System;
+          using System.Runtime.InteropServices;
+          public static class Dll {
+            [DllImport("kernel32.dll",CharSet=CharSet.Unicode)] public static extern IntPtr LoadLibrary(string file);
+            [DllImport("kernel32.dll",CharSet=CharSet.Ansi)] public static extern IntPtr GetProcAddress(IntPtr module,string name);
+            [DllImport("kernel32.dll")] public static extern bool FreeLibrary(IntPtr module);
+            [UnmanagedFunctionPointer(CallingConvention.StdCall)] public delegate uint Start(IntPtr request);
+          }
+          "@
+          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0-rc.1/uni2-frame-meter.dll")
+          if ($h -eq [IntPtr]::Zero) { throw 'Collector load failed' }
+          try {
+            $f = [Dll]::GetProcAddress($h,'FrameMeterStart')
+            if ($f -eq [IntPtr]::Zero) { throw 'FrameMeterStart missing' }
+            $call = [Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($f,[type][Dll+Start])
+            if ($call.Invoke([IntPtr]::Zero) -ne 2) { throw 'Non-game process was not safely rejected' }
+            Write-Host 'PASS: native PE32 collector load, export and non-game process guard'
+          } finally { [Dll]::FreeLibrary($h) | Out-Null }
+          '@
+          [IO.File]::WriteAllText("$PWD/dll-check.ps1",$source,[Text.UTF8Encoding]::new($true))
+          & "$env:WINDIR/SysWOW64/WindowsPowerShell/v1.0/powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "$PWD/dll-check.ps1"
+          if ($LASTEXITCODE -ne 0) { throw 'DLL guard check failed' }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: windows-package
+          path: |
+            release/*-win-x64.zip
+            release/SHA256SUMS.txt
+          retention-days: 7
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: self-check-report
+          path: self-check.json
+          retention-days: 7
+  publish:
+    needs: windows
+    if: inputs.publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: windows-package
+          path: package
+      - name: Publish verified candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          gh release create v0.6.0-rc.1 package/*.zip package/SHA256SUMS.txt \
+            --target "$COMMIT" --prerelease --title 'UNI2 Frame Meter v0.6.0-rc.1' \
+            --notes 'Hook-based Training Mode frame meter for the supported 4ebed985 EXE. Extract the complete ZIP and run UNI2FrameMeter.exe after starting the game. Original game files are unchanged; the collector hooks the native battle-step function in process memory and publishes completed snapshots to the overlay. Restart the game when upgrading the DLL. Native Windows package startup, visible error handling, configuration and DLL guards verified; live-game timeline accuracy and coexistence with other plugins remain for user testing. Unsupported EXEs are rejected. See the README for compatibility and SHA-256 checksums.'

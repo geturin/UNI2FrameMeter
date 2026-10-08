@@ -1,16 +1,21 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, replace
+from dataclasses import asdict, dataclass
 import struct
 from typing import Protocol
+
+from runtime_layout import (
+    OBJECT_SUMMARY_ADDRESS, OBJECT_SUMMARY_WORDS, ACTIVE_OFFSET,
+    ANIMATION_OFFSET, ATTACK_OFFSET, DESCRIPTOR_OFFSET, MOVE_CODE_OFFSET,
+    PARENT_POINTER_OFFSET, OBJECT_READ_SIZE,
+)
 
 
 # The native CreateObject/update/collision paths enumerate this pointer table.
 # These are module-relative offsets for the pinned UNI2 executable.
-OBJECT_COUNT_OFFSET = 0x858BA0
-OBJECT_POINTERS_OFFSET = 0x858BA4
-OBJECT_READ_SIZE = 0x7C0
-MAX_OBJECTS = 256
+OBJECT_COUNT_OFFSET = 0x87B4E0
+OBJECT_POINTERS_OFFSET = 0x87B4E4
+MAX_OBJECTS = 2000
 
 OBJ_TYPE_FIREBALL = 0x2
 EXIST_NO_ATTACK_HANTEI = 0x400
@@ -35,8 +40,8 @@ class BattleObject:
     descriptor_pointer: int
     animation_pointer: int
     # The collision path consumes the attack record stored on the current
-    # animation frame, not object+0x64C's cache.
-    frame_attack_data_pointer: int
+    # animation frame, not object+0x658's cache.
+    frame_attack_data_pointer: int | None
     attack_data_pointer: int
     move_code: int
     active_marker: int
@@ -67,13 +72,13 @@ def parse_battle_object(table_index: int, address: int, data: bytes) -> BattleOb
         owner=data[0x04],
         object_type=u32(data, 0x0C),
         exist_flags=u32(data, 0x84),
-        parent_pointer=u32(data, 0x3F8),
-        descriptor_pointer=u32(data, 0x644),
-        animation_pointer=u32(data, 0x648),
+        parent_pointer=u32(data, PARENT_POINTER_OFFSET),
+        descriptor_pointer=u32(data, DESCRIPTOR_OFFSET),
+        animation_pointer=u32(data, ANIMATION_OFFSET),
         frame_attack_data_pointer=0,
-        attack_data_pointer=u32(data, 0x64C),
-        move_code=u32(data, 0x6AC),
-        active_marker=u32(data, 0x7BC),
+        attack_data_pointer=u32(data, ATTACK_OFFSET),
+        move_code=u32(data, MOVE_CODE_OFFSET),
+        active_marker=data[ACTIVE_OFFSET],
     )
 
 
@@ -85,33 +90,42 @@ def read_battle_objects(
 ) -> list[BattleObject]:
     count_raw = process.read(module_base + count_offset, 4)
     if count_raw is None:
-        return []
+        raise RuntimeError("Native snapshot has no battle-object count")
     count = u32(count_raw, 0)
     if count > MAX_OBJECTS:
-        return []
+        raise RuntimeError("Native snapshot reports an invalid battle-object count")
     if not count:
         return []
-    pointers_raw = process.read(module_base + pointers_offset, count * 4)
-    if pointers_raw is None:
-        return []
+    # The DLL copies a native summary for every non-null object, preserving
+    # the real runtime fields and avoiding a 4 MiB whole-pool copy each tick.
+    chunks = getattr(process, "chunks", ())
+    summaries = [chunk for chunk in chunks if chunk.address == OBJECT_SUMMARY_ADDRESS]
+    if len(summaries) != 1:
+        raise RuntimeError("Native snapshot has no unique battle-object summary")
+    summary_size = summaries[0].size
+    row_bytes = OBJECT_SUMMARY_WORDS * 4
+    if summary_size != row_bytes * count:
+        raise RuntimeError("Native battle-object summary has invalid bounds")
+    raw = process.read(OBJECT_SUMMARY_ADDRESS, summary_size)
+    pointers = process.read(module_base + pointers_offset, count * 4)
+    if raw is None or pointers is None:
+        raise RuntimeError("Native battle-object summary or pointer table is incomplete")
     objects: list[BattleObject] = []
-    for table_index, (address,) in enumerate(
-        struct.iter_unpack("<I", pointers_raw)
-    ):
+    seen: set[int] = set()
+    for row in struct.iter_unpack("<12I", raw):
+        index, address, owner, object_type, exist, parent, descriptor, animation, frame_attack, attack, move_code, active = row
+        if index >= count or index in seen or address != u32(pointers, index * 4) or owner > 255 or active > 255:
+            raise RuntimeError("Native battle-object summary does not match its pointer table")
+        seen.add(index)
         if not address:
+            if any(row[2:]):
+                raise RuntimeError("Null native battle-object summary contains fabricated fields")
             continue
-        data = process.read(address, OBJECT_READ_SIZE)
-        if data is None or len(data) < OBJECT_READ_SIZE:
-            continue
-        item = parse_battle_object(table_index, address, data)
-        if item.animation_pointer:
-            attack_raw = process.read(item.animation_pointer + 0x110, 4)
-            if attack_raw is not None:
-                item = replace(
-                    item,
-                    frame_attack_data_pointer=u32(attack_raw, 0),
-                )
-        objects.append(item)
+        objects.append(BattleObject(index, address, owner, object_type, exist, parent, descriptor, animation,
+                                    None if frame_attack == 0xFFFFFFFF else frame_attack,
+                                    attack, move_code, active))
+    if len(seen) != count:
+        raise RuntimeError("Native battle-object summary is missing live objects")
     return objects
 
 
