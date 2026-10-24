@@ -2,8 +2,13 @@ name: Windows release
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: Source build version to verify and publish
+        type: string
+        required: true
+        default: v0.6.1
       publish:
-        description: Publish the verified stable release as latest
+        description: Publish the verified compatibility prerelease
         type: boolean
         default: true
 permissions:
@@ -15,8 +20,23 @@ jobs:
   native:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      PACKAGE_VERSION: ${{ inputs.version }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Validate requested source version and release notes
+        run: |
+          python3 - <<'PYCODE'
+          import ast, os, pathlib, re
+          version = os.environ['PACKAGE_VERSION']
+          assert re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+(?:-rc\.[0-9]+)?', version)
+          tree = ast.parse(pathlib.Path('src/uni2_overlay.py').read_text(encoding='utf-8'))
+          builds = [n.value.value for n in tree.body if isinstance(n, ast.Assign)
+                    and any(isinstance(t, ast.Name) and t.id == 'BUILD_ID' for t in n.targets)
+                    and isinstance(n.value, ast.Constant)]
+          assert builds == [version], 'Requested version differs from source BUILD_ID'
+          assert pathlib.Path('releases', version + '.md').read_text(encoding='utf-8').strip()
+          PYCODE
       - name: Install PE32 compiler
         run: sudo apt-get update -qq && sudo apt-get install -y gcc-mingw-w64-i686 g++-mingw-w64-i686
       - name: Build collector and helper
@@ -30,6 +50,8 @@ jobs:
     needs: native
     runs-on: windows-2022
     timeout-minutes: 20
+    env:
+      PACKAGE_VERSION: ${{ inputs.version }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
@@ -45,12 +67,12 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check PyInstaller==6.16.0
           if ($LASTEXITCODE -ne 0) { throw 'PyInstaller install failed' }
-          ./build_release.ps1
+          ./build_release.ps1 -Version $env:PACKAGE_VERSION
       - name: Verify packaged self-check and visible startup errors
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          $app = (Resolve-Path 'release/UNI2FrameMeter-v0.6.0').Path
+          $app = (Resolve-Path "release/UNI2FrameMeter-$env:PACKAGE_VERSION").Path
           $exe = Join-Path $app UNI2FrameMeter.exe
           & (Join-Path $app uni2-frame-meter-host.exe) --self-check
           if ($LASTEXITCODE -ne 0) { throw 'Native helper self-check failed' }
@@ -64,7 +86,7 @@ jobs:
           if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw 'Packaged self-check failed' }
           Get-Content $report
           $selfCheck = Get-Content $report -Raw | ConvertFrom-Json
-          if ($selfCheck.build -ne 'v0.6.0' -or $selfCheck.display_switches -ne 25) { throw 'Unexpected release profile' }
+          if ($selfCheck.build -ne $env:PACKAGE_VERSION -or $selfCheck.display_switches -ne 25) { throw 'Unexpected release profile' }
           # Exercise migration inside the actual frozen executable: the
           # baseline must be embedded, not just supplied beside the EXE.
           $legacy = Get-Content (Join-Path $app frame_semantics.json) -Raw | ConvertFrom-Json
@@ -420,7 +442,7 @@ jobs:
             [UnmanagedFunctionPointer(CallingConvention.StdCall)] public delegate uint Start(IntPtr request);
           }
           "@
-          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-v0.6.0/uni2-frame-meter.dll")
+          $h = [Dll]::LoadLibrary("$PWD/release/UNI2FrameMeter-$env:PACKAGE_VERSION/uni2-frame-meter.dll")
           if ($h -eq [IntPtr]::Zero) { throw 'Collector load failed' }
           try {
             $f = [Dll]::GetProcAddress($h,'FrameMeterStart')
@@ -455,31 +477,31 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+    env:
+      PACKAGE_VERSION: ${{ inputs.version }}
     steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: windows-package
           path: package
-      - name: Publish verified stable release
+      - name: Publish verified compatibility prerelease
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           COMMIT: ${{ github.sha }}
         run: |
-          cat > release-notes.md <<'RELEASE_NOTES'
-          Stable Training Mode release, accepted in user testing. Capture and display behavior are unchanged from v0.6.0-rc.2; this release updates the version and documentation.
-
-          - Native battle-update snapshots replace the old external memory scanner.
-          - Each display checkbox has a matching timeline color square; running tick/sequence numbers are removed.
-          - Detailed hitstun, guardstun, down and captured states are enabled by default. Optional bands cover hitstop, Counter-hit vulnerability, airborne/crouching posture, and ground/air Assault.
-          - Corrects the Throw/FireBall marker distinction and preserves existing colors and display choices when adding new options.
-
-          Download the Windows ZIP, extract it completely, and start UNI2FrameMeter.exe while the game is running in Training Mode. **Restart the game before upgrading the DLL.** Keep your existing frame_semantics.json to retain settings.
-
-          Supports the inspected 4ebed985 EXE only; unsupported versions are rejected. Counter-hit vulnerability is not a confirmed hit result, Down state does not distinguish hard/soft knockdowns, and full Chain Shift eligibility remains disabled. See the [English README](https://github.com/geturin/UNI2FrameMeter/blob/main/README.md) or [中文说明](https://github.com/geturin/UNI2FrameMeter/blob/main/README.zh-CN.md).
-
-          Verified on native Windows: checkbox persistence and rendered GDI colors, packaged startup/error handling, embedded configuration migration, and the PE32 DLL guard. Cloud development checks use owned fixtures; the game-use result comes from user testing. SHA256SUMS.txt and the package's SHA256.json provide download and component checksums. Original game files, assets and credentials are not included. Earlier candidates remain available.
-          RELEASE_NOTES
-          gh release create v0.6.0 package/*.zip package/SHA256SUMS.txt \
-            --target "$COMMIT" --latest --title 'UNI2 Frame Meter v0.6.0' \
-            --notes-file release-notes.md
+          gh release create "$PACKAGE_VERSION" package/*.zip package/SHA256SUMS.txt \
+            --target "$COMMIT" --prerelease --title "UNI2 Frame Meter $PACKAGE_VERSION" \
+            --notes-file "releases/$PACKAGE_VERSION.md"
+          gh release download "$PACKAGE_VERSION" --dir downloaded \
+            --pattern '*.zip' --pattern SHA256SUMS.txt
+          (cd downloaded && sha256sum --check SHA256SUMS.txt)
+          python3 - <<'PYCODE'
+          import pathlib, zipfile
+          archives = list(pathlib.Path('downloaded').glob('*.zip'))
+          assert len(archives) == 1
+          with zipfile.ZipFile(archives[0]) as archive:
+              assert archive.testzip() is None
+          print('Published ZIP downloaded again: SHA-256 and ZIP CRC verified.')
+          PYCODE

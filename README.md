@@ -4,7 +4,7 @@
 
 A frame timeline for the Training Mode of UNDER NIGHT IN-BIRTH II Sys:Celes. It displays both players' frame-by-frame action states at the bottom of the game window, making startup, active frames, recovery, frame advantage, invincibility, and cancel windows easier to understand.
 
-**0.6.0 is the stable native-hook release.** A 32-bit helper loads the Frame Meter DLL into the game. The DLL observes the original battle update function and sends complete per-tick snapshots to the separate overlay through shared memory. The original game functions continue to run; no battle simulation or game-script patch is required. The native-hook build has been confirmed working in the user's Training Mode use and accepted for this release.
+**0.6.1 adds compatibility with the supplied October 24 game EXE.** A 32-bit helper loads the Frame Meter DLL into the game. The DLL observes the original battle update function and sends complete per-tick snapshots to the separate overlay through shared memory. The original game functions continue to run; no battle simulation or game-script patch is required. The update retains the audited hook and data layout and updates the executable identity checks. See the [compatibility audit](https://github.com/geturin/UNI2FrameMeter/blob/main/docs/compatibility-2026-10-24.md) for evidence and validation limits.
 
 ## Demonstration video
 
@@ -31,7 +31,7 @@ This video demonstrates the older 0.5 overlay; the current interface and availab
 This release supports the inspected 32-bit `uni2.exe` only:
 
 - File size: **6,921,216 bytes**.
-- SHA-256: `4ebed985ecbf330ab8e495573361e49df20bb555263289d1aff5425fac9b7ed9`.
+- SHA-256: `0c3e86429ff1239f98eed1570fb90139a79bac3484de684e228927b30ce4d2ba`.
 
 The helper checks the EXE identity, loaded-image layout, and hook entry before attaching. An unsupported EXE produces a visible error without installing a hook. Game updates can change native functions or data structures and may require a compatibility update. This replaces EXE-signature discovery and external polling with snapshots from the native update function; it does not make the tool independent of game versions.
 
@@ -179,7 +179,7 @@ The control window can also change these `display` options directly.
 
 ### The tool stops working after a game update
 
-With the supplied updated EXE, the old battle-tick and entity-pool signatures no longer matched, and the character-object layout changed. The old GUI raised a startup exception before opening its window, so it appeared to crash. Its SHA-256 was recorded for diagnostics, not used to reject the build.
+Version 0.6.0 supports the earlier `4ebed985` EXE and rejects the supplied October 24 `0c3e8642` EXE because its SHA-256 and PE timestamp differ. Version 0.6.1 updates those identity checks after reviewing the hook, module-relative locations and consumed data fields. The strict checks remain enabled; other EXEs are rejected.
 
 This version replaces that scan with a checked native-hook profile and displays failures instead of silently closing. It still requires a compatible profile after relevant game updates. Include the complete error message and EXE SHA-256 when reporting a problem. Error logs are saved under `%LOCALAPPDATA%\UNI2FrameMeter\logs`; the dialog shows the actual log path.
 
@@ -208,7 +208,7 @@ The ZIP is written to `release`. The [release workflow](.github/workflows/releas
 
 This version **injects a DLL and installs detours in the game's running memory**. It leaves the EXE and game resource files on disk unchanged and reads game state for display while the original battle functions execute normally. Use in Training Mode is recommended. Compatibility with anti-cheat systems or online play is not guaranteed.
 
-The user reported normal operation in Training Mode and accepted this version for stable release. This does not establish exhaustive accuracy for every character or move. State categories are based on the supported EXE's native fields; development checks use owned fixtures and do not launch the game. Report incorrect or interrupted displays with the game EXE's SHA-256.
+The preceding 0.6.0 build was confirmed working in the user's Training Mode use. The 0.6.1 compatibility audit is static; it does not establish live-game behavior or exhaustive accuracy for every character or move on the new EXE. State categories use the audited native fields. Report incorrect or interrupted displays with the game EXE's SHA-256.
 
 This is an unofficial community project and is not affiliated with FRENCH-BREAD, Arc System Works, or any other rights holder. UNDER NIGHT IN-BIRTH and related names belong to their respective owners.
 

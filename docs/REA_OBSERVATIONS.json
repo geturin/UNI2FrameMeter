@@ -1,0 +1,54 @@
+{
+  "game_sha256": "0c3e86429ff1239f98eed1570fb90139a79bac3484de684e228927b30ce4d2ba",
+  "analysis_date": "2026-10-25",
+  "analysis_timezone": "Asia/Tokyo",
+  "rea_version": "3.2.1",
+  "provider": {
+    "id": "ghidra",
+    "version": "12.1.4",
+    "analyzer_preset": "ghidra-default",
+    "import_mode": "ephemeral-read-only"
+  },
+  "operation": "analyze_function",
+  "functions": [
+    {
+      "role": "battle_update",
+      "va": "0x526660",
+      "rva": "0x126660",
+      "evidence_id": "ev_ee2b64d278ad2cf43c06d0d04a5e037f47cadd070a4909f8c53c26208878ea23",
+      "body": {
+        "available": true,
+        "provenance": "ghidra-function-body-address-set",
+        "ranges": [
+          {
+            "start": "0x526660",
+            "end": "0x5277e9"
+          }
+        ],
+        "total_bytes": 4490,
+        "span_bytes": 4490,
+        "non_contiguous": false,
+        "contains_entry": true
+      },
+      "captured_tool_result_sha256": "2750e76c579a18ccc6a4c7220462c1de12545189db25f19891a47fa307500af6",
+      "pseudocode_available": true,
+      "native_api_available": true,
+      "native_value_flow_available": true,
+      "limitations": [
+        "Unresolved computed or indirect flows without target addresses are not represented as reference edges.",
+        "Thunk and external classifications are Ghidra FunctionManager observations; they do not resolve targetless calls.",
+        "Pseudocode and assembly are Ghidra-specific representations, not original source or Hopper-equivalent text.",
+        "Synthetic Ghidra entry-point references without actionable memory sources are omitted."
+      ]
+    }
+  ],
+  "reproduce": "rea function /path/to/uni2.exe <va> --provider ghidra --format json",
+  "game_executed": false,
+  "hook_installed": false,
+  "limitations": [
+    "Static recovered pseudocode and data flow do not establish game runtime behavior.",
+    "Default recovered parameter types and calling conventions have low confidence; machine instructions and existing source contracts were reviewed separately.",
+    "The 4ebed985 previous supported binary was unavailable; this is direct inspection of the supplied new EXE, not a complete comparison to that missing build.",
+    "Full raw game instructions and pseudocode are retained only in local analysis files; this public summary contains identities and procedure ranges."
+  ]
+}

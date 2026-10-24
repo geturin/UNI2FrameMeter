@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "game_sha256": "0c3e86429ff1239f98eed1570fb90139a79bac3484de684e228927b30ce4d2ba",
+  "file_bytes": 6921216,
+  "machine": "0x14c",
+  "optional_magic": "0x10b",
+  "image_size": "0x44e5000",
+  "image_timestamp": "0x6ad1f4af",
+  "native_constants": {
+    "FM_IMAGE_BYTES": 6921216,
+    "FM_IMAGE_SIZE": 72241152,
+    "FM_IMAGE_TIMESTAMP": 1792144559,
+    "FM_HOOK_RVA": 1205856,
+    "FM_POOL_RVA": 12997248,
+    "FM_ENTITY_STRIDE": 3008,
+    "FM_ENTITY_COUNT": 12,
+    "FM_TICK_RVA": 5920964,
+    "FM_PHASE_STATE_RVA": 5917484,
+    "FM_PHASE_TICK_RVA": 5917492,
+    "FM_SLOW_SKIP_RVA": 6651512,
+    "FM_GLOBAL_STOP_RVA": 6651520,
+    "FM_SCENE_RVA": 5917316,
+    "FM_OBJECT_COUNT_RVA": 8893664,
+    "FM_OBJECT_POINTERS_RVA": 8893668,
+    "FM_MAX_OBJECTS": 2000,
+    "FM_OBJECT_BYTES": 2012,
+    "FM_ANIMATION_OFFSET": 1620,
+    "FM_ACTIVE_OFFSET": 2008,
+    "FM_TRAINING_MODE_RVA": 5921096,
+    "FM_TRAINING_SUBMODE_RVA": 5921100,
+    "FM_NETWORK_ACTIVE_RVA": 30774765
+  },
+  "python_layout": {
+    "ENTITY_STRIDE": 3008,
+    "ENTITY_COUNT": 12,
+    "MAX_OBJECTS": 2000,
+    "PLAYER_OFFSET": 1076,
+    "ACTIVE_OFFSET": 2008,
+    "ANIMATION_OFFSET": 1620,
+    "DESCRIPTOR_OFFSET": 1616,
+    "ATTACK_OFFSET": 1624,
+    "MOVABLE_OFFSET": 1084,
+    "LANDING_LOCK_OFFSET": 1096,
+    "SECOND_MOVABLE_OFFSET": 1100,
+    "SECOND_TIMER_OFFSET": 1112,
+    "POSTURE_OVERRIDE_OFFSET": 1132,
+    "POSTURE_OVERRIDE_TIMER_OFFSET": 1144,
+    "OVERRIDE_STATUS_OFFSET": 1116,
+    "OVERRIDE_TIMER_OFFSET": 1128,
+    "DYNAMIC_FLAGS_OFFSET": 1148,
+    "DYNAMIC_TIMER_OFFSET": 1160,
+    "STRIKE_TIMERS": [
+      512,
+      514
+    ],
+    "THROW_TIMERS": [
+      513,
+      515
+    ],
+    "MOVE_CODE_OFFSET": 1720,
+    "ACTION_FRAME_OFFSET": 1664,
+    "ACTION_INSTANCE_OFFSET": 1676,
+    "GUARD_PLUS_OFFSET": 1610,
+    "HIT_FILTER_OFFSET": 1180,
+    "HIT_FILTER_TIMER_OFFSET": 1192,
+    "ATTACK_FILTER_OFFSET": 1196,
+    "HITSTOP_OFFSET": 478,
+    "COUNTER_HIT_VULNERABLE_OFFSET": 508,
+    "CAPTURE_OFFSET": 120,
+    "BOUND_OFFSET": 564,
+    "BOUND_GUARD_OFFSET": 484,
+    "BOUND_DOWN_OFFSET": 584,
+    "LABEL_OFFSET": 2792,
+    "LABEL_BYTES": 64,
+    "PARENT_POINTER_OFFSET": 1012,
+    "OBJECT_READ_SIZE": 2012,
+    "OBJECT_SUMMARY_ADDRESS": 4278190080,
+    "OBJECT_SUMMARY_WORDS": 12,
+    "PHASE_STATE_OFFSET": 5917484,
+    "SLOW_SKIP_OFFSET": 6651512,
+    "GLOBAL_STOP_OFFSET": 6651520,
+    "SCENE_CLOCK_OFFSET": 5920960
+  },
+  "code_windows": [
+    {
+      "name": "action_permission",
+      "rva": "0x24a20",
+      "bytes": 90,
+      "sha256": "bb80bb08d6d3767fd83c5f2091337ef738a4ace86dd2d2606f4f1c67c2d43491"
+    },
+    {
+      "name": "posture_air",
+      "rva": "0x260b0",
+      "bytes": 64,
+      "sha256": "3383677dd0d4ee9e00376214bef5564a49367535d45bb1d46ad019027a89dc6b"
+    },
+    {
+      "name": "posture_crouch",
+      "rva": "0x26130",
+      "bytes": 64,
+      "sha256": "8d753a571617e95dd4e99a2aebe4c2053e4a71d692bf6936dc77d8d3ee3366eb"
+    },
+    {
+      "name": "cancel_rule",
+      "rva": "0x2b2a0",
+      "bytes": 64,
+      "sha256": "f2807141975d69f65b52a399cf264566e66e48b7a522414d8b0ea12b6ad3c1fe"
+    },
+    {
+      "name": "cancel_properties",
+      "rva": "0x2b350",
+      "bytes": 304,
+      "sha256": "14519fd65dcf651ce04046b609ec56a925bc2bef03633cc281a8b6b495b57267"
+    },
+    {
+      "name": "throw_invincibility",
+      "rva": "0x2db10",
+      "bytes": 64,
+      "sha256": "54c29af9501412efe5ec3d1b6488b03acc03ebbd783408e4ff256c8543a08024"
+    },
+    {
+      "name": "strike_invincibility",
+      "rva": "0x2db50",
+      "bytes": 64,
+      "sha256": "58178f3db9f106fa895abd30a6571f53e6b7e9c51da6b5a66b01d0fdadd160b6"
+    },
+    {
+      "name": "hit_filter",
+      "rva": "0x1587c0",
+      "bytes": 64,
+      "sha256": "aa7cb87aae2e3a4dc90a9ebf4af1fa76ee6ad074bfec8f282e93162c76820f11"
+    },
+    {
+      "name": "bound_state",
+      "rva": "0x49ab60",
+      "bytes": 688,
+      "sha256": "ecfa81ff6f847d3c9f7aa9a9eaeee75ce34acae6e5e0ea1cef46e3d8c2f1d83c"
+    },
+    {
+      "name": "entity_iterator",
+      "rva": "0x30d80",
+      "bytes": 64,
+      "sha256": "9adbb6ec95dcb3e9d9d13e21bdebdbfe7b185e7d0a2027636e4527674efe7c6c"
+    },
+    {
+      "name": "object_iterator_allocator",
+      "rva": "0x34260",
+      "bytes": 160,
+      "sha256": "c40de5cc15102ca57c7dcb14e16f490bc59b794fd2676bc0dd065837e4525877"
+    },
+    {
+      "name": "guard_direction_consumer",
+      "rva": "0x137aa0",
+      "bytes": 128,
+      "sha256": "c5dd39e598aaa6d9db5ca7d54a14d40425bb902e422429c60a048f14c4b4826f"
+    },
+    {
+      "name": "frame_scheduler_prefix",
+      "rva": "0x126660",
+      "bytes": 388,
+      "sha256": "4acd1c486bd39d8f8d97bd34e5fba3f67397531f685132e68a9c69b3b39c1997"
+    },
+    {
+      "name": "object_allocator_bound",
+      "rva": "0x34290",
+      "bytes": 96,
+      "sha256": "6ee440819a73ab11cc77d59ad9ee732264b0cb416a8800fcb0f5a719ba6b7815"
+    },
+    {
+      "name": "attack_frame_consumer",
+      "rva": "0x158400",
+      "bytes": 96,
+      "sha256": "1e686a48996c8f416ab78d8309c0d3e58d84dc615541fa186fdb9c7db4cede27"
+    }
+  ]
+}

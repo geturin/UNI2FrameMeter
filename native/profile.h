@@ -8,10 +8,10 @@
 
 // This profile identifies the inspected image. Future updates require a new
 // producer/layout audit; matching a filename or an old absolute VA is unsafe.
-constexpr char FM_GAME_SHA256[] = "4ebed985ecbf330ab8e495573361e49df20bb555263289d1aff5425fac9b7ed9";
+constexpr char FM_GAME_SHA256[] = "0c3e86429ff1239f98eed1570fb90139a79bac3484de684e228927b30ce4d2ba";
 constexpr uint32_t FM_IMAGE_BYTES = 6921216;
 constexpr uint32_t FM_IMAGE_SIZE = 0x44e5000;
-constexpr uint32_t FM_IMAGE_TIMESTAMP = 0x6abcb77f;
+constexpr uint32_t FM_IMAGE_TIMESTAMP = 0x6ad1f4af;
 constexpr uint32_t FM_HOOK_RVA = 0x126660;
 constexpr uint32_t FM_POOL_RVA = 0xc65280;
 constexpr uint32_t FM_ENTITY_STRIDE = 0xbc0;
